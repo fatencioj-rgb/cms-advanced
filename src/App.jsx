@@ -11,20 +11,25 @@ function App() {
 
       {/* Navigation Buttons */}
       <nav className="w-full max-w-[420px] flex flex-col gap-3.5">
-        <a href="#" className="block w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase text-center no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
-          Wine
+        <a href="#" className="flex items-center justify-between w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
+          <span>Wine</span>
+          <span className="text-[10px] text-text-dim tracking-normal normal-case">0%</span>
         </a>
-        <a href="#" className="block w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase text-center no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
-          Spirits & Beverages
+        <a href="#" className="flex items-center justify-between w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
+          <span>Spirits & Beverages</span>
+          <span className="text-[10px] text-text-dim tracking-normal normal-case">0%</span>
         </a>
-        <a href="#" className="block w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase text-center no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
-          Viticulture & Vinification
+        <a href="#" className="flex items-center justify-between w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
+          <span>Viticulture & Vinification</span>
+          <span className="text-[10px] text-text-dim tracking-normal normal-case">0%</span>
         </a>
-        <a href="#" className="block w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase text-center no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
-          Service & Business
+        <a href="#" className="flex items-center justify-between w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
+          <span>Service & Business</span>
+          <span className="text-[10px] text-text-dim tracking-normal normal-case">0%</span>
         </a>
-        <a href="#" className="block w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase text-center no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
-          Deductive Tasting
+        <a href="#" className="flex items-center justify-between w-full py-4 px-6 bg-transparent border border-gold-dim/40 rounded-md text-cream text-[14px] font-normal tracking-[1.5px] uppercase no-underline transition-all duration-300 hover:bg-gold/5 hover:border-gold hover:text-gold hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(200,168,75,0.12)]">
+          <span>Deductive Tasting</span>
+          <span className="text-[10px] text-text-dim tracking-normal normal-case">0%</span>
         </a>
       </nav>
 
