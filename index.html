@@ -9,98 +9,125 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --wine: #722f37;
-  --wine-dark: #4a1c23;
-  --wine-deeper: #2d1016;
+  --bg: #0d0d0d;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222;
+  --bg-section: #141414;
+  --border: #2a2a2a;
   --gold: #c9a96e;
   --gold-light: #e2cc9a;
-  --cream: #fdf9f3;
-  --text: #2c2c2c;
-  --text-light: #5a5a5a;
-  --green: #4a7c59;
-  --green-light: #e8f5e9;
-  --blue: #3d6b8e;
-  --blue-light: #e3f0f8;
+  --gold-dim: #8a6d3b;
+  --wine: #a83248;
+  --wine-light: #d4566c;
+  --cream: #f5f0e8;
+  --text: #e8e4dc;
+  --text-dim: #9a9590;
+  --text-muted: #6b6560;
+  --green: #4a9e6b;
+  --green-dim: #2d6b44;
+  --yellow: #d4a843;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Inter', 'Segoe UI', sans-serif;
 }
 body {
   font-family: var(--sans);
-  background: var(--cream);
+  background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  min-height: 100vh;
 }
 </style>
 </head>
 <body>
-<!-- Header -->
-<header style="background: linear-gradient(135deg, var(--wine-deeper), var(--wine-dark)); padding: 50px 20px; text-align: center;">
-  <h1 style="font-family: var(--serif); font-size: 48px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;">CMS Advanced</h1>
-  <p style="font-family: var(--sans); font-size: 14px; color: var(--gold-light); letter-spacing: 2px; text-transform: uppercase; opacity: 0.85;">Court of Master Sommeliers — Advanced Sommelier Certificate</p>
-  <div style="width: 60px; height: 1px; background: var(--gold); margin: 24px auto 0; opacity: 0.5;"></div>
-</header>
 
-<!-- Exam Overview -->
-<section style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
-  <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 30px;">
-    <h2 style="font-family: var(--serif); font-size: 28px; color: var(--wine); margin-bottom: 16px;">The Examination</h2>
-    <p style="margin-bottom: 16px;">The Advanced Sommelier Certificate is a 5-day programme (lectures + exams). Pass mark: <strong>60% in each section</strong>. All three sections must be passed together.</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-      <div style="background: var(--blue-light); border-radius: 8px; padding: 16px; border-left: 4px solid var(--blue);">
-        <strong style="color: var(--blue);">1. Theory</strong>
-        <p style="font-size: 13px; margin-top: 6px;">Multiple choice + short answer questions</p>
-      </div>
-      <div style="background: #fce4ec; border-radius: 8px; padding: 16px; border-left: 4px solid var(--wine);">
-        <strong style="color: var(--wine);">2. Tasting</strong>
-        <p style="font-size: 13px; margin-top: 6px;">6 wines blind in 25 minutes (oral)</p>
-      </div>
-      <div style="background: var(--green-light); border-radius: 8px; padding: 16px; border-left: 4px solid var(--green);">
-        <strong style="color: var(--green);">3. Practical Service</strong>
-        <p style="font-size: 13px; margin-top: 6px;">45-minute service examination</p>
-      </div>
+<!-- Top Navigation Bar -->
+<nav style="background: #111; border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100;">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center;">
+      <span style="font-family: var(--serif); font-size: 14px; color: var(--gold); font-weight: 700;">CS</span>
+    </div>
+    <div>
+      <span style="font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dim); display: block;">Court of Master Sommeliers Europe</span>
+      <span style="font-size: 14px; font-weight: 600; color: var(--cream); letter-spacing: 1px;">ADVANCED · STUDY</span>
+    </div>
+  </div>
+  <div style="display: flex; gap: 24px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">
+    <a href="#france" style="color: var(--text-dim); text-decoration: none;">France</a>
+    <a href="#europe" style="color: var(--text-dim); text-decoration: none;">Europe</a>
+    <a href="#newworld" style="color: var(--text-dim); text-decoration: none;">New World</a>
+    <a href="#beverages" style="color: var(--text-dim); text-decoration: none;">Beverages</a>
+    <a href="#skills" style="color: var(--text-dim); text-decoration: none;">Skills</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main style="max-width: 1100px; margin: 0 auto; padding: 40px 30px;">
+
+  <!-- Welcome Section -->
+  <div style="margin-bottom: 40px;">
+    <h1 style="font-family: var(--serif); font-size: 36px; color: var(--cream); font-weight: 400; margin-bottom: 8px;">Welcome, Sommelier</h1>
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+      <span style="background: var(--wine); color: white; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 3px;">Advanced Candidate</span>
+      <span style="font-size: 12px; color: var(--text-muted);">CMS Europe · Syllabus 2026/2027</span>
+    </div>
+  </div>
+
+  <!-- Exam Overview Cards -->
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px;">
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; border-top: 3px solid var(--yellow);">
+      <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--yellow);">Theory Exam</span>
+      <p style="font-size: 14px; color: var(--cream); margin-top: 8px; font-weight: 500;">Multiple choice + short answer</p>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Pass mark: 60%</p>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; border-top: 3px solid var(--wine);">
+      <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine-light);">Practical Tasting</span>
+      <p style="font-size: 14px; color: var(--cream); margin-top: 8px; font-weight: 500;">6 wines blind · 25 minutes · Oral</p>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Pass mark: 60%</p>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; border-top: 3px solid var(--green);">
+      <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--green);">Practical Service</span>
+      <p style="font-size: 14px; color: var(--cream); margin-top: 8px; font-weight: 500;">45-minute service examination</p>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Pass mark: 60%</p>
     </div>
   </div>
 
   <!-- Legend -->
-  <div style="background: white; border-radius: 12px; padding: 20px 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 40px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center;">
-    <span style="font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light);">Legend:</span>
-    <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #e8e8e8; display: inline-block;"></span> Context (Intro + Certified)</span>
-    <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--wine); display: inline-block;"></span> Advanced Level (study focus)</span>
-    <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--gold); display: inline-block;"></span> MS Diploma (awareness only)</span>
+  <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 36px; padding: 12px 16px; background: var(--bg-section); border-radius: 6px; border: 1px solid var(--border);">
+    <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Key:</span>
+    <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-dim);"><span style="width: 10px; height: 10px; border-radius: 2px; background: var(--text-muted); display: inline-block;"></span> Context (Intro + Certified)</span>
+    <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--cream);"><span style="width: 10px; height: 10px; border-radius: 2px; background: var(--gold); display: inline-block;"></span> Advanced Focus</span>
   </div>
 
   <!-- FRANCE -->
-  <h2 style="font-family: var(--serif); font-size: 32px; color: var(--wine-dark); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);">🇫🇷 France</h2>
+  <section id="france">
+  <h2 style="font-family: var(--serif); font-size: 24px; color: var(--gold); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);">France</h2>
 
   <!-- Alsace -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Alsace</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">01</span> Alsace
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
           <li>Factors affecting climate. Importance of the Vosges</li>
-          <li>Sub districts</li>
-          <li>Location of best vineyards & variety of soils</li>
+          <li>Sub districts, location of best vineyards & variety of soils</li>
           <li>Grape varietals</li>
           <li>Appellations: Alsace, Grand Cru, Crémant, Communale, Lieu dit</li>
-          <li>Styles of wine: VT & SGN</li>
-          <li>Labelling terms</li>
-          <li>Identify Grand Cru varietals and sites</li>
-          <li>Yields per hectare for AC Alsace & Grand Cru</li>
-          <li>Required sugar levels for VT & SGN wines</li>
-          <li>Principal producers and sites</li>
-          <li>Crémant production styles and grapes</li>
+          <li>Styles of wine: VT & SGN. Labelling terms</li>
+          <li>Grand Cru varietals and sites. Yields per hectare</li>
+          <li>Required sugar levels for VT & SGN. Crémant production</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
           <li>% plantings of varietals</li>
           <li>Specific villages with Grand Cru and Clos sites</li>
           <li>Soil diversity</li>
           <li>Yields for different quality levels</li>
-          <li>Minimum potential alcohol levels for VT & SGN wines</li>
+          <li>Minimum potential alcohol levels for VT & SGN</li>
           <li>Vintages</li>
           <li>Principal producers and sites</li>
           <li>Latest developments & updates</li>
@@ -110,86 +137,63 @@ body {
   </details>
 
   <!-- Bordeaux -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Bordeaux</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Factors affecting climate, soil types</li>
-          <li>Production & ageing techniques, Botrytis, Barrique</li>
-          <li>Districts, sub districts & location</li>
-          <li>1855 Classification system</li>
-          <li>Top Médoc chateaux and location</li>
-          <li>St Émilion classification & "A" category Châteaux</li>
-          <li>Top Pomerol Châteaux</li>
-          <li>Grape varietals & blending importance</li>
-          <li>Styles of wine, Quality levels (AOP, IGP)</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">02</span> Bordeaux
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Climate, soil types, production & ageing techniques</li>
+          <li>Districts, sub districts. 1855 Classification</li>
+          <li>Top Médoc chateaux. St Émilion classification & "A" Châteaux</li>
+          <li>Top Pomerol Châteaux. Grape varietals & blending</li>
           <li>Trade structure: En primeur, Négociants</li>
-          <li>Well known 1st-5th classified growths (Médoc, Sauternes, St Émilion, Pessac Léognan)</li>
-          <li>Location of top properties</li>
-          <li>Cru Bourgeois classification</li>
-          <li>Styles from smaller districts</li>
-          <li>All sub districts (Loupiac, Cadillac, St. Croix du Mont, Fronsac)</li>
-          <li>Individual commune names in principal districts</li>
-          <li>Classic vintages</li>
+          <li>1st–5th classified growths. Cru Bourgeois</li>
+          <li>All sub districts. Commune names. Classic vintages</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>ALL classified growths and their communes from each AC (Médoc, Sauternes, St Émilion)</li>
-          <li>Wines of smaller districts</li>
-          <li>St Émilion Classification (full detail)</li>
-          <li>St Émilion satellites</li>
-          <li>Pomerol Châteaux</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>ALL classified growths and their communes (Médoc, Sauternes, St Émilion)</li>
+          <li>St Émilion Classification (full). Satellites. Pomerol Châteaux</li>
           <li>Sauternes & Pessac-Léognan Châteaux & communes</li>
-          <li>Côtes de Bordeaux classification</li>
-          <li>Bourg / Blaye wines</li>
+          <li>Côtes de Bordeaux classification. Bourg / Blaye wines</li>
           <li>Characteristics of the wines</li>
           <li>Vintages 30 years & their characteristics</li>
-          <li>Principal producers and sites</li>
           <li>2nd labels from classified sites</li>
+          <li>Principal producers and sites</li>
         </ul>
       </div>
     </div>
   </details>
 
   <!-- Burgundy -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Burgundy</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, AOP districts & location</li>
-          <li>Permitted grape varietals, soil types</li>
-          <li>Production & ageing (Traditional / Macération Carbonique)</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">03</span> Burgundy
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Climatic influences. Permitted grapes. Soil types</li>
           <li>Quality levels: Generic, District, Villages</li>
-          <li>Chablis districts & quality levels</li>
-          <li>Principal communes of Côte d'Or & location</li>
-          <li>Premier Cru & Grand Cru wines of Côte d'Or</li>
-          <li>Mâcon villages & Côte Chalonnaise districts</li>
-          <li>Beaujolais Crus</li>
-          <li>Smaller districts: St Bris, Irancy, Montagny, Bouzeron, Givry, Mercurey, Pouilly-Fuissé, St-Véran</li>
-          <li>Classic vintages</li>
+          <li>Chablis & quality levels. Côte d'Or communes</li>
+          <li>Premier Cru & Grand Cru wines. Mâcon & Côte Chalonnaise</li>
+          <li>Beaujolais Crus. Smaller districts. Classic vintages</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Specific climatic influences</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
           <li>Grand Cru / 1er Cru wines from principal ACs</li>
-          <li>Villages entitled to use certain ACs (e.g. Pouilly-Fuissé)</li>
-          <li>Pouilly-Fuissé Crus</li>
-          <li>Beaujolais villages</li>
-          <li>Characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Principal producers and sites</li>
-          <li>Differentiate between Lieu dits and Premier Cru</li>
-          <li>Noted Clos sites</li>
-          <li>Noted producers linked to specific wines/sites</li>
-          <li>Principal vintages and off vintages of last 30 years</li>
+          <li>Pouilly-Fuissé Crus. Beaujolais villages</li>
+          <li>Differentiate Lieu dits vs Premier Cru</li>
+          <li>Noted Clos sites. Noted producers linked to wines/sites</li>
+          <li>Vintages & off vintages of last 30 years</li>
           <li>Latest developments & updates</li>
         </ul>
       </div>
@@ -197,37 +201,28 @@ body {
   </details>
 
   <!-- Champagne -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Champagne</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, sub districts, permitted grapes, soils</li>
-          <li>Production methods, styles, qualities</li>
-          <li>Labelling terms, bottle sizes & volumes</li>
-          <li>Yields and extraction amounts</li>
-          <li>Quality marques from leading producers</li>
-          <li>Coteaux Champenois wines</li>
-          <li>Classic vintages 10 years</li>
-          <li>Viticulture — Training etc.</li>
-          <li>Grand Cru villages & locations</li>
-          <li>Contribution of each varietal</li>
-          <li>Amounts of Dosage in different styles</li>
-          <li>Single vineyard Champagnes</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">04</span> Champagne
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Climate, sub districts, grapes, soils, production methods</li>
+          <li>Styles, qualities, labelling terms, bottle sizes</li>
+          <li>Yields & extraction. Quality marques. Coteaux Champenois</li>
+          <li>Grand Cru villages. Contribution of each varietal. Dosage. Single vineyards</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Specific factors affecting climate</li>
-          <li>Characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Principal producers and sites</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
           <li>ALL Grand Cru and Premier Cru classifications</li>
           <li>Special Club producers</li>
           <li>Characteristics of vintages in past 30 years</li>
-          <li>Quality marques from top Champagne producers</li>
+          <li>Quality marques from top producers</li>
+          <li>Principal producers and sites</li>
           <li>Latest developments & updates</li>
         </ul>
       </div>
@@ -235,32 +230,26 @@ body {
   </details>
 
   <!-- Loire -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Loire</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, principal soil types</li>
-          <li>Districts & sub districts</li>
-          <li>Principal grape varietals & wines</li>
-          <li>Styles of wine, Principal AOPs</li>
-          <li>Principal wines: Coteaux du Layon, Savennières, Central Vineyards, Anjou-Saumur, Touraine, Muscadet</li>
-          <li>Grape variety synonyms</li>
-          <li>Sur lie ageing requirements</li>
-          <li>Smaller ACs of the Loire & Loir (St Pourçain, Cheverny, Orléans)</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">05</span> Loire
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Climate, soil types, districts & sub districts</li>
+          <li>Grapes & wines. Styles. Principal AOPs</li>
+          <li>Coteaux du Layon, Savennières, Central Vineyards, Anjou-Saumur, Touraine, Muscadet</li>
+          <li>Grape synonyms. Sur lie. Smaller ACs (St Pourçain, Cheverny, Orléans)</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Specific climatic influences</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
           <li>Muscadet Crus and ageing requirements</li>
           <li>Soil types in Sancerre / Pouilly</li>
           <li>Villages in Layon</li>
-          <li>Characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Principal producers and sites</li>
           <li>Soil composition in various districts</li>
           <li>Notable producers in all districts</li>
           <li>Coteaux du Layon vintages</li>
@@ -270,38 +259,29 @@ body {
     </div>
   </details>
 
-  <!-- Rhône Valley -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Rhône Valley</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, districts & sub districts</li>
-          <li>Principal grape varietals & wines, blends (South Rhône)</li>
-          <li>Styles of wine, Principal AOPs</li>
-          <li>VDN & VDL wine production</li>
-          <li>Principal estates in Châteauneuf-du-Pape</li>
-          <li>VDL & VDN wines & grapes used</li>
-          <li>AOPs of S Rhône varietals & styles</li>
-          <li>Principal sites in North Rhône (Hermitage, Côte-Rôtie)</li>
+  <!-- Rhône -->
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">06</span> Rhône Valley
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Climate, districts & sub districts. Grapes & blends (South)</li>
+          <li>VDN & VDL production. Principal estates CdP</li>
+          <li>Principal sites North Rhône (Hermitage, Côte-Rôtie)</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Climatic influences — Mistral</li>
-          <li>Côtes du Rhône village names</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Mistral. Côtes du Rhône village names</li>
           <li>Permitted grape blends for principal ACs</li>
-          <li>Smaller Rhône ACs (Côtes de Tricastin, Côtes de Luberon, etc.)</li>
-          <li>Characteristics of the wines</li>
-          <li>Cask sizes and ageing</li>
-          <li>Notable producers and sites</li>
-          <li>Soil types throughout region</li>
-          <li>Effects of geographical features (Alps, Dents du Montmirail)</li>
+          <li>Smaller ACs (Tricastin, Luberon, etc.)</li>
+          <li>Soil types throughout. Geographical features (Alps, Dents du Montmirail)</li>
           <li>Climats of the Rhône</li>
-          <li>Principal producers and wines</li>
-          <li>Vintages — Characteristics</li>
+          <li>Principal producers and wines. Vintages</li>
           <li>Latest developments & updates</li>
         </ul>
       </div>
@@ -309,73 +289,52 @@ body {
   </details>
 
   <!-- South of France -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">South of France (Languedoc, Roussillon, Provence, Jura, Savoie)</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences</li>
-          <li>Principal wines: Provence, Languedoc, Roussillon, Bergerac, Madiran, Cahors</li>
-          <li>Varietals used & styles/qualities</li>
-          <li>VDN & VDL wines of South France</li>
-          <li>Vin de Pays districts and locations</li>
-          <li>In-depth: Bergerac, Monbazillac, Pécharmant, Fitou, Cahors, Madiran, Corbières, Jura, Gaillac</li>
-          <li>Vin de Paille wines</li>
-          <li>Provence & sub regions</li>
-          <li>Jura: varietals, wines, Vin Jaune / Vin de Paille production</li>
-          <li>Savoie: wines and varietals</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">07</span> South of France · Languedoc · Jura · Savoie
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Provence, Languedoc, Roussillon, Bergerac, Madiran, Cahors</li>
+          <li>VDN & VDL wines. Vin de Pays districts</li>
+          <li>Jura: Vin Jaune / Vin de Paille production. Savoie wines</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Languedoc: Major & minor ACs, varietal/styles</li>
-          <li>Sub districts of principal Languedoc AOPs</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Languedoc: Major & minor ACs. Languedoc Crus</li>
           <li>Roussillon, Gaillac, Béarn, Jurançon, Irouléguy</li>
-          <li>Bergerac & ACs within</li>
-          <li>Characteristics of the wines</li>
-          <li>Specific factors affecting climate</li>
-          <li>Vintages — Characteristics</li>
-          <li>Notable producers and sites</li>
           <li>Specific villages of Côte de Provence</li>
-          <li>Jura districts</li>
-          <li>Languedoc Crus</li>
+          <li>Jura districts. Savoie Crus</li>
           <li>Styles of VDN / VDL wines</li>
-          <li>Principal producers from all smaller districts of France</li>
-          <li>Characteristics of native grape varietals</li>
-          <li>Savoie Crus</li>
-          <li>Latest developments & updates</li>
+          <li>Native grape varietals & composition</li>
+          <li>Principal producers all districts. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Sparkling Wines -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Sparkling Wines (Global)</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Methods of production: Traditional, Charmat, Ancestral</li>
-          <li>Terms used (Traditional method in other countries)</li>
-          <li>Alternate appellations: Crémant, Cava, etc.</li>
-          <li>Principal sparkling wines of European countries</li>
-          <li>Sparkling wines from world countries</li>
-          <li>Wines & grapes in principal sparkling wines</li>
-          <li>Quality levels (DOCG, DO, Qualitäts Sekt)</li>
-          <li>Traditional production methods (Méthode Dioise, Ancestrale)</li>
+  <!-- Sparkling -->
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">08</span> Sparkling Wines (Global)
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Methods: Traditional, Charmat, Ancestral. Terms in other countries</li>
+          <li>Crémant, Cava. Quality levels (DOCG, DO, Qualitäts Sekt)</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Specific factors affecting climate</li>
-          <li>Characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Maturation periods for all quality levels and types</li>
-          <li>Principal producers and sites: Prosecco, Franciacorta, Alta Langhe, Tasmania, New Zealand, USA, South Africa, UK</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Maturation periods for all quality levels</li>
+          <li>Producers & sites: Prosecco, Franciacorta, Alta Langhe, Tasmania, NZ, USA, SA, UK</li>
           <li>VDP Sekt regulations</li>
           <li>Vintages for principal sparkling wines</li>
           <li>Latest developments & updates</li>
@@ -383,673 +342,470 @@ body {
       </div>
     </div>
   </details>
+  </section>
 
-  <!-- EUROPE SECTION -->
-  <h2 style="font-family: var(--serif); font-size: 32px; color: var(--wine-dark); margin: 40px 0 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);">🇪🇺 Europe</h2>
+  <!-- EUROPE -->
+  <section id="europe" style="margin-top: 40px;">
+  <h2 style="font-family: var(--serif); font-size: 24px; color: var(--gold); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);">Europe</h2>
 
-  <!-- Spain -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Spain</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, quality structure (Vinos de la Tierra, DO, DOCa, Vinos de Pagos)</li>
-          <li>Wine districts & location</li>
-          <li>Principal varietals and synonyms</li>
-          <li>Ageing regime & terms</li>
-          <li>Principal wines: Rías Baixas, Navarra, Rioja, Toro, Ribera del Duero, Penedès, Rueda, Priorat, Valdepeñas</li>
-          <li>Cava production</li>
-          <li>Specific ageing requirements for Rioja</li>
-          <li>DOCas of Spain, Quality hierarchy (Rioja, Priorat)</li>
-          <li>Sub districts of Rías Baixas, Navarra, Penedès & Priorat</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">09</span> Spain
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Quality structure (DO, DOCa, Vinos de Pagos). Districts & varietals</li>
+          <li>Ageing terms. Principal wines: Rioja, Ribera del Duero, Priorat, Rías Baixas, etc.</li>
+          <li>Cava. DOCas. Sub districts of key regions</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Specific names/locations of Vinos de Pagos</li>
-          <li>Smaller districts in Southern Spain and wines produced</li>
-          <li>Specific characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Styles from Toro, Rueda, Montsant, Somontano, Penedès, Castilla La Mancha</li>
-          <li>Principal producers and estates + notable wines</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Vinos de Pagos — names, locations</li>
+          <li>Smaller districts in Southern Spain</li>
           <li>Geographic influences (rivers, mountains, coastal)</li>
-          <li>Cava de Paraje Calificado Producers and estates</li>
-          <li>Corpinat producers</li>
-          <li>DO zones in Balearic & Canary Islands</li>
-          <li>Styles & grapes: Txakolina, Bullas, Méntrida, Alella, Empordà, Terra Alta, Conca de Barberà, Costers del Segre, Arianza, Campo de Borja, Cigales, Uclés</li>
-          <li>Principal vintages of last 10 years</li>
-          <li>Latest developments & updates</li>
+          <li>Cava de Paraje Calificado. Corpinat producers</li>
+          <li>DO zones: Balearic & Canary Islands</li>
+          <li>Txakolina, Bullas, Méntrida, Alella, Empordà, Terra Alta, Conca de Barberà, Costers del Segre, etc.</li>
+          <li>Vintages last 10 years. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Portugal -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Portugal</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, quality structure, districts (VR & DOC)</li>
-          <li>Principal grape varietals</li>
-          <li>Wines & production: Dão, Minho, Douro, Bairrada, Alentejo, Colares, Setúbal</li>
-          <li>Ageing terms & regime (Garrafeira, Reserva)</li>
-          <li>Minho sub districts, Transmontano VR, Duriense VR</li>
-          <li>Douro classification & terms</li>
-          <li>All VR regions and DOCs</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">10</span> Portugal
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Quality structure (VR & DOC). Grapes. Dão, Minho, Douro, Bairrada, Alentejo</li>
+          <li>Ageing terms (Garrafeira, Reserva). All VR regions and DOCs</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Factors affecting climate (specific)</li>
-          <li>Characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Principal producers and sites</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
           <li>Synonyms for Portuguese varieties</li>
-          <li>Portuguese ageing requirements (Seleccionada, Colheita)</li>
-          <li>Sub-regions of DOC districts</li>
-          <li>Wine districts and wines of Azores</li>
+          <li>Ageing requirements (Seleccionada, Colheita)</li>
+          <li>Sub-regions of DOC districts. Azores wines</li>
           <li>Douro table wines and producers</li>
-          <li>Latest developments & updates</li>
+          <li>Vintages. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Italy -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Italy</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, quality structure (IGT, DOC, DOCG)</li>
-          <li>Wine producing districts & location</li>
-          <li>Principal grape varietals and regions</li>
-          <li>Production methods: Recioto, Ripasso, Amarone, Vin Santo</li>
-          <li>Prosecco quality levels & production</li>
-          <li>DOCGs in each region</li>
-          <li>Ageing requirements (Riserva, Superiore) for Barolo, Barbaresco, Chianti, Vino Nobile, Brunello</li>
-          <li>Sub-districts of Chianti</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">11</span> Italy
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Quality structure (IGT, DOC, DOCG). Districts & grapes</li>
+          <li>Production: Recioto, Ripasso, Amarone, Vin Santo. Prosecco</li>
+          <li>DOCGs. Ageing (Barolo, Barbaresco, Chianti, Brunello). Sub-districts Chianti</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Climatic influences (specific)</li>
-          <li>Production techniques — varietals/blends, ageing requirements</li>
-          <li>Sub-districts: Chianti, Barolo, Barbaresco, Soave, Valpolicella</li>
-          <li>Wines from smaller areas: Liguria, Friuli, Trentino, Maremma, Bolgheri, Marches, Umbria, Lazio, Campania, Basilicata, Apulia, Abruzzo, Molise, Sicily, Sardinia</li>
-          <li>Specific factors affecting climate</li>
-          <li>Characteristics of the wines</li>
-          <li>Vintages — Characteristics</li>
-          <li>Principal producers and sites</li>
-          <li>Soil composition and climate of all regions</li>
-          <li>Min/max alcohol & ageing requirements of principal DOC/DOCG</li>
-          <li>Specific DOC/DOCG in Southern Italy</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Sub-districts: Barolo, Barbaresco, Soave, Valpolicella</li>
+          <li>Smaller areas: Liguria, Friuli, Trentino, Bolgheri, Campania, Sicily, Sardinia, etc.</li>
+          <li>Min/max alcohol & ageing for principal DOC/DOCG</li>
           <li>Grape varieties native to Southern Italy</li>
-          <li>Vintages 20 years DOCG wines</li>
-          <li>Super Tuscan and 2nd wines</li>
-          <li>Passito style wines</li>
-          <li>Latest developments & updates</li>
+          <li>Vintages 20 years DOCG. Super Tuscan & 2nd wines. Passito</li>
+          <li>Principal producers all regions. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Germany -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Germany</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, quality structure (Qualitätswein, Prädikatswein)</li>
-          <li>Anbaugebiet & location</li>
-          <li>Production terms: Einzellage, Grosslage, Bereich, Ortswein, Sekt</li>
-          <li>Principal grape varietals and crossings</li>
-          <li>Notable wine villages: Mosel, Rheingau, Pfalz, Rheinhessen</li>
-          <li>Soil structures (Mosel, Rheingau)</li>
-          <li>Labelling terms: Trocken, Halbtrocken, Classic, Selection</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">12</span> Germany
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Quality structure (Qualitätswein, Prädikatswein). Anbaugebiet</li>
+          <li>Grapes & crossings. Wine villages (Mosel, Rheingau, Pfalz, Rheinhessen)</li>
           <li>VDP structure: Erste Lage, Grosse Gewächs</li>
-          <li>Location of principal wine villages</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>In depth study of ALL Anbaugebiet</li>
-          <li>Quality structure: AP number</li>
-          <li>Landwein nomenclature</li>
-          <li>VDP grading of wines & approved varietals</li>
-          <li>Vine crossings</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>In depth ALL Anbaugebiet. AP number. Landwein nomenclature</li>
+          <li>VDP grading & approved varietals. Vine crossings & parentage</li>
           <li>Required sugar levels (Oechsle) for QmP grades</li>
-          <li>Principal producers and sites</li>
-          <li>Monopole sites</li>
-          <li>Soils of principal sites</li>
-          <li>Min ageing requirements for Grosses Gewächs wines</li>
-          <li>Parentage of common crosses</li>
-          <li>Principal villages and sites in all Anbaugebiet</li>
-          <li>Vintages for past 20 years</li>
-          <li>Latest developments & updates</li>
+          <li>Monopole sites. Soils of principal sites</li>
+          <li>Min ageing for Grosses Gewächs. Villages in all Anbaugebiet</li>
+          <li>Vintages 20 years. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Austria -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Austria</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences (Pannonian effect)</li>
-          <li>Quality structure: QbA & QmP, Ausbruch, Strohwein</li>
-          <li>Production regions, DAC structure & levels</li>
-          <li>Wachau quality terms</li>
-          <li>Principal grape varietals & districts</li>
-          <li>DAC districts and location, wines produced</li>
-          <li>Approved varietals in DAC regions</li>
-          <li>Principal producers and sites</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">13</span> Austria
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="margin-bottom: 14px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px;">Context (Intro + Certified)</h4>
+        <ul style="font-size: 12px; color: var(--text-dim); padding-left: 16px; line-height: 2;">
+          <li>Pannonian effect. Quality: QbA, QmP, Ausbruch, Strohwein</li>
+          <li>DAC structure. Wachau terms. Grapes & districts</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Traditionsweingüter and Erste Lage sites</li>
-          <li>Austrian Sekt production, quality hierarchy & maturation periods</li>
-          <li>Principal sites in Wachau, Kamptal, Kremstal</li>
-          <li>Soils of various regions</li>
-          <li>Producers/sites all areas</li>
-          <li>Native Austrian grape varieties and crossings / regions planted</li>
-          <li>Vintages 10 years</li>
-          <li>Latest developments & updates</li>
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Traditionsweingüter & Erste Lage sites</li>
+          <li>Austrian Sekt quality hierarchy & maturation</li>
+          <li>Principal sites: Wachau, Kamptal, Kremstal. Soils</li>
+          <li>Native varieties & crossings. Vintages 10 years</li>
+          <li>Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Greece & Other Europe -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Greece, Switzerland, England & Eastern Europe</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li><strong>Greece:</strong> Climate, quality structure, principal regions, grape varietals, principal wines (Naoussa, Nemea, Mantinia, Patras, Samos, Santorini), dessert wines</li>
-          <li><strong>Hungary:</strong> Tokaji production, grape varietals, qualities</li>
-          <li><strong>Eastern Europe:</strong> Principal districts (Bulgaria, Romania), grape varieties</li>
-          <li><strong>Switzerland:</strong> Principal areas & varietals (Lake Geneva, Neuchâtel, Rhône valley), cantons</li>
-          <li><strong>England & Wales:</strong> Principal vineyard sites by county</li>
-          <li>Wine producing districts and wines of Bulgaria, Romania, Slovenia, Hungary</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li><strong>Greece:</strong> Detailed production areas & grapes, unique techniques (Retsina, Santorini vine training), principal producers, climatic/soil factors</li>
-          <li><strong>Switzerland:</strong> Quality structure (ConfidenCiel wines), smaller areas (Zurich, Schaffhausen, Ticino, Bündner Herrschaft), grape varietals</li>
-          <li><strong>Eastern Europe:</strong> Slovenia, Croatia, Bulgaria, Romania, Hungary — wine districts, principal grapes, notable producers (Tokaji), quality terms, native varieties, classified vineyards in Tokaji, Tokaji vintages</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">14</span> Greece · Switzerland · England · Eastern Europe
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li><strong>Greece:</strong> Production areas, unique techniques (Santorini training), producers, soils</li>
+          <li><strong>Switzerland:</strong> ConfidenCiel, Ticino, Bündner Herrschaft, varietals</li>
+          <li><strong>Eastern Europe:</strong> Slovenia, Croatia, Hungary (Tokaji classified vineyards & vintages)</li>
           <li><strong>England & Wales:</strong> Vineyard sites and principal wines</li>
-          <li>Latest developments & updates</li>
         </ul>
       </div>
     </div>
   </details>
+  </section>
 
   <!-- NEW WORLD -->
-  <h2 style="font-family: var(--serif); font-size: 32px; color: var(--wine-dark); margin: 40px 0 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);">🌍 New World</h2>
+  <section id="newworld" style="margin-top: 40px;">
+  <h2 style="font-family: var(--serif); font-size: 24px; color: var(--gold); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);">New World</h2>
 
-  <!-- Australia -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Australia</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, wine producing states & regions</li>
-          <li>Quality framework & categories</li>
-          <li>Grapes associated with regions</li>
-          <li>Wine Zones, Regions, SE Australia Super zone</li>
-          <li>Principal producers/wines by region</li>
-          <li>Production & blending regimes</li>
-          <li>Tasmania wine districts</li>
-          <li>Sub regions within wine zones</li>
-          <li>Principal producers and sites</li>
-          <li>Vine classification by age (Barossa)</li>
-          <li>RS requirements/ageing for Rutherglen Muscats</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Geographical features & influence on wine producing areas</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">15</span> Australia
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Geographical features & influence on regions</li>
           <li>Principal soils of major regions</li>
-          <li>Advanced vinification practices & regulations (acidification, de-alcoholisation)</li>
-          <li>Sub-regions of ALL districts</li>
+          <li>Advanced vinification (acidification, de-alcoholisation)</li>
+          <li>Sub-regions ALL districts. Tasmania sparkling</li>
           <li>Principal producers and wines — all districts</li>
-          <li>Tasmania sparkling wines</li>
-          <li>Latest developments & updates</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- New Zealand -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">New Zealand</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climate & soils, wine producing regions</li>
-          <li>Grape varietals associated with regions</li>
-          <li>Appellations — N/S Island</li>
-          <li>GI system and regions</li>
-          <li>Sub districts of wine regions</li>
-          <li>Principal producers and sites</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Geographical features & influence on wine producing areas</li>
-          <li>GI System — districts and sub-districts</li>
-          <li>Principal grape plantings (all regions)</li>
-          <li>Principal producers and estates/wineries — locations</li>
-          <li>Latest developments & updates</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">16</span> New Zealand
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Geographical features & influence</li>
+          <li>GI System — all districts and sub-districts</li>
+          <li>Principal grape plantings all regions</li>
+          <li>Principal producers, estates, locations</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- USA & Canada -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">United States & Canada</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, AVA principles</li>
-          <li>Principal districts California: Napa, Sonoma, SF Bay, Monterey, Santa Barbara, Paso Robles</li>
-          <li>Oregon: Willamette, Columbia Valley, Walla Walla</li>
-          <li>Washington: Columbia Valley, Walla Walla, Puget Sound, Yakima Valley</li>
-          <li>Climate related to topography</li>
-          <li>AVAs associated with Sonoma, Napa, Monterey, Santa Barbara</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Sub districts of wine regions</li>
-          <li>Principal producers and sites</li>
-          <li>Specific climatic influences</li>
-          <li>Ontario wine regulations (VQA, DVA)</li>
-          <li>Wine producing regions of Canada & sub-districts (Niagara Peninsula, British Columbia)</li>
-          <li>Ice Wine production</li>
-          <li>AVAs of California (by district)</li>
-          <li>Smaller regions: Mendocino, Lake, Livermore, SLO, San Joaquin, South Coast, Central Valley, Sierra Foothills</li>
-          <li>Major producers in each district & varietals</li>
-          <li>New York State: Finger Lakes & Long Island</li>
-          <li>Latest developments & updates</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">17</span> United States & Canada
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>AVAs of California (by district). Smaller regions (Mendocino, Lake, Livermore, etc.)</li>
+          <li>Ontario VQA/DVA. Niagara Peninsula. British Columbia</li>
+          <li>Ice Wine production & vintages</li>
+          <li>New York State: Finger Lakes, Long Island</li>
+          <li>Major producers & varietals each district</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- South America -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">South America</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climate & topographical influences (Andes, Pacific)</li>
-          <li>Chile: wine laws, 5 regions & sub districts, key districts (Casablanca, Maipo, Rapel)</li>
-          <li>Principal varietals: Chile & Argentina</li>
-          <li>Sub districts of Chilean regions, sub districts of Mendoza</li>
-          <li>Argentinian native varietals</li>
-          <li>Uruguay: VCP labelling, regions & varietals</li>
-          <li>Brazil & Mexico: districts & varietals</li>
-          <li>Principal producers and sites</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Geographical features influence on wine areas (Chile, Argentina, Brazil, Uruguay, Mexico)</li>
-          <li>Soils in principal regions</li>
-          <li>Wine production at altitude and effects</li>
-          <li>Climatic effects of production areas</li>
-          <li>Principal districts and sub districts — all countries</li>
-          <li>DO areas of all South American countries</li>
-          <li>Principal producers and locations</li>
-          <li>Notable vineyards of Chile and Argentina</li>
-          <li>Wines including prestige labels</li>
-          <li>Laws regarding ageing terms</li>
-          <li>Native grape varieties including Criollas</li>
-          <li>Latest developments & updates</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">18</span> South America
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Geographical features (Chile, Argentina, Brazil, Uruguay, Mexico)</li>
+          <li>Soils. Wine production at altitude</li>
+          <li>DO areas all South American countries</li>
+          <li>Notable vineyards. Prestige labels. Ageing laws</li>
+          <li>Native grapes including Criollas</li>
+          <li>Principal producers. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- South Africa -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">South Africa</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences (Oceans, mountain ranges)</li>
-          <li>Wine law & labelling (WO)</li>
-          <li>Structure: Geographical Units, Regions, Districts, Wards, Estates</li>
-          <li>Principal regions: Stellenbosch, Franschhoek, Paarl, Constantia, Walker Bay, Elgin</li>
-          <li>Varietals associated with areas</li>
-          <li>Districts within Coastal, Breede River</li>
-          <li>Cape Classique, Cape Blend</li>
-          <li>Wards of principal districts</li>
-          <li>Principal producers/sites (Stellenbosch, Elim, Walker Bay, Swartland)</li>
-          <li>Vin de Constance — grapes, production, styles</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Geographical features influencing production (Mountains, Oceans, Rivers)</li>
-          <li>Climatic effects</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">19</span> South Africa
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Geographical features (Mountains, Oceans, Rivers)</li>
           <li>Location of wards in ALL WO districts</li>
-          <li>Principal producers and sites / wines (ALL regions)</li>
-          <li>Vintages 10 years</li>
-          <li>Latest developments & updates</li>
+          <li>Principal producers, sites & wines — all regions</li>
+          <li>Vintages 10 years. Latest developments</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Other Wines -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Other Wine Countries (China, Middle East, Japan)</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>China: Principal districts, location, native grape varieties</li>
-          <li>Wine districts of Middle East: Lebanon, Cyprus, Corsica</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">20</span> Other (China · Middle East · Japan)
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>China: districts, grapes, producers</li>
+          <li>Israel, Turkey, Cyprus, Lebanon: production & wines</li>
+          <li>Commandaria: production & quality levels</li>
+          <li>Japan (Koshu): geographic factors, production techniques</li>
         </ul>
       </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>China: Geographic & climatic factors, wine districts, principal grapes, producers & wines</li>
-          <li>Israel, Turkey, Cyprus, Lebanon: Production districts and wines</li>
-          <li>Commandaria wines: production and quality levels</li>
-          <li>Japan (Koshu): Geographic & climatic factors, production techniques</li>
+    </div>
+  </details>
+  </section>
+
+  <!-- BEVERAGES -->
+  <section id="beverages" style="margin-top: 40px;">
+  <h2 style="font-family: var(--serif); font-size: 24px; color: var(--gold); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);">Fortified · Spirits · Beverages</h2>
+
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">21</span> Fortified Wines (Sherry · Port · Madeira)
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Detailed production: fortification, sweetening, colouring</li>
+          <li>Sherry styles, ageing designations, Pagos</li>
+          <li>Port: vinification, vineyard rating, single quintas, vintages 1970–present</li>
+          <li>Madeira: producers, styles (3/5/10/15yr, Fresqueira, Colheita)</li>
+          <li>Vermouths. VdL (Floc, Ratafia, Pineau). VDN ACs</li>
+          <li>Moscatel de Setúbal. Australian Muscats. Commandaria. Montilla. Málaga</li>
+          <li>New styles: Añada, En Rama. Quinta classification (A-F)</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- FORTIFIED, SPIRITS & BEVERAGES -->
-  <h2 style="font-family: var(--serif); font-size: 32px; color: var(--wine-dark); margin: 40px 0 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);">🥃 Fortified Wines, Spirits & Beverages</h2>
-
-  <!-- Fortified Wines -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Fortified Wines (Sherry, Port, Madeira)</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Sherry: location, soils, varietals, production methods, wine types, non-fortified</li>
-          <li>Port: Douro region, soils, permitted varietals, production, types & qualities</li>
-          <li>Madeira: topography, climate, soils, varietals, production, styles</li>
-          <li>Sherry VOS & VORS designations</li>
-          <li>Port sub-districts, recent vintages</li>
-          <li>Madeira ageing and designations</li>
-          <li>Sherry Pagos (Finos)</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Detailed production techniques: fortification, sweetening, colouring</li>
-          <li>Sherry styles & ageing designations</li>
-          <li>Port viticulture & vinification</li>
-          <li>Vineyard rating system</li>
-          <li>Single quintas of major Port houses</li>
-          <li>Principal vintages 1970 to date</li>
-          <li>Madeira producers, key styles (3, 5, 10, 15 year, Fresqueira, Colheita)</li>
-          <li>Aromatised wines (Vermouths)</li>
-          <li>Vin de Liqueurs: Floc, Ratafia, Pineau de Charente</li>
-          <li>Vin Doux Naturels ACs and types</li>
-          <li>Moscatel de Setúbal, Australian Muscats</li>
-          <li>Commandaria wines, Montilla wines</li>
-          <li>Climatic effects, geographical features, soils</li>
-          <li>Principal vineyard sites (Pagos) in Sherry</li>
-          <li>Port Quintas and proprietors, Quinta classification (A-F)</li>
-          <li>New styles (Añada, En Rama, etc.)</li>
-          <li>Other fortified: Málaga, Montilla production details</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">22</span> Spirits
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Principal producers/brands all types</li>
+          <li>Rum production & principal types/producers</li>
+          <li>Eastern European spirits. Fruit eau de vie — names by country</li>
+          <li>Technical production details. Regulations</li>
+          <li>Location of Scottish distilleries</li>
+          <li>Styles & ageing requirements all spirit types</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Spirits -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Spirits</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Principles of distillation</li>
-          <li>Methods of production: Scotch (Malt/Blended), Irish, US Whiskey, Cognac, Armagnac, Calvados, Tequila, Gin, Vodka, Rum</li>
-          <li>Terms used in production</li>
-          <li>Identify specific types (Islay, Fine Champagne, etc.)</li>
-          <li>Flavoured spirits: Pastis, Ouzo, Raki, Akvavit</li>
-          <li>Fruit eaux de vie, Marc/Grappa, Mezcals</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Principal spirit producers/brands (all types)</li>
-          <li>Rum production and principal types/producers</li>
-          <li>Eastern European spirits/brands/producers</li>
-          <li>Fruit eau de vie production — names in different countries</li>
-          <li>Technical details of production of major spirit brands</li>
-          <li>Regulations regarding production</li>
-          <li>Location of distilleries — Scotland</li>
-          <li>Styles and ageing requirements of principal spirit types</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">23</span> Liqueurs · Aperitifs · Bitters
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Liqueurs by type, colour & flavour. Brands/producers</li>
+          <li>Service requirements. Use in cocktails & mixed drinks</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Liqueurs & Aperitifs -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Aperitif Wines, Liqueurs & Bitters</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level (builds on Certified foundation)</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Knowledge of liqueurs by type, colour & flavour</li>
-          <li>Brands/producers of aperitif wines and bitters</li>
-          <li>Ability to recommend</li>
-          <li>Service requirements</li>
-          <li>Use of liqueurs and aperitif wines in cocktails and mixed drinks</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">24</span> Beers & Ciders
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Malt types & production. Best known hop varieties</li>
+          <li>Brewing: Dry Hopping, Kräusening</li>
+          <li>World beer types: Lambic, Rauchbier, Seasonal, Gueuze</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Beers & Ciders -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Beers & Ciders</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level (builds on Certified foundation)</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Malt types and production techniques</li>
-          <li>Best known hop varieties</li>
-          <li>Brewing practices: Dry Hopping, Kräusening, etc.</li>
-          <li>Principal beer types & production techniques worldwide</li>
-          <li>Lambic beers, Rauchbier, Seasonal beers, Gueuze</li>
-        </ul>
-      </div>
-    </div>
-  </details>
-
-  <!-- Saké -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Saké</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level (builds on Certified foundation)</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Terms associated with Saké production</li>
-          <li>Production areas</li>
-          <li>Base materials</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">25</span> Saké
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Production areas. Base materials</li>
           <li>Brewing terms: Moto, Moromi, Shikomi, Shubo, Nihonshu-do, Kimoto, Yamahai, Toji</li>
           <li>Principal types of Saké</li>
         </ul>
       </div>
     </div>
   </details>
+  </section>
 
-  <!-- TECHNICAL & PROFESSIONAL SKILLS -->
-  <h2 style="font-family: var(--serif); font-size: 32px; color: var(--wine-dark); margin: 40px 0 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);">🎓 Technical & Professional Skills</h2>
+  <!-- SKILLS -->
+  <section id="skills" style="margin-top: 40px;">
+  <h2 style="font-family: var(--serif); font-size: 24px; color: var(--gold); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);">Technical & Professional Skills</h2>
 
-  <!-- Viticulture & Vinification -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Viticulture & Vinification</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #f5f5f5; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 8px;">📋 Context (Intro + Certified)</h4>
-        <ul style="font-size: 13px; color: var(--text-light); padding-left: 18px; line-height: 1.8;">
-          <li>Climatic influences, basic principles of viticulture</li>
-          <li>Effects of climate, aspect, planting regimes, Terroir</li>
-          <li>Vine types: V. Vinifera, Labrusca, crossings, clones, hybrids</li>
-          <li>Grafting, training styles, life cycle, frost prevention</li>
-          <li>Vine diseases and pests</li>
-          <li>Harvesting: Botrytis, Passerillage</li>
-          <li>Alcoholic fermentation, Chaptalisation</li>
-          <li>Pressing, Macération carbonique, Malolactic fermentation</li>
-          <li>Sur lie ageing, effects of oak, Tartrates</li>
-          <li>French terms: Buttage, Passerillage, Véraison, Mutage, Pigeage, Remontage</li>
-        </ul>
-      </div>
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level — Study Focus</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Soil composition of ALL wine regions and effect on grape production</li>
-          <li>Climatic effects: height above sea level, fogs, sun exposure</li>
-          <li>Technical knowledge of vine diseases & preventative measures (Nematodes, Mealybugs, Crown Gall, Bacterial Blight, Fanleaf, Black Rot, Esca, Flavescence Dorée, Pierce's Disease, Leaf Roll, Eutypa)</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">26</span> Viticulture & Vinification
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Soil composition ALL regions & effect on grapes</li>
+          <li>Climatic effects: altitude, fogs, sun exposure</li>
+          <li>Vine diseases & prevention (Nematodes, Mealybugs, Esca, Pierce's, Eutypa, etc.)</li>
           <li>Vine spacing, pruning, trellising</li>
-          <li>Technical winemaking procedures (Reverse osmosis, de-alcoholisation, fining & filtration methods)</li>
-          <li>In-depth knowledge of wine ailments and effects</li>
-          <li>Natural, Organic and Biodynamic techniques and terms</li>
-          <li>Barrel sizes and ageing requirements (wood/bottle)</li>
-          <li>Effect of screwcaps on ageing</li>
+          <li>Technical winemaking (Reverse osmosis, de-alcoholisation, fining, filtration)</li>
+          <li>Natural, Organic, Biodynamic techniques & terms</li>
+          <li>Barrel sizes & ageing requirements. Effect of screwcaps</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Food & Wine Pairing -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Food & Wine Pairing</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Match specific wines to dishes with reasoned choice — including vintages and producers</li>
-          <li>Effects of flavours: matching or contrasting wines</li>
-          <li>In-depth knowledge of best vintages and off vintages</li>
-          <li>Pairings with other beverages: beers, fortified wines, aperitifs</li>
-          <li>Discuss alternatives to recommendations and similar wines</li>
-          <li>Formulate plans for staff training and promotion events</li>
-          <li>Customer skills: handling complaints, giving recommendations</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">27</span> Food & Wine Pairing
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Match wines with vintages & producers, with reasoning</li>
+          <li>Matching vs contrasting. Best/off vintages</li>
+          <li>Pairings with beers, fortified, aperitifs</li>
+          <li>Alternatives & similar wines. Staff training. Customer skills</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Business Aspects -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Business Aspects</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>All aspects of spreadsheet calculations for inventory documentation</li>
-          <li>Purchasing systems for wholesale and importation</li>
-          <li>Sales and promotion techniques</li>
-          <li>Staff training programmes (theory, practice, tasting sessions)</li>
-          <li>Rewarding staff performance</li>
-          <li>Fine wine list structure</li>
-          <li>Function wine list structure</li>
-          <li><em>Tested in both Theory and Practical examinations</em></li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">28</span> Business Aspects
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Spreadsheet calculations for inventory</li>
+          <li>Purchasing systems (wholesale & importation)</li>
+          <li>Sales & promotion. Staff training programmes</li>
+          <li>Fine wine list & function wine list structure</li>
+          <li><em>Tested in both Theory and Practical</em></li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Practical Service -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Practical Service</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level (45 minutes)</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Practical skills: demonstrate effective customer and selling skills</li>
-          <li>Deal with customer enquiries and complaints</li>
-          <li>Aperitif and cocktail preparation & service (comprehensive cocktail knowledge)</li>
-          <li>Wine recommendations for all types of menu and cuisine</li>
-          <li>Knowledge of difficult pairings and alternative beverages</li>
-          <li>Champagne and sparkling wine service</li>
-          <li>Professional decanting practice</li>
-          <li>Digestif service</li>
-          <li>Equipment maintenance: glassware, decanters, service cloths, ice buckets</li>
-          <li>Business: calculate profit margins, inventory, beverage requirements</li>
-          <li>Training: prepare and lead an effective training programme</li>
-          <li>Tasting: taste, identify, and describe beverages — quality levels and origins</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">29</span> Practical Service (45 min exam)
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Customer & selling skills. Complaints & enquiries</li>
+          <li>Aperitif & cocktail preparation (comprehensive cocktail knowledge)</li>
+          <li>Wine recommendations all menus & cuisines</li>
+          <li>Champagne/sparkling service. Professional decanting</li>
+          <li>Digestif service. Equipment maintenance</li>
+          <li>Calculate profit margins. Inventory. Beverage requirements</li>
+          <li>Lead training programmes. Taste & identify beverages</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- Deductive Tasting -->
-  <details style="background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 14px;">
-    <summary style="font-family: var(--serif); font-size: 22px; color: var(--wine); cursor: pointer; font-weight: 600;">Deductive Tasting</summary>
-    <div style="margin-top: 16px;">
-      <div style="background: #fdf0f0; border-radius: 8px; padding: 14px 18px; border-left: 4px solid var(--wine);">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--wine); margin-bottom: 8px;">🎯 Advanced Level (6 wines, 25 minutes, oral)</h4>
-        <ul style="font-size: 13px; color: var(--text); padding-left: 18px; line-height: 1.8; font-weight: 500;">
-          <li>Identify a wide range of grape varietal characteristics</li>
-          <li>Orally describe wines in both technical and marketing format</li>
-          <li>Evaluate sight, nose and palate using Court format</li>
-          <li>Evaluate aromas & flavours: Primary, Secondary, Tertiary elements</li>
-          <li>Evaluate structure (Alcohol, Acidity, Tannins) quantitatively</li>
-          <li>Comment on age characteristics</li>
-          <li>Constructive conclusion: Style, Country/Region, Quality level, Vintage</li>
-          <li>Know and identify wine faults (Brett, Oxidation, Reduction, TCA/Anisole)</li>
-          <li>Identify vinification methods used to correct faults</li>
+  <details style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;">
+    <summary style="padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--cream); font-weight: 500;">
+      <span style="color: var(--gold); font-family: var(--serif); font-size: 18px; min-width: 24px;">30</span> Deductive Tasting (6 wines · 25 min · oral)
+    </summary>
+    <div style="padding: 0 20px 20px;">
+      <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
+        <h4 style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 8px;">🎯 Advanced — Study Focus</h4>
+        <ul style="font-size: 12px; color: var(--cream); padding-left: 16px; line-height: 2;">
+          <li>Wide range of grape varietal characteristics</li>
+          <li>Oral description: technical & marketing format</li>
+          <li>Court format: Sight, Nose, Palate</li>
+          <li>Primary, Secondary, Tertiary elements</li>
+          <li>Structure: Alcohol, Acidity, Tannins (quantitative)</li>
+          <li>Age characteristics. Conclusion: Style, Country/Region, Quality, Vintage</li>
+          <li>Wine faults: Brett, Oxidation, Reduction, TCA. Correction methods</li>
         </ul>
       </div>
     </div>
   </details>
+  </section>
 
-</section>
+</main>
 
 <!-- Footer -->
-<footer style="background: var(--wine-deeper); padding: 30px 20px; text-align: center;">
-  <p style="font-size: 12px; color: var(--gold-light); opacity: 0.7;">CMS Advanced Study Index — Based on CMS Europe Examination Syllabus 2026/2027</p>
-  <p style="font-size: 11px; color: var(--gold-light); opacity: 0.5; margin-top: 6px;">Source: courtofmastersommeliers.org</p>
+<footer style="border-top: 1px solid var(--border); padding: 24px 30px; text-align: center;">
+  <p style="font-size: 11px; color: var(--text-muted);">CMS Advanced Study Index · Based on CMS Europe Examination Syllabus 2026/2027</p>
+  <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px; opacity: 0.6;">courtofmastersommeliers.org · Sources: GuildSomm, Jancis Robinson, Decanter, Official Regional Bodies</p>
 </footer>
 
 </body>
