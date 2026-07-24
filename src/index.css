@@ -15,8 +15,8 @@
   --color-text: #e8dcc0;
   --color-text-dim: #9a8e72;
   --color-text-muted: #5c5444;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-sans: 'Google Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 body {
