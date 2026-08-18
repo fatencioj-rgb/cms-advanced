@@ -16,48 +16,61 @@ function App() {
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-[220px] fixed top-0 left-0 h-screen border-r border-rule flex flex-col justify-between py-6 px-4 bg-paper">
-        <div>
-          <div className="flex items-center gap-2.5 px-2 mb-8">
-            <img src="/cms-advanced/logo.png" alt="CMS" className="w-7 h-7 object-contain opacity-80" />
-            <span className="text-[11px] text-ink-3 tracking-wide">Fiorella Atencio</span>
+      <aside className="w-[240px] fixed top-0 left-0 h-screen border-r border-border flex flex-col bg-paper">
+        <div className="p-5 flex items-center gap-3">
+          <img src="/cms-advanced/logo.png" alt="CMS" className="w-7 h-7 object-contain rounded-full" />
+          <div>
+            <p className="text-[13px] text-ink font-medium leading-tight">CMS Advanced</p>
+            <p className="text-[11px] text-ink-3">Fiorella Atencio</p>
           </div>
+        </div>
 
-          <nav className="flex flex-col gap-0.5">
+        <div className="px-3 flex-1">
+          <div className="flex flex-col gap-0.5">
             <button
               onClick={() => { setView('home'); setTopic(null); }}
-              className={`px-3 py-2 rounded-[var(--radius-sm)] text-[13px] text-left cursor-pointer transition-all duration-[var(--dur-fast)] ${
-                view === 'home' ? 'bg-accent-surface text-accent font-medium' : 'text-ink-2 hover:bg-paper-2'
+              className={`w-full px-3 py-[9px] rounded-[var(--radius-sm)] text-[13px] text-left cursor-pointer transition-all duration-[var(--dur-fast)] ${
+                view === 'home'
+                  ? 'bg-surface-hover text-ink font-medium'
+                  : 'text-ink-2 hover:bg-surface hover:text-ink'
               }`}
             >
               Overview
             </button>
+
+            <div className="h-[1px] bg-border my-2"></div>
+
             {navItems.map((item) => (
               <button
                 key={item.key}
                 onClick={() => { setView(item.key); setTopic(null); }}
-                className={`px-3 py-2 rounded-[var(--radius-sm)] text-[13px] text-left cursor-pointer transition-all duration-[var(--dur-fast)] ${
-                  view === item.key ? 'bg-accent-surface text-accent font-medium' : 'text-ink-2 hover:bg-paper-2'
+                className={`w-full px-3 py-[9px] rounded-[var(--radius-sm)] text-[13px] text-left cursor-pointer transition-all duration-[var(--dur-fast)] ${
+                  view === item.key
+                    ? 'bg-surface-hover text-ink font-medium'
+                    : 'text-ink-2 hover:bg-surface hover:text-ink'
                 }`}
               >
                 {item.label}
               </button>
             ))}
-          </nav>
+          </div>
         </div>
 
-        <div className="px-2 text-[10px] text-ink-3 leading-relaxed">
-          CMS Europe<br/>Advanced Sommelier<br/>2026 / 2027
+        <div className="p-5 border-t border-border">
+          <p className="text-[10px] text-ink-3">Court of Master Sommeliers Europe</p>
+          <p className="text-[10px] text-text-muted">Syllabus 2026 / 2027</p>
         </div>
       </aside>
 
       {/* Main */}
-      <main className="ml-[220px] flex-1 min-h-screen px-12 py-10 max-w-[740px]">
-        {view === 'home' && !topic && <HomeView />}
-        {view !== 'home' && !topic && (
-          <SectionView section={syllabus[view]} onSelectTopic={setTopic} />
-        )}
-        {topic && <TopicDetail topic={topic} onBack={() => setTopic(null)} />}
+      <main className="ml-[240px] flex-1 min-h-screen">
+        <div className="max-w-[680px] px-10 py-12">
+          {view === 'home' && !topic && <HomeView />}
+          {view !== 'home' && !topic && (
+            <SectionView section={syllabus[view]} onSelectTopic={setTopic} />
+          )}
+          {topic && <TopicDetail topic={topic} onBack={() => setTopic(null)} />}
+        </div>
       </main>
     </div>
   )
@@ -66,18 +79,23 @@ function App() {
 function HomeView() {
   return (
     <>
-      <h1 className="font-serif text-[var(--text-display)] text-ink font-normal tracking-tight leading-[1.15] mb-3">
-        Advanced Sommelier
-      </h1>
-      <p className="text-[var(--text-base)] text-ink-2 mb-10 max-w-[480px]">
-        Study log for the Court of Master Sommeliers Europe examination. Five pillars, structured by the 2026/2027 syllabus.
-      </p>
-      <div className="h-[1px] bg-rule mb-10"></div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="mb-10">
+        <h1 className="text-[32px] text-ink font-semibold tracking-tight leading-tight mb-2">
+          Advanced Sommelier
+        </h1>
+        <p className="text-[15px] text-ink-2 max-w-[500px]">
+          Study log for the Court of Master Sommeliers Europe Advanced examination.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
         {Object.entries(syllabus).map(([key, section]) => (
-          <div key={key} className="border border-rule rounded-[var(--radius-md)] p-5 hover:border-accent/30 transition-colors duration-[var(--dur-normal)]">
-            <h3 className="text-[var(--text-sm)] font-medium text-ink mb-1">{section.title}</h3>
-            <p className="text-[var(--text-xs)] text-ink-3">{section.groups.length} sections · {section.groups.reduce((acc, g) => acc + g.topics.length, 0)} topics</p>
+          <div key={key} className="bg-surface border border-border rounded-[var(--radius-md)] p-5 hover:bg-surface-hover hover:border-border-light transition-all duration-[var(--dur-normal)] cursor-default group">
+            <h3 className="text-[14px] font-medium text-ink mb-1.5 group-hover:text-accent transition-colors duration-[var(--dur-fast)]">{section.title}</h3>
+            <p className="text-[12px] text-ink-3">{section.groups.length} sections · {section.groups.reduce((acc, g) => acc + g.topics.length, 0)} topics</p>
+            <div className="mt-3 h-1 bg-paper-3 rounded-full overflow-hidden">
+              <div className="h-full bg-accent/30 rounded-full" style={{width: '0%'}}></div>
+            </div>
           </div>
         ))}
       </div>
@@ -88,20 +106,22 @@ function HomeView() {
 function SectionView({ section, onSelectTopic }) {
   return (
     <>
-      <h1 className="font-serif text-[var(--text-2xl)] text-ink font-normal tracking-tight mb-8">{section.title}</h1>
-      <div className="flex flex-col gap-10">
+      <h1 className="text-[26px] text-ink font-semibold tracking-tight mb-1">{section.title}</h1>
+      <p className="text-[13px] text-ink-3 mb-8">{section.groups.reduce((acc, g) => acc + g.topics.length, 0)} topics across {section.groups.length} sections</p>
+
+      <div className="flex flex-col gap-8">
         {section.groups.map((group) => (
           <div key={group.label}>
-            <h3 className="text-[var(--text-xs)] text-ink-3 tracking-[1.5px] uppercase font-medium mb-3">{group.label}</h3>
-            <div className="flex flex-col">
+            <h3 className="text-[11px] text-ink-3 tracking-[1.5px] uppercase font-medium mb-2 px-1">{group.label}</h3>
+            <div className="bg-surface border border-border rounded-[var(--radius-md)] overflow-hidden divide-y divide-border">
               {group.topics.map((t) => (
                 <button
                   key={t.name}
                   onClick={() => onSelectTopic(t)}
-                  className="flex items-center justify-between py-3 px-1 border-b border-rule text-[var(--text-sm)] text-ink-2 hover:text-accent cursor-pointer text-left transition-colors duration-[var(--dur-fast)] group"
+                  className="w-full flex items-center justify-between py-3 px-4 text-[13px] text-ink-2 hover:bg-surface-hover hover:text-ink cursor-pointer text-left transition-all duration-[var(--dur-fast)] group"
                 >
-                  <span>{t.name}</span>
-                  <span className="text-[10px] text-ink-3 opacity-0 group-hover:opacity-100 transition-opacity duration-[var(--dur-fast)]">→</span>
+                  <span className="group-hover:translate-x-0.5 transition-transform duration-[var(--dur-fast)]">{t.name}</span>
+                  <span className="text-[11px] text-text-muted group-hover:text-ink-3 transition-colors">→</span>
                 </button>
               ))}
             </div>
@@ -115,26 +135,37 @@ function SectionView({ section, onSelectTopic }) {
 function TopicDetail({ topic, onBack }) {
   return (
     <>
-      <button onClick={onBack} className="text-[var(--text-xs)] text-ink-3 hover:text-accent transition-colors duration-[var(--dur-fast)] mb-8 cursor-pointer">
-        ← Back
+      <button onClick={onBack} className="text-[12px] text-ink-3 hover:text-ink transition-colors duration-[var(--dur-fast)] mb-6 cursor-pointer flex items-center gap-1.5">
+        <span>←</span> <span>Back</span>
       </button>
-      <h1 className="font-serif text-[var(--text-xl)] text-ink font-normal tracking-tight mb-10">{topic.name}</h1>
+      <h1 className="text-[24px] text-ink font-semibold tracking-tight mb-2">{topic.name}</h1>
+      <p className="text-[13px] text-ink-3 mb-8">Syllabus breakdown · Context + Advanced focus</p>
 
-      <section className="mb-10">
-        <h3 className="text-[var(--text-xs)] text-ink-3 tracking-[1.5px] uppercase font-medium mb-4">Context · Intro + Certified</h3>
-        <div className="flex flex-col gap-2.5">
-          {topic.context.map((item, i) => (
-            <p key={i} className="text-[var(--text-sm)] text-ink-2 leading-relaxed pl-4 border-l border-rule">{item}</p>
-          ))}
+      <section className="mb-8">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-2 h-2 rounded-full bg-ink-3"></div>
+          <h3 className="text-[11px] text-ink-3 tracking-[1.5px] uppercase font-medium">Context · Intro + Certified</h3>
+        </div>
+        <div className="bg-surface border border-border rounded-[var(--radius-md)] p-5">
+          <div className="flex flex-col gap-3">
+            {topic.context.map((item, i) => (
+              <p key={i} className="text-[13px] text-ink-2 leading-relaxed">{item}</p>
+            ))}
+          </div>
         </div>
       </section>
 
       <section>
-        <h3 className="text-[var(--text-xs)] text-accent tracking-[1.5px] uppercase font-medium mb-4">Advanced · Study Focus</h3>
-        <div className="flex flex-col gap-2.5">
-          {topic.advanced.map((item, i) => (
-            <p key={i} className="text-[var(--text-sm)] text-ink leading-relaxed pl-4 border-l-2 border-accent">{item}</p>
-          ))}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-2 h-2 rounded-full bg-accent"></div>
+          <h3 className="text-[11px] text-accent tracking-[1.5px] uppercase font-medium">Advanced · Study Focus</h3>
+        </div>
+        <div className="bg-surface border border-accent/20 rounded-[var(--radius-md)] p-5">
+          <div className="flex flex-col gap-3">
+            {topic.advanced.map((item, i) => (
+              <p key={i} className="text-[13px] text-ink leading-relaxed">{item}</p>
+            ))}
+          </div>
         </div>
       </section>
     </>
