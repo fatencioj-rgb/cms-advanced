@@ -267,25 +267,27 @@ export const alsaceResearch = {
       {
         year: 2026,
         items: [
-          'EU updates Alsace wine rules to allow limited climate-adaptation grape varieties (July 2026)',
-          'Geographic code updates: Herrlisheim → Herrlisheim-près-Colmar, Soultz → Soultz-Haut-Rhin (2025 Official Geographic Code)',
+          'January 2026: further cahier des charges modification for AOC Alsace (INAO)',
           'Ongoing discussion about expanding Grand Cru to include more blends and/or additional varieties beyond the 4 noble grapes',
           'Climate change impact: Pinot Noir gaining ground rapidly (13%+ plantings). Warmer vintages increasingly common',
+          'Alsace biodynamic/organic surface now ~36-37% — highest proportion in France',
         ],
       },
       {
         year: 2025,
         items: [
-          'INAO revision of cahier des charges for all 51 Grand Cru appellations (consolidated August 2025)',
+          'May 2025: introduction of new climate-adaptation grape varieties and authorisation of new bottle formats (cahier des charges modification)',
+          'INAO consolidated revision of cahier des charges for all 51 Grand Cru appellations (August 2025)',
           'Earliest harvest on record for some domaines — Crémant from 19 August, still wines from 25 August',
-          'Continued growth of biodynamic viticulture: Alsace now ~36-37% organic/biodynamic surface (highest in France)',
         ],
       },
       {
         year: 2024,
         items: [
           'Pinot Noir authorized in 3 Grand Cru sites (Hengst, Kirchberg de Barr, Vorbourg) from July 2024 — first red Grand Cru wines in Alsace',
+          'November 2024: irrigation authorized under AOC Alsace (cahier des charges modification) — climate adaptation measure',
           'Trimbach releases first-ever Grand Cru labelled wines (Geisberg, Schlossberg) after generations of refusing the classification',
+          'New bottle formats authorized — producers no longer obliged to use traditional flute-shaped bottle exclusively',
           'Continued shift toward dry wines as sweet wine demand declines globally',
           'Increasing interest in orange/skin-contact wines from Gewurztraminer and Pinot Gris',
         ],
