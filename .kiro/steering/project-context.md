@@ -24,6 +24,7 @@
 5. **courtofmastersommeliers.org** (CMS Europe official resources, syllabus, toolbox)
 
 ### Sources to AVOID
+- **Wikipedia** — never use as a source; not acceptable for exam-level research
 - Random blogs without credentials
 - AI-generated content without verification
 - CMS Americas materials (mastersommeliers.org) — different syllabus/standards
@@ -34,6 +35,7 @@
 - Always note when information may have changed recently (classifications, producers, laws)
 - Prefer primary sources over secondary
 - Note vintage of information (wine laws and classifications change)
+- Latest Developments & Updates: always order from most recent year to oldest (descending)
 
 ## Project Structure
 - `index.html` — Master study index (syllabus breakdown by level)
