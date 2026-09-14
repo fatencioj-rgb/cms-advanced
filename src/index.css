@@ -1,51 +1,239 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   DESIGN TOKENS — matching cms_web exactly
+   ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-bg: #09090b;
-  --color-paper: #09090b;
-  --color-paper-2: #18181b;
-  --color-paper-3: #27272a;
-  --color-surface: #18181b;
-  --color-surface-hover: #27272a;
-  --color-border: #27272a;
-  --color-border-light: #3f3f46;
-  --color-rule: #27272a;
-  --color-ink: #fafafa;
-  --color-ink-2: #a1a1aa;
-  --color-ink-3: #71717a;
-  --color-accent: #22c55e;
-  --color-accent-hover: #16a34a;
-  --color-accent-surface: rgba(34, 197, 94, 0.08);
-  --color-cream: #fafafa;
-  --color-text: #a1a1aa;
-  --color-text-dim: #71717a;
-  --color-text-muted: #52525b;
-  --color-gold: #22c55e;
-  --color-gold-dim: #71717a;
+  /* Brand greens */
+  --color-green-dark:   #2c5f2e;
+  --color-green-mid:    #4a7c59;
+  --color-green-light:  #e8f5e9;
+  --color-green-text:   #a8d5a2;  /* text on dark green bg */
 
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
+  /* Gold accent */
+  --color-gold:         #b8860b;
+  --color-gold-light:   #fdf8e1;
+  --color-gold-hover:   #9a7009;
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 150ms;
+  /* Neutral */
+  --color-bg:           #fafaf8;
+  --color-surface:      #ffffff;
+  --color-border:       #d0d0d0;
+  --color-border-light: #e8e8e4;
+
+  /* Text */
+  --color-text:         #1a1a1a;
+  --color-text-light:   #555555;
+  --color-text-muted:   #888888;
+
+  /* Layout */
+  --sidebar-w:          280px;
+  --header-h:           60px;
+  --content-max:        900px;
+
+  /* Radii */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+
+  /* Timing */
+  --dur-fast:   150ms;
   --dur-normal: 250ms;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Segoe UI', sans-serif;
-  --font-serif: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   BASE RESET & BODY
+   ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-  font-family: var(--font-sans);
+  font-family: Calibri, 'Gill Sans', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text);
   background: var(--color-bg);
-  color: var(--color-ink-2);
   -webkit-font-smoothing: antialiased;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TYPOGRAPHY — mirrors old web headings
+   ───────────────────────────────────────────────────────────── */
+.doc-h1 {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.doc-h2 {
+  color: var(--color-green-dark);
+  font-size: 1.2rem;
+  margin: 28px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.doc-h3 {
+  color: var(--color-green-mid);
+  font-size: 1.05rem;
+  margin: 20px 0 8px;
+}
+
+.doc-h4 {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  margin: 16px 0 6px;
+  font-weight: bold;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TOPIC HEADER (green banner at top of each topic)
+   ───────────────────────────────────────────────────────────── */
+.topic-header {
+  background: var(--color-green-dark);
+  color: white;
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+}
+
+.topic-header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.topic-group {
+  font-size: 0.8rem;
+  color: var(--color-green-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   EXAM TIP BLOCKQUOTE (gold left border)
+   ───────────────────────────────────────────────────────────── */
+.exam-tip {
+  background: var(--color-gold-light);
+  border-left: 4px solid var(--color-gold);
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.93rem;
+}
+
+.exam-tip p { margin: 4px 0; }
+.exam-tip strong { color: var(--color-gold); }
+
+/* ─────────────────────────────────────────────────────────────
+   TABLES
+   ───────────────────────────────────────────────────────────── */
+.doc-table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.doc-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.doc-table th {
+  background: var(--color-green-dark);
+  color: white;
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid var(--color-border);
+}
+
+.doc-table td {
+  border: 1px solid var(--color-border);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-table tr:nth-child(even) td {
+  background: #f8f8f6;
+}
+
+.doc-table strong {
+  color: var(--color-green-dark);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LISTS
+   ───────────────────────────────────────────────────────────── */
+.doc-ul {
+  margin: 8px 0 8px 20px;
+  padding: 0;
+}
+
+.doc-ul li {
+  margin: 4px 0;
+  padding-left: 4px;
+}
+
+.doc-ul li.sub {
+  margin-left: 20px;
+  font-size: 0.95em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SECTION DIVIDER
+   ───────────────────────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 18px 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TOPIC SECTION BLOCK
+   ───────────────────────────────────────────────────────────── */
+.topic-section {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--color-green-light);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   NOTE / SOURCE LINE
+   ───────────────────────────────────────────────────────────── */
+.doc-note {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-top: 8px;
   line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SCROLLBAR
+   ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* ─────────────────────────────────────────────────────────────
+   PRINT
+   ───────────────────────────────────────────────────────────── */
+@media print {
+  #cms-header, #cms-sidebar, .back-to-top { display: none !important; }
+  #cms-content { margin-left: 0 !important; padding: 0 !important; }
+  .topic-section { page-break-before: always; border-bottom: none; }
+  .topic-header { background: white !important; color: var(--color-green-dark) !important; border: 2px solid var(--color-green-dark); }
+  body { font-size: 11pt; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #cms-sidebar { display: none; }
+  #cms-sidebar.open { display: block; }
+  #cms-content { margin-left: 0 !important; }
 }

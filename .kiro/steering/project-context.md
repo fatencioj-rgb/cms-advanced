@@ -79,6 +79,33 @@ export const alsace = {
 - Cards with borders, hover states
 - Sidebar navigation with 5 sections: Wine, Spirits, Viticulture, Tasting, Service
 
+## Deductive Tasting Section
+
+### Structure
+- Nav item: "🍷 Deductive Tasting" in sidebar (below Service)
+- Component: `src/components/DeductiveTasting.jsx`
+- Data: `src/data/tasting/<grape>.js` — one file per grape
+
+### Modes
+- **Flash Mode**: Sensory profile card → 4-option multiple choice → reveal answer + explanation + why not the others
+- **Study Profiles**: Read each region's full sensory profile, clues, eliminations, exam tip
+
+### Grapes completed
+- Chardonnay (`src/data/tasting/chardonnay.js`) — 6 regions, 6 flash cards
+
+### Grapes pending
+- Pinot Noir (Gevrey, Chambolle, Vosne, Oregon, Central Otago, Marlborough)
+- Riesling (Mosel, Rheingau, Alsace, Clare Valley, Wachau)
+- Sauvignon Blanc (Sancerre, Pouilly-Fumé, Marlborough, Pessac-Léognan)
+- Chenin Blanc (Savennières, Vouvray, Swartland, Western Cape)
+- Cabernet Sauvignon (Médoc, Napa, Coonawarra, Maipo)
+- Syrah/Shiraz (Côte-Rôtie, Hermitage, Crozes, Barossa, McLaren Vale)
+
+### Adding a new grape
+1. Create `src/data/tasting/<grape>.js` following the `chardonnay.js` structure
+2. Import it in `DeductiveTasting.jsx` and add to `allGrapes` array
+3. Add region ids to `regionLabels` map
+
 ## Deploy Process
 ```
 cd "c:\Users\fiore\OneDrive - Le Cordon Bleu International BV\CMS 206\cms-advance"

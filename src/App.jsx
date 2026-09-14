@@ -1,579 +1,914 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { syllabus } from './data/syllabus'
 import { getResearch } from './data/research'
+import DeductiveTasting from './components/DeductiveTasting'
 
-const navItems = [
-  { key: 'wine', label: 'Wine' },
-  { key: 'spirits', label: 'Spirits' },
-  { key: 'viticulture', label: 'Viticulture' },
-  { key: 'tasting', label: 'Tasting' },
-  { key: 'service', label: 'Service' },
+/* ─── Sidebar nav config ─────────────────────────────────────── */
+const navGroups = [
+  {
+    label: 'WINE',
+    items: [
+      { key: 'home',       label: 'Overview' },
+      { key: 'wine',       label: 'Wine' },
+      { key: 'spirits',    label: 'Spirits & Beverages' },
+      { key: 'viticulture',label: 'Viticulture' },
+    ],
+  },
+  {
+    label: 'EXAMS',
+    items: [
+      { key: 'tasting',    label: 'Tasting' },
+      { key: 'service',    label: 'Service' },
+    ],
+  },
+  {
+    label: 'TASTING TOOLS',
+    items: [
+      { key: 'deductive',  label: '🍷 Deductive Tasting' },
+    ],
+  },
 ]
 
-function App() {
-  const [view, setView] = useState('home')
-  const [topic, setTopic] = useState(null)
+/* ═══════════════════════════════════════════════════════════════
+   ROOT
+═══════════════════════════════════════════════════════════════ */
+export default function App() {
+  const [view, setView]         = useState('home')
+  const [topic, setTopic]       = useState(null)
+  const [sidebarOpen, setSidebar] = useState(false)
+
+  function navigate(key) {
+    setView(key)
+    setTopic(null)
+    setSidebar(false)
+    window.scrollTo(0, 0)
+  }
 
   return (
-    <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-[240px] fixed top-0 left-0 h-screen border-r border-border flex flex-col bg-paper">
-        <div className="p-5 flex items-center gap-3">
-          <img src="/cms-advanced/logo.png" alt="CMS" className="w-7 h-7 object-contain rounded-full" />
+    <div style={{ minHeight: '100vh', background: 'var(--color-bg)' }}>
+
+      {/* ── Sticky header ─────────────────────────────────── */}
+      <header
+        id="cms-header"
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+          background: 'var(--color-green-dark)',
+          color: 'white',
+          padding: '0 24px',
+          height: 'var(--header-h)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <img
+            src="/cms-advanced/logo.png"
+            alt="CMS"
+            style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'contain', border: '2px solid rgba(255,255,255,0.3)' }}
+          />
           <div>
-            <p className="text-[13px] text-ink font-medium leading-tight">CMS Advanced</p>
-            <p className="text-[11px] text-ink-3">Fiorella Atencio</p>
+            <div style={{ fontSize: '1.05rem', fontWeight: 'normal', letterSpacing: '0.04em' }}>
+              CMS Europe — Advanced Sommelier
+            </div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--color-green-text)', marginTop: 2 }}>
+              Fiorella Atencio &nbsp;|&nbsp; Syllabus 2026/2027
+            </div>
           </div>
         </div>
 
-        <div className="px-3 flex-1">
-          <div className="flex flex-col gap-0.5">
-            <button
-              onClick={() => { setView('home'); setTopic(null); }}
-              className={`w-full px-3 py-[9px] rounded-[var(--radius-sm)] text-[13px] text-left cursor-pointer transition-all duration-[var(--dur-fast)] ${
-                view === 'home'
-                  ? 'bg-surface-hover text-ink font-medium'
-                  : 'text-ink-2 hover:bg-surface hover:text-ink'
-              }`}
-            >
-              Overview
-            </button>
+        {/* Mobile menu toggle */}
+        <button
+          onClick={() => setSidebar(o => !o)}
+          style={{
+            display: 'none',
+            background: 'none',
+            border: '1px solid rgba(255,255,255,0.4)',
+            color: 'white',
+            padding: '6px 12px',
+            borderRadius: 4,
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+          }}
+          className="mobile-menu-btn"
+        >
+          ☰ Menu
+        </button>
+      </header>
 
-            <div className="h-[1px] bg-border my-2"></div>
+      {/* ── Layout: sidebar + content ─────────────────────── */}
+      <div style={{ display: 'flex', minHeight: 'calc(100vh - var(--header-h))' }}>
 
-            {navItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => { setView(item.key); setTopic(null); }}
-                className={`w-full px-3 py-[9px] rounded-[var(--radius-sm)] text-[13px] text-left cursor-pointer transition-all duration-[var(--dur-fast)] ${
-                  view === item.key
-                    ? 'bg-surface-hover text-ink font-medium'
-                    : 'text-ink-2 hover:bg-surface hover:text-ink'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+        {/* ── Sidebar ──────────────────────────────────────── */}
+        <nav
+          id="cms-sidebar"
+          className={sidebarOpen ? 'open' : ''}
+          style={{
+            width: 'var(--sidebar-w)',
+            minWidth: 'var(--sidebar-w)',
+            background: 'white',
+            borderRight: '1px solid var(--color-border)',
+            position: 'sticky',
+            top: 'var(--header-h)',
+            height: 'calc(100vh - var(--header-h))',
+            overflowY: 'auto',
+            padding: '12px 0',
+            flexShrink: 0,
+          }}
+        >
+          {navGroups.map(group => (
+            <div key={group.label} style={{ marginBottom: 8 }}>
+              {/* Group label */}
+              <div style={{
+                fontSize: '0.7rem',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                color: 'var(--color-green-dark)',
+                padding: '8px 16px 4px',
+                borderTop: '1px solid var(--color-green-light)',
+                marginTop: 4,
+              }}>
+                {group.label}
+              </div>
+
+              {/* Items */}
+              <ul style={{ listStyle: 'none' }}>
+                {group.items.map(item => {
+                  const isActive = view === item.key && !topic
+                  return (
+                    <li key={item.key}>
+                      <button
+                        onClick={() => navigate(item.key)}
+                        style={{
+                          display: 'block',
+                          width: '100%',
+                          textAlign: 'left',
+                          padding: '6px 16px 6px 24px',
+                          fontSize: '0.88rem',
+                          background: isActive ? 'var(--color-green-light)' : 'transparent',
+                          borderLeft: isActive
+                            ? '3px solid var(--color-gold)'
+                            : '3px solid transparent',
+                          color: isActive ? 'var(--color-green-dark)' : 'var(--color-text)',
+                          fontWeight: isActive ? 'bold' : 'normal',
+                          cursor: 'pointer',
+                          border: 'none',
+                          borderLeft: isActive ? '3px solid var(--color-gold)' : '3px solid transparent',
+                          transition: 'all var(--dur-fast)',
+                        }}
+                        onMouseEnter={e => {
+                          if (!isActive) {
+                            e.currentTarget.style.background = 'var(--color-green-light)'
+                            e.currentTarget.style.borderLeft = '3px solid var(--color-green-dark)'
+                            e.currentTarget.style.color = 'var(--color-green-dark)'
+                          }
+                        }}
+                        onMouseLeave={e => {
+                          if (!isActive) {
+                            e.currentTarget.style.background = 'transparent'
+                            e.currentTarget.style.borderLeft = '3px solid transparent'
+                            e.currentTarget.style.color = 'var(--color-text)'
+                          }
+                        }}
+                      >
+                        {item.label}
+                      </button>
+
+                      {/* Sub-topics when inside a section */}
+                      {view === item.key && syllabus[item.key] && !topic && (
+                        <SidebarSubNav
+                          section={syllabus[item.key]}
+                          onSelectTopic={setTopic}
+                        />
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          ))}
+
+          {/* Bottom label */}
+          <div style={{
+            padding: '16px',
+            marginTop: 8,
+            borderTop: '1px solid var(--color-border)',
+            fontSize: '0.75rem',
+            color: 'var(--color-text-muted)',
+            lineHeight: 1.5,
+          }}>
+            Court of Master Sommeliers Europe<br />
+            Advanced Examination
           </div>
-        </div>
+        </nav>
 
-        <div className="p-5 border-t border-border">
-          <p className="text-[10px] text-ink-3">Court of Master Sommeliers Europe</p>
-          <p className="text-[10px] text-text-muted">Syllabus 2026 / 2027</p>
-        </div>
-      </aside>
-
-      {/* Main */}
-      <main className="ml-[240px] flex-1 min-h-screen">
-        <div className="max-w-[680px] px-10 py-12">
-          {view === 'home' && !topic && <HomeView />}
-          {view !== 'home' && !topic && (
-            <SectionView section={syllabus[view]} onSelectTopic={setTopic} />
+        {/* ── Main content ─────────────────────────────────── */}
+        <main
+          id="cms-content"
+          style={{
+            flex: 1,
+            maxWidth: 'var(--content-max)',
+            padding: '32px 40px',
+            margin: '0 auto',
+          }}
+        >
+          {view === 'home'      && !topic && <HomeView onNavigate={navigate} />}
+          {view === 'deductive' && !topic && <DeductiveTasting />}
+          {view !== 'home' && view !== 'deductive' && !topic && syllabus[view] && (
+            <SectionView
+              section={syllabus[view]}
+              sectionKey={view}
+              onSelectTopic={setTopic}
+            />
           )}
-          {topic && <TopicDetail topic={topic} onBack={() => setTopic(null)} />}
-        </div>
-      </main>
+          {topic && (
+            <TopicDetail
+              topic={topic}
+              onBack={() => { setTopic(null); window.scrollTo(0,0) }}
+            />
+          )}
+        </main>
+      </div>
     </div>
   )
 }
 
-function HomeView() {
+/* ─── Sidebar sub-nav (topics within active section) ─────────── */
+function SidebarSubNav({ section, onSelectTopic }) {
   return (
-    <>
-      <div className="mb-10">
-        <h1 className="text-[32px] text-ink font-semibold tracking-tight leading-tight mb-2">
-          Advanced Sommelier
+    <ul style={{ listStyle: 'none' }}>
+      {section.groups.map(group => (
+        <li key={group.label}>
+          <div style={{
+            fontSize: '0.7rem',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            color: 'var(--color-gold)',
+            padding: '4px 16px 2px 28px',
+          }}>
+            {group.label}
+          </div>
+          {group.topics.map(t => (
+            <button
+              key={t.name}
+              onClick={() => onSelectTopic(t)}
+              style={{
+                display: 'block',
+                width: '100%',
+                textAlign: 'left',
+                padding: '3px 16px 3px 36px',
+                fontSize: '0.82rem',
+                background: 'transparent',
+                border: 'none',
+                borderLeft: '3px solid transparent',
+                color: 'var(--color-text-light)',
+                cursor: 'pointer',
+                transition: 'all var(--dur-fast)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'var(--color-green-light)'
+                e.currentTarget.style.borderLeft = '3px solid var(--color-green-dark)'
+                e.currentTarget.style.color = 'var(--color-green-dark)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'transparent'
+                e.currentTarget.style.borderLeft = '3px solid transparent'
+                e.currentTarget.style.color = 'var(--color-text-light)'
+              }}
+            >
+              {t.name}
+            </button>
+          ))}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOME VIEW
+═══════════════════════════════════════════════════════════════ */
+function HomeView({ onNavigate }) {
+  return (
+    <div>
+      {/* Hero */}
+      <div style={{ marginBottom: 32 }}>
+        <h1 style={{
+          fontSize: '1.8rem',
+          color: 'var(--color-green-dark)',
+          fontWeight: 'bold',
+          marginBottom: 6,
+        }}>
+          Advanced Sommelier — Study Hub
         </h1>
-        <p className="text-[15px] text-ink-2 max-w-[500px]">
-          Study log for the Court of Master Sommeliers Europe Advanced examination.
+        <p style={{ fontSize: '1rem', color: 'var(--color-text-light)', maxWidth: 560 }}>
+          Structured study notes for the Court of Master Sommeliers Europe Advanced examination.
+          Theory · Tasting · Service · Syllabus 2026/2027.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        {Object.entries(syllabus).map(([key, section]) => (
-          <div key={key} className="bg-surface border border-border rounded-[var(--radius-md)] p-5 hover:bg-surface-hover hover:border-border-light transition-all duration-[var(--dur-normal)] cursor-default group">
-            <h3 className="text-[14px] font-medium text-ink mb-1.5 group-hover:text-accent transition-colors duration-[var(--dur-fast)]">{section.title}</h3>
-            <p className="text-[12px] text-ink-3">{section.groups.length} sections · {section.groups.reduce((acc, g) => acc + g.topics.length, 0)} topics</p>
-            <div className="mt-3 h-1 bg-paper-3 rounded-full overflow-hidden">
-              <div className="h-full bg-accent/30 rounded-full" style={{width: '0%'}}></div>
-            </div>
-          </div>
-        ))}
+      <hr className="section-divider" />
+
+      {/* Exam info */}
+      <h2 className="doc-h2">Examination Overview</h2>
+      <div className="doc-table-wrap">
+        <table className="doc-table">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Format</th>
+              <th>Pass Mark</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Theory</strong></td>
+              <td>Written exam</td>
+              <td>60%</td>
+              <td>All sections must be passed simultaneously</td>
+            </tr>
+            <tr>
+              <td><strong>Tasting</strong></td>
+              <td>2 wines blind (1 white + 1 red)</td>
+              <td>60%</td>
+              <td>CMS deductive tasting grid; grape + region + vintage</td>
+            </tr>
+            <tr>
+              <td><strong>Service</strong></td>
+              <td>Practical service exam</td>
+              <td>60%</td>
+              <td>Restaurant scenario with panel of examiners</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </>
+
+      <div className="exam-tip">
+        <p><strong>🎯 Key Rule:</strong> All three sections must be passed in the same sitting — a 90% in Theory cannot compensate for a 55% in Service. You pass or fail as a whole.</p>
+      </div>
+
+      {/* Deductive tasting call-out */}
+      <h2 className="doc-h2">Deductive Tasting Flash Cards</h2>
+      <p style={{ marginBottom: 12, color: 'var(--color-text-light)', fontSize: '0.93rem' }}>
+        New tool for blind tasting practice. Each card presents a sensory profile — you identify grape and region.
+        Includes Study Profiles with regional comparisons and key producers updated to 2026.
+      </p>
+      <button
+        onClick={() => onNavigate('deductive')}
+        style={{
+          display: 'inline-block',
+          background: 'var(--color-gold)',
+          color: 'white',
+          border: 'none',
+          padding: '10px 24px',
+          borderRadius: 'var(--radius-md)',
+          fontSize: '0.95rem',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          letterSpacing: '0.02em',
+        }}
+        onMouseEnter={e => e.currentTarget.style.background = 'var(--color-gold-hover)'}
+        onMouseLeave={e => e.currentTarget.style.background = 'var(--color-gold)'}
+      >
+        Start Deductive Tasting →
+      </button>
+
+      <hr className="section-divider" style={{ marginTop: 32 }} />
+
+      {/* Syllabus sections */}
+      <h2 className="doc-h2">Syllabus Sections</h2>
+      <div className="doc-table-wrap">
+        <table className="doc-table">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Groups</th>
+              <th>Topics</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(syllabus).map(([key, section]) => (
+              <tr key={key}>
+                <td>
+                  <button
+                    onClick={() => onNavigate(key)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--color-green-dark)',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      fontSize: '0.9rem',
+                      textDecoration: 'underline',
+                      padding: 0,
+                    }}
+                  >
+                    {section.title}
+                  </button>
+                </td>
+                <td>{section.groups.length}</td>
+                <td>{section.groups.reduce((a, g) => a + g.topics.length, 0)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
 
-function SectionView({ section, onSelectTopic }) {
+/* ═══════════════════════════════════════════════════════════════
+   SECTION VIEW — lists all topics in a section
+═══════════════════════════════════════════════════════════════ */
+function SectionView({ section, sectionKey, onSelectTopic }) {
+  const total = section.groups.reduce((a, g) => a + g.topics.length, 0)
+
   return (
-    <>
-      <h1 className="text-[26px] text-ink font-semibold tracking-tight mb-1">{section.title}</h1>
-      <p className="text-[13px] text-ink-3 mb-8">{section.groups.reduce((acc, g) => acc + g.topics.length, 0)} topics across {section.groups.length} sections</p>
-
-      <div className="flex flex-col gap-8">
-        {section.groups.map((group) => (
-          <div key={group.label}>
-            <h3 className="text-[11px] text-ink-3 tracking-[1.5px] uppercase font-medium mb-2 px-1">{group.label}</h3>
-            <div className="bg-surface border border-border rounded-[var(--radius-md)] overflow-hidden divide-y divide-border">
-              {group.topics.map((t) => (
-                <button
-                  key={t.name}
-                  onClick={() => onSelectTopic(t)}
-                  className="w-full flex items-center justify-between py-3 px-4 text-[13px] text-ink-2 hover:bg-surface-hover hover:text-ink cursor-pointer text-left transition-all duration-[var(--dur-fast)] group"
-                >
-                  <span className="group-hover:translate-x-0.5 transition-transform duration-[var(--dur-fast)]">{t.name}</span>
-                  <span className="text-[11px] text-text-muted group-hover:text-ink-3 transition-colors">→</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
+    <div>
+      {/* Section header */}
+      <div className="topic-header">
+        <h1>{section.title}</h1>
+        <span className="topic-group">
+          Advanced Sommelier · {total} topics across {section.groups.length} sections
+        </span>
       </div>
-    </>
+
+      {section.groups.map(group => (
+        <div key={group.label} className="topic-section">
+          <h2 className="doc-h2">{group.label}</h2>
+          <div className="doc-table-wrap">
+            <table className="doc-table">
+              <thead>
+                <tr>
+                  <th style={{ width: '35%' }}>Topic</th>
+                  <th>Advanced Study Focus (excerpt)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {group.topics.map(t => (
+                  <tr key={t.name}>
+                    <td>
+                      <button
+                        onClick={() => onSelectTopic(t)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--color-green-dark)',
+                          fontWeight: 'bold',
+                          cursor: 'pointer',
+                          fontSize: '0.9rem',
+                          textDecoration: 'underline',
+                          padding: 0,
+                          textAlign: 'left',
+                        }}
+                      >
+                        {t.name}
+                      </button>
+                    </td>
+                    <td style={{ fontSize: '0.85rem', color: 'var(--color-text-light)' }}>
+                      {t.advanced.slice(0, 2).join(' · ')}
+                      {t.advanced.length > 2 && ` · +${t.advanced.length - 2} more`}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   TOPIC DETAIL — full document view for one topic
+═══════════════════════════════════════════════════════════════ */
 function TopicDetail({ topic, onBack }) {
   const [showResearch, setShowResearch] = useState(false)
   const research = getResearch(topic.name)
 
   return (
-    <>
-      <button onClick={onBack} className="text-[12px] text-ink-3 hover:text-ink transition-colors duration-[var(--dur-fast)] mb-6 cursor-pointer flex items-center gap-1.5">
-        <span>←</span> <span>Back</span>
+    <div>
+      {/* Back link */}
+      <button
+        onClick={onBack}
+        style={{
+          background: 'none',
+          border: 'none',
+          color: 'var(--color-green-dark)',
+          fontSize: '0.88rem',
+          cursor: 'pointer',
+          marginBottom: 20,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          textDecoration: 'underline',
+        }}
+      >
+        ← Back
       </button>
-      <h1 className="text-[24px] text-ink font-semibold tracking-tight mb-2">{topic.name}</h1>
-      <p className="text-[13px] text-ink-3 mb-4">Syllabus breakdown · Context + Advanced focus</p>
 
+      {/* Topic header banner */}
+      <div className="topic-header">
+        <h1>{topic.name}</h1>
+        <span className="topic-group">Advanced Sommelier · Syllabus 2026/2027</span>
+      </div>
+
+      {/* Research toggle */}
       {research && (
-        <button
-          onClick={() => setShowResearch(!showResearch)}
-          className="mb-8 px-4 py-2 rounded-[var(--radius-sm)] text-[12px] font-medium cursor-pointer transition-all duration-[var(--dur-fast)] border bg-accent/10 border-accent/30 text-accent hover:bg-accent/20"
-        >
-          {showResearch ? '← Back to Syllabus' : '📖 View Research Notes'}
-        </button>
+        <div style={{ marginBottom: 24 }}>
+          <button
+            onClick={() => setShowResearch(!showResearch)}
+            style={{
+              background: showResearch ? 'var(--color-green-dark)' : 'var(--color-gold-light)',
+              color: showResearch ? 'white' : 'var(--color-gold)',
+              border: `1px solid ${showResearch ? 'var(--color-green-dark)' : 'var(--color-gold)'}`,
+              padding: '8px 20px',
+              borderRadius: 'var(--radius-md)',
+              fontSize: '0.9rem',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            {showResearch ? '← Back to Syllabus' : '📖 View Research Notes'}
+          </button>
+        </div>
       )}
 
       {!showResearch && (
         <>
-          <section className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-2 h-2 rounded-full bg-ink-3"></div>
-              <h3 className="text-[11px] text-ink-3 tracking-[1.5px] uppercase font-medium">Context · Intro + Certified</h3>
-            </div>
-            <div className="bg-surface border border-border rounded-[var(--radius-md)] p-5">
-              <div className="flex flex-col gap-3">
-                {topic.context.map((item, i) => (
-                  <p key={i} className="text-[13px] text-ink-2 leading-relaxed">{item}</p>
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* Context section */}
+          <div className="topic-section">
+            <hr className="section-divider" />
+            <h2 className="doc-h2">Context · Introductory + Certified</h2>
+            <ul className="doc-ul">
+              {topic.context.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </div>
 
-          <section>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              <h3 className="text-[11px] text-accent tracking-[1.5px] uppercase font-medium">Advanced · Study Focus</h3>
+          {/* Advanced section */}
+          <div className="topic-section">
+            <h2 className="doc-h2" style={{ borderBottomColor: 'var(--color-green-dark)' }}>
+              Advanced · Study Focus
+            </h2>
+            <ul className="doc-ul">
+              {topic.advanced.map((item, i) => (
+                <li key={i} style={{ color: 'var(--color-text)' }}>{item}</li>
+              ))}
+            </ul>
+
+            <div className="exam-tip" style={{ marginTop: 20 }}>
+              <p><strong>🎯 Advanced Exam Note:</strong> The above points represent what the CMS Europe Advanced exam specifically targets for this topic. Each point is examinable in detail — not just the concept, but specific data, producers, classifications, and vintages.</p>
             </div>
-            <div className="bg-surface border border-accent/20 rounded-[var(--radius-md)] p-5">
-              <div className="flex flex-col gap-3">
-                {topic.advanced.map((item, i) => (
-                  <p key={i} className="text-[13px] text-ink leading-relaxed">{item}</p>
-                ))}
-              </div>
-            </div>
-          </section>
+          </div>
         </>
       )}
 
       {showResearch && research && <ResearchView data={research} />}
-    </>
+    </div>
   )
 }
 
-/* ─── Research View ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   RESEARCH VIEW — detailed notes per topic
+═══════════════════════════════════════════════════════════════ */
 function ResearchView({ data }) {
   return (
-    <div className="flex flex-col gap-8">
-      {/* Header */}
-      <div className="bg-surface border border-accent/20 rounded-[var(--radius-md)] p-5">
-        <h2 className="text-[16px] text-ink font-semibold mb-1">{data.name} — Research Notes</h2>
-        <p className="text-[11px] text-ink-3">Sources: {data.sources?.join(' · ')}</p>
-      </div>
+    <div>
+      {/* Sources */}
+      {data.sources && (
+        <p className="doc-note" style={{ marginBottom: 20 }}>
+          <strong>Sources:</strong> {data.sources.join(' · ')}
+        </p>
+      )}
 
       {/* Climate */}
       {data.climate && (
-        <ResearchSection title="Climate & Geography" accent>
-          <p className="text-[13px] text-ink-2 mb-3"><span className="text-ink font-medium">Type:</span> {data.climate.type}</p>
-          <p className="text-[13px] text-ink-2 mb-3"><span className="text-ink font-medium">Rainfall:</span> {data.climate.rainfall}</p>
-          <ul className="flex flex-col gap-2">
-            {data.climate.keyFactors.map((f, i) => (
-              <li key={i} className="text-[13px] text-ink-2 leading-relaxed pl-3 border-l-2 border-accent/20">{f}</li>
-            ))}
+        <div className="topic-section">
+          <h2 className="doc-h2">Climate &amp; Geography</h2>
+          <p style={{ marginBottom: 8 }}><strong>Type:</strong> {data.climate.type}</p>
+          <p style={{ marginBottom: 12 }}><strong>Rainfall:</strong> {data.climate.rainfall}</p>
+          <ul className="doc-ul">
+            {data.climate.keyFactors.map((f, i) => <li key={i}>{f}</li>)}
           </ul>
           {data.climate.biodynamic && (
-            <p className="text-[12px] text-ink-3 mt-4 italic">{data.climate.biodynamic}</p>
+            <p className="doc-note" style={{ marginTop: 12 }}>{data.climate.biodynamic}</p>
           )}
-        </ResearchSection>
+        </div>
       )}
 
       {/* Plantings */}
       {data.plantings && (
-        <ResearchSection title="Grape Variety Plantings">
-          <p className="text-[12px] text-ink-3 mb-3">{data.plantings.note}</p>
-          <p className="text-[12px] text-accent mb-4">{data.plantings.aocBreakdown}</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-[12px]">
+        <div className="topic-section">
+          <h2 className="doc-h2">Grape Variety Plantings</h2>
+          <p className="doc-note" style={{ marginBottom: 8 }}>{data.plantings.note}</p>
+          <p style={{ marginBottom: 12, color: 'var(--color-gold)', fontWeight: 'bold', fontSize: '0.9rem' }}>
+            {data.plantings.aocBreakdown}
+          </p>
+          <div className="doc-table-wrap">
+            <table className="doc-table">
               <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-2 text-ink-3 font-medium">Grape</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">%</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">Trend</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">Notes</th>
-                </tr>
+                <tr><th>Grape</th><th>%</th><th>Trend</th><th>Notes</th></tr>
               </thead>
               <tbody>
                 {data.plantings.varieties.map((v, i) => (
-                  <tr key={i} className="border-b border-border/50">
-                    <td className="py-2 text-ink font-medium">{v.grape}</td>
-                    <td className="py-2 text-ink-2">{v.pct}</td>
-                    <td className="py-2 text-ink-3">{v.trend}</td>
-                    <td className="py-2 text-ink-3">{v.notes}</td>
+                  <tr key={i}>
+                    <td><strong>{v.grape}</strong></td>
+                    <td>{v.pct}</td>
+                    <td>{v.trend}</td>
+                    <td>{v.notes}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </ResearchSection>
+        </div>
       )}
 
       {/* Soils */}
       {data.soils && (
-        <ResearchSection title="Soil Diversity">
-          <p className="text-[12px] text-ink-3 mb-4">{data.soils.overview}</p>
-          <div className="flex flex-col gap-3">
-            {data.soils.types.map((s, i) => (
-              <div key={i} className="pl-3 border-l-2 border-border">
-                <p className="text-[13px] text-ink font-medium">{s.soil}</p>
-                <p className="text-[12px] text-ink-3">{s.location}</p>
-                <p className="text-[12px] text-ink-2 mt-0.5">{s.character}</p>
-              </div>
-            ))}
-          </div>
-        </ResearchSection>
+        <div className="topic-section">
+          <h2 className="doc-h2">Soil Diversity</h2>
+          <p style={{ marginBottom: 16, color: 'var(--color-text-light)' }}>{data.soils.overview}</p>
+          {data.soils.types.map((s, i) => (
+            <div key={i} style={{ marginBottom: 12, paddingLeft: 12, borderLeft: '3px solid var(--color-green-light)' }}>
+              <strong style={{ color: 'var(--color-green-dark)' }}>{s.soil}</strong>
+              <span style={{ color: 'var(--color-text-light)', fontSize: '0.88rem' }}> — {s.location}</span>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-light)', marginTop: 2 }}>{s.character}</p>
+            </div>
+          ))}
+        </div>
       )}
 
       {/* Appellations */}
       {data.appellations && (
-        <ResearchSection title="Appellation Hierarchy">
-          <div className="flex flex-col gap-3 mb-4">
-            {data.appellations.hierarchy.map((a, i) => (
-              <div key={i} className="pl-3 border-l-2 border-accent/30">
-                <p className="text-[13px] text-ink font-medium">{a.level}</p>
-                <p className="text-[12px] text-ink-2">{a.details}</p>
-              </div>
-            ))}
-          </div>
+        <div className="topic-section">
+          <h2 className="doc-h2">Appellation Hierarchy</h2>
+          {data.appellations.hierarchy.map((a, i) => (
+            <div key={i} style={{ marginBottom: 10, paddingLeft: 12, borderLeft: '3px solid var(--color-gold)' }}>
+              <strong style={{ color: 'var(--color-green-dark)' }}>{a.level}</strong>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-light)', marginTop: 2 }}>{a.details}</p>
+            </div>
+          ))}
           {data.appellations.communales && (
-            <div className="mt-4">
-              <p className="text-[12px] text-ink font-medium mb-2">11 Appellations Communales:</p>
-              <p className="text-[12px] text-ink-3">{data.appellations.communales.join(' · ')}</p>
+            <div style={{ marginTop: 16 }}>
+              <h3 className="doc-h3">11 Appellations Communales</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-light)' }}>
+                {data.appellations.communales.join(' · ')}
+              </p>
             </div>
           )}
-        </ResearchSection>
+        </div>
       )}
 
       {/* Grand Cru */}
       {data.grandCru && (
-        <ResearchSection title="Grand Cru Sites (51)">
-          <p className="text-[12px] text-ink-3 mb-2">{data.grandCru.overview}</p>
-          <p className="text-[12px] text-ink-3 mb-4">{data.grandCru.sizeRange}</p>
-
-          <div className="mb-4">
-            <p className="text-[12px] text-ink font-medium mb-2">Exceptions to 4-noble-variety rule:</p>
-            <ul className="flex flex-col gap-1">
-              {data.grandCru.exceptions.map((e, i) => (
-                <li key={i} className="text-[12px] text-ink-2 pl-3 border-l-2 border-accent/20">{e}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-[11px]">
+        <div className="topic-section">
+          <h2 className="doc-h2">Grand Cru Sites (51)</h2>
+          <p style={{ marginBottom: 4 }}>{data.grandCru.overview}</p>
+          <p style={{ marginBottom: 16, color: 'var(--color-text-light)', fontSize: '0.9rem' }}>{data.grandCru.sizeRange}</p>
+          <h3 className="doc-h3">Exceptions to 4-noble-variety rule</h3>
+          <ul className="doc-ul" style={{ marginBottom: 16 }}>
+            {data.grandCru.exceptions.map((e, i) => <li key={i}>{e}</li>)}
+          </ul>
+          <div className="doc-table-wrap">
+            <table className="doc-table" style={{ fontSize: '0.83rem' }}>
               <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-2 text-ink-3 font-medium">Grand Cru</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">Commune</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">Ha</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">Soil</th>
-                  <th className="text-left py-2 text-ink-3 font-medium">Notes</th>
-                </tr>
+                <tr><th>Grand Cru</th><th>Commune</th><th>Ha</th><th>Soil</th><th>Notes</th></tr>
               </thead>
               <tbody>
                 {data.grandCru.sites.map((s, i) => (
-                  <tr key={i} className="border-b border-border/50">
-                    <td className="py-1.5 text-ink font-medium">{s.name}</td>
-                    <td className="py-1.5 text-ink-2">{s.commune}</td>
-                    <td className="py-1.5 text-ink-3">{s.ha}</td>
-                    <td className="py-1.5 text-ink-3">{s.soil}</td>
-                    <td className="py-1.5 text-ink-3">{s.noted}</td>
+                  <tr key={i}>
+                    <td><strong>{s.name}</strong></td>
+                    <td>{s.commune}</td>
+                    <td>{s.ha}</td>
+                    <td>{s.soil}</td>
+                    <td>{s.noted}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
           {data.grandCru.closSites && (
-            <div className="mt-6">
-              <p className="text-[12px] text-ink font-medium mb-3">Notable Clos Sites:</p>
-              <div className="flex flex-col gap-3">
-                {data.grandCru.closSites.map((c, i) => (
-                  <div key={i} className="pl-3 border-l-2 border-border">
-                    <p className="text-[12px] text-ink font-medium">{c.name} <span className="text-ink-3 font-normal">— {c.producer}</span></p>
-                    <p className="text-[11px] text-ink-3">{c.commune} · {c.grape}</p>
-                    <p className="text-[11px] text-ink-2 mt-0.5">{c.notes}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <>
+              <h3 className="doc-h3">Notable Clos Sites</h3>
+              {data.grandCru.closSites.map((c, i) => (
+                <div key={i} style={{ marginBottom: 8, paddingLeft: 12, borderLeft: '2px solid var(--color-border)' }}>
+                  <strong>{c.name}</strong> <span style={{ color: 'var(--color-text-light)', fontSize: '0.88rem' }}>— {c.producer}</span>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-light)' }}>{c.commune} · {c.grape}</p>
+                  <p style={{ fontSize: '0.85rem' }}>{c.notes}</p>
+                </div>
+              ))}
+            </>
           )}
-        </ResearchSection>
+        </div>
       )}
 
       {/* Yields */}
       {data.yields && (
-        <ResearchSection title="Yields by Quality Level">
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left py-2 text-ink-3 font-medium">Appellation</th>
-                <th className="text-left py-2 text-ink-3 font-medium">Max Yield</th>
-                <th className="text-left py-2 text-ink-3 font-medium">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.yields.levels.map((y, i) => (
-                <tr key={i} className="border-b border-border/50">
-                  <td className="py-2 text-ink font-medium">{y.appellation}</td>
-                  <td className="py-2 text-ink-2">{y.maxYield}</td>
-                  <td className="py-2 text-ink-3">{y.notes}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </ResearchSection>
+        <div className="topic-section">
+          <h2 className="doc-h2">Yields by Quality Level</h2>
+          <div className="doc-table-wrap">
+            <table className="doc-table">
+              <thead>
+                <tr><th>Appellation</th><th>Max Yield</th><th>Notes</th></tr>
+              </thead>
+              <tbody>
+                {data.yields.levels.map((y, i) => (
+                  <tr key={i}>
+                    <td><strong>{y.appellation}</strong></td>
+                    <td>{y.maxYield}</td>
+                    <td>{y.notes}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
 
       {/* VT & SGN */}
       {data.vtSgn && (
-        <ResearchSection title="Vendange Tardive & SGN Requirements" accent>
-          <p className="text-[12px] text-ink-3 mb-4">{data.vtSgn.note}</p>
-          <table className="w-full text-[12px] mb-4">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left py-2 text-ink-3 font-medium">Designation</th>
-                <th className="text-left py-2 text-ink-3 font-medium">Riesling / Muscat</th>
-                <th className="text-left py-2 text-ink-3 font-medium">Gewurz / Pinot Gris</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.vtSgn.requirements.map((r, i) => (
-                <tr key={i} className="border-b border-border/50">
-                  <td className="py-2 text-ink font-medium">{r.designation}</td>
-                  <td className="py-2 text-ink-2">{r.rieslingMuscat}</td>
-                  <td className="py-2 text-ink-2">{r.gewurzPinotGris}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <ul className="flex flex-col gap-2">
-            {data.vtSgn.keyPoints.map((p, i) => (
-              <li key={i} className="text-[12px] text-ink-2 pl-3 border-l-2 border-accent/20">{p}</li>
-            ))}
+        <div className="topic-section">
+          <h2 className="doc-h2">Vendange Tardive &amp; SGN Requirements</h2>
+          <p style={{ marginBottom: 12, color: 'var(--color-text-light)', fontSize: '0.9rem' }}>{data.vtSgn.note}</p>
+          <div className="doc-table-wrap">
+            <table className="doc-table">
+              <thead>
+                <tr><th>Designation</th><th>Riesling / Muscat</th><th>Gewurz / Pinot Gris</th></tr>
+              </thead>
+              <tbody>
+                {data.vtSgn.requirements.map((r, i) => (
+                  <tr key={i}>
+                    <td><strong>{r.designation}</strong></td>
+                    <td>{r.rieslingMuscat}</td>
+                    <td>{r.gewurzPinotGris}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <ul className="doc-ul" style={{ marginTop: 12 }}>
+            {data.vtSgn.keyPoints.map((p, i) => <li key={i}>{p}</li>)}
           </ul>
-        </ResearchSection>
+        </div>
       )}
 
       {/* Crémant */}
       {data.cremant && (
-        <ResearchSection title="Crémant d'Alsace">
-          <div className="grid grid-cols-2 gap-3 text-[12px]">
-            <div><span className="text-ink font-medium">Method:</span> <span className="text-ink-2">{data.cremant.method}</span></div>
-            <div><span className="text-ink font-medium">Ageing:</span> <span className="text-ink-2">{data.cremant.ageing}</span></div>
-            <div className="col-span-2"><span className="text-ink font-medium">Grapes:</span> <span className="text-ink-2">{data.cremant.grapes}</span></div>
-            <div><span className="text-ink font-medium">Rosé:</span> <span className="text-ink-2">{data.cremant.rose}</span></div>
-            <div><span className="text-ink font-medium">Production:</span> <span className="text-ink-2">{data.cremant.production}</span></div>
+        <div className="topic-section">
+          <h2 className="doc-h2">Crémant d'Alsace</h2>
+          <div className="doc-table-wrap">
+            <table className="doc-table">
+              <tbody>
+                <tr><td><strong>Method</strong></td><td>{data.cremant.method}</td><td><strong>Ageing</strong></td><td>{data.cremant.ageing}</td></tr>
+                <tr><td><strong>Grapes</strong></td><td colSpan={3}>{data.cremant.grapes}</td></tr>
+                <tr><td><strong>Rosé</strong></td><td>{data.cremant.rose}</td><td><strong>Production</strong></td><td>{data.cremant.production}</td></tr>
+              </tbody>
+            </table>
           </div>
-          <p className="text-[12px] text-ink-3 mt-3 italic">{data.cremant.notes}</p>
-        </ResearchSection>
+          {data.cremant.notes && <p className="doc-note" style={{ marginTop: 8 }}>{data.cremant.notes}</p>}
+        </div>
       )}
 
       {/* Vintages */}
       {data.vintages && (
-        <ResearchSection title="Vintages">
-          <p className="text-[12px] text-ink-3 mb-4">{data.vintages.note}</p>
-          <div className="flex flex-col gap-2">
-            {data.vintages.chart.map((v, i) => (
-              <div key={i} className="flex gap-3 pl-3 border-l-2 border-border py-1">
-                <span className="text-[13px] text-ink font-medium w-10 shrink-0">{v.year}</span>
-                <span className="text-[11px] text-accent font-medium w-10 shrink-0">{v.rating}</span>
-                <span className="text-[12px] text-ink-2">{v.notes}</span>
-              </div>
-            ))}
+        <div className="topic-section">
+          <h2 className="doc-h2">Vintages</h2>
+          <p className="doc-note" style={{ marginBottom: 12 }}>{data.vintages.note}</p>
+          <div className="doc-table-wrap">
+            <table className="doc-table">
+              <thead>
+                <tr><th>Year</th><th>Rating</th><th>Notes</th></tr>
+              </thead>
+              <tbody>
+                {data.vintages.chart.map((v, i) => (
+                  <tr key={i}>
+                    <td><strong>{v.year}</strong></td>
+                    <td style={{ color: 'var(--color-gold)', fontWeight: 'bold' }}>{v.rating}</td>
+                    <td>{v.notes}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </ResearchSection>
+        </div>
       )}
 
       {/* Producers */}
       {data.producers && (
-        <ResearchSection title="Principal Producers">
-          <p className="text-[12px] text-ink-3 mb-4">{data.producers.note}</p>
-
-          <p className="text-[12px] text-ink font-medium mb-3">Top Producers:</p>
-          <div className="flex flex-col gap-4 mb-6">
-            {data.producers.top.map((p, i) => (
-              <div key={i} className="pl-3 border-l-2 border-accent/30">
-                <p className="text-[13px] text-ink font-medium">{p.name} <span className="text-ink-3 font-normal text-[11px]">— {p.commune}</span></p>
-                <p className="text-[12px] text-ink-2 mt-0.5">{p.style}</p>
-                <p className="text-[11px] text-ink-3 mt-0.5"><span className="text-ink-2">Key wines:</span> {p.keyWines}</p>
-                {p.notes && <p className="text-[11px] text-ink-3 italic mt-0.5">{p.notes}</p>}
-              </div>
-            ))}
-          </div>
-
+        <div className="topic-section">
+          <h2 className="doc-h2">Principal Producers</h2>
+          {data.producers.note && (
+            <p className="doc-note" style={{ marginBottom: 12 }}>{data.producers.note}</p>
+          )}
+          {data.producers.top && (
+            <>
+              <h3 className="doc-h3">Top Producers</h3>
+              {data.producers.top.map((p, i) => (
+                <div key={i} style={{ marginBottom: 12, paddingLeft: 12, borderLeft: '3px solid var(--color-gold)' }}>
+                  <strong style={{ color: 'var(--color-green-dark)' }}>{p.name}</strong>
+                  <span style={{ color: 'var(--color-text-light)', fontSize: '0.85rem' }}> — {p.commune}</span>
+                  <p style={{ fontSize: '0.9rem', margin: '2px 0' }}>{p.style}</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-light)' }}>Key wines: {p.keyWines}</p>
+                  {p.notes && <p className="doc-note">{p.notes}</p>}
+                </div>
+              ))}
+            </>
+          )}
           {data.producers.notable && (
             <>
-              <p className="text-[12px] text-ink font-medium mb-3">Notable Producers:</p>
-              <div className="grid grid-cols-1 gap-2 mb-4">
-                {data.producers.notable.map((p, i) => (
-                  <div key={i} className="text-[12px] pl-3 border-l border-border">
-                    <span className="text-ink font-medium">{p.name}</span> <span className="text-ink-3">({p.commune})</span> — <span className="text-ink-2">{p.notes}</span>
-                  </div>
-                ))}
+              <h3 className="doc-h3">Notable Producers</h3>
+              <div className="doc-table-wrap">
+                <table className="doc-table">
+                  <thead><tr><th>Producer</th><th>Commune</th><th>Notes</th></tr></thead>
+                  <tbody>
+                    {data.producers.notable.map((p, i) => (
+                      <tr key={i}>
+                        <td><strong>{p.name}</strong></td>
+                        <td>{p.commune}</td>
+                        <td>{p.notes}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </>
           )}
-
           {data.producers.cooperatives && (
             <>
-              <p className="text-[12px] text-ink font-medium mb-2">Cooperatives:</p>
-              <ul className="flex flex-col gap-1">
-                {data.producers.cooperatives.map((c, i) => (
-                  <li key={i} className="text-[12px] text-ink-3">{c}</li>
-                ))}
+              <h3 className="doc-h3">Cooperatives</h3>
+              <ul className="doc-ul">
+                {data.producers.cooperatives.map((c, i) => <li key={i}>{c}</li>)}
               </ul>
             </>
           )}
-        </ResearchSection>
+        </div>
       )}
 
-      {/* Food & Wine Pairings */}
+      {/* Food & Wine */}
       {data.pairings && (
-        <ResearchSection title="Food & Wine Pairings">
-          <p className="text-[12px] text-ink-2 mb-4">{data.pairings.overview}</p>
-
-          <div className="mb-4">
-            <p className="text-[12px] text-ink font-medium mb-2">Pairing Principles:</p>
-            <ul className="flex flex-col gap-2">
-              {data.pairings.principles.map((p, i) => (
-                <li key={i} className="text-[12px] text-ink-2 pl-3 border-l-2 border-accent/20">{p}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            {data.pairings.byVariety.map((v, i) => (
-              <div key={i} className="bg-paper-3 border border-border rounded-[var(--radius-sm)] p-4">
-                <p className="text-[13px] text-ink font-medium mb-1">{v.grape}</p>
-                <p className="text-[11px] text-ink-3 mb-3 italic">{v.profile}</p>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-[11px]">
-                  <div>
-                    <p className="text-ink-2 font-medium mb-1">Classic pairings:</p>
-                    {v.classicPairings.map((cp, j) => (
-                      <p key={j} className="text-ink-3 leading-relaxed">· {cp}</p>
-                    ))}
-                  </div>
-                  <div>
-                    <p className="text-ink-2 font-medium mb-1">Advanced pairings:</p>
-                    {v.advancedPairings.map((ap, j) => (
-                      <p key={j} className="text-ink-3 leading-relaxed">· {ap}</p>
-                    ))}
-                  </div>
+        <div className="topic-section">
+          <h2 className="doc-h2">Food &amp; Wine Pairings</h2>
+          <p style={{ marginBottom: 12 }}>{data.pairings.overview}</p>
+          <h3 className="doc-h3">Pairing Principles</h3>
+          <ul className="doc-ul" style={{ marginBottom: 16 }}>
+            {data.pairings.principles.map((p, i) => <li key={i}>{p}</li>)}
+          </ul>
+          {data.pairings.byVariety.map((v, i) => (
+            <div key={i} style={{ marginBottom: 16, padding: '12px 16px', background: '#f8f8f6', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)' }}>
+              <strong style={{ color: 'var(--color-green-dark)' }}>{v.grape}</strong>
+              <p className="doc-note" style={{ marginBottom: 8 }}>{v.profile}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 24px', fontSize: '0.85rem' }}>
+                <div>
+                  <p style={{ fontWeight: 'bold', marginBottom: 4 }}>Classic:</p>
+                  {v.classicPairings.map((cp, j) => <p key={j} style={{ color: 'var(--color-text-light)' }}>· {cp}</p>)}
                 </div>
-                {v.sommNotes && (
-                  <p className="text-[11px] text-accent mt-3 border-t border-border pt-2">💡 {v.sommNotes}</p>
-                )}
+                <div>
+                  <p style={{ fontWeight: 'bold', marginBottom: 4 }}>Advanced:</p>
+                  {v.advancedPairings.map((ap, j) => <p key={j} style={{ color: 'var(--color-text-light)' }}>· {ap}</p>)}
+                </div>
               </div>
-            ))}
-          </div>
-
-          {data.pairings.regionalCuisine && (
-            <div className="mt-6">
-              <p className="text-[12px] text-ink font-medium mb-3">Regional Cuisine (Winstub Classics):</p>
-              <div className="flex flex-col gap-3">
-                {data.pairings.regionalCuisine.dishes.map((d, i) => (
-                  <div key={i} className="pl-3 border-l-2 border-border text-[12px]">
-                    <p className="text-ink font-medium">{d.dish}</p>
-                    <p className="text-ink-3 text-[11px]">{d.description}</p>
-                    <p className="text-ink-2 text-[11px] mt-0.5">🍷 {d.wine} {d.alt && <span className="text-ink-3">| Alt: {d.alt}</span>}</p>
-                  </div>
-                ))}
-              </div>
+              {v.sommNotes && (
+                <p style={{ marginTop: 8, fontSize: '0.85rem', color: 'var(--color-gold)', borderTop: '1px solid var(--color-border)', paddingTop: 8 }}>
+                  💡 {v.sommNotes}
+                </p>
+              )}
             </div>
-          )}
-
+          ))}
           {data.pairings.examTips && (
-            <div className="mt-6 bg-accent/5 border border-accent/20 rounded-[var(--radius-sm)] p-4">
-              <p className="text-[12px] text-accent font-medium mb-2">🎯 Exam Tips — Pairing</p>
-              <ul className="flex flex-col gap-2">
-                {data.pairings.examTips.map((t, i) => (
-                  <li key={i} className="text-[11px] text-ink-2">{t}</li>
-                ))}
+            <div className="exam-tip">
+              <p><strong>🎯 Exam Tips — Pairing</strong></p>
+              <ul className="doc-ul" style={{ marginTop: 4 }}>
+                {data.pairings.examTips.map((t, i) => <li key={i}>{t}</li>)}
               </ul>
             </div>
           )}
-        </ResearchSection>
+        </div>
       )}
 
       {/* Latest Developments */}
       {data.latestDevelopments && (
-        <ResearchSection title="Latest Developments & Updates" accent>
+        <div className="topic-section">
+          <h2 className="doc-h2">Latest Developments &amp; Updates</h2>
           {data.latestDevelopments.items.map((group, i) => (
-            <div key={i} className="mb-4">
-              <p className="text-[13px] text-ink font-medium mb-2">{group.year}</p>
-              <ul className="flex flex-col gap-2">
-                {group.items.map((item, j) => (
-                  <li key={j} className="text-[12px] text-ink-2 pl-3 border-l-2 border-accent/20">{item}</li>
-                ))}
+            <div key={i} style={{ marginBottom: 16 }}>
+              <h3 className="doc-h3">{group.year}</h3>
+              <ul className="doc-ul">
+                {group.items.map((item, j) => <li key={j}>{item}</li>)}
               </ul>
             </div>
           ))}
-        </ResearchSection>
-      )}
-
-      {/* Sources footer */}
-      {data.sources && (
-        <div className="text-[10px] text-ink-3 border-t border-border pt-4">
-          <p className="font-medium mb-1">Sources:</p>
-          {data.sources.map((s, i) => <p key={i}>{s}</p>)}
         </div>
       )}
     </div>
   )
 }
-
-function ResearchSection({ title, accent, children }) {
-  return (
-    <section>
-      <div className="flex items-center gap-2 mb-4">
-        <div className={`w-2 h-2 rounded-full ${accent ? 'bg-accent' : 'bg-ink-3'}`}></div>
-        <h3 className={`text-[11px] tracking-[1.5px] uppercase font-medium ${accent ? 'text-accent' : 'text-ink-3'}`}>{title}</h3>
-      </div>
-      <div className={`bg-surface border ${accent ? 'border-accent/20' : 'border-border'} rounded-[var(--radius-md)] p-5`}>
-        {children}
-      </div>
-    </section>
-  )
-}
-
-export default App
