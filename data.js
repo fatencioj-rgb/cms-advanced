@@ -11,6 +11,35 @@ window.CMS_GROUPS = [
   { id: 'skills',  name: 'Exam Skills',     hue: 10,  blurb: 'Tasting, pairing, service and business' }
 ];
 
+/* Home layout. Countries with several topics expand to show their regions. */
+window.CMS_LAYOUT = {
+  countries: [
+    { area: 'Old World', list: [
+      { id:'france',   name:'France',   topics:['alsace','bordeaux','burgundy','champagne','loire','rhone','southfrance'] },
+      { id:'italy',    name:'Italy',    topics:['italy'] },
+      { id:'spain',    name:'Spain',    topics:['spain'] },
+      { id:'portugal', name:'Portugal', topics:['portugal'] },
+      { id:'germany',  name:'Germany',  topics:['germany'] },
+      { id:'austria',  name:'Austria',  topics:['austria'] },
+      { id:'greece',   name:'Greece',   topics:['greece'] },
+      { id:'europe-other', name:'Central & Eastern Europe, Switzerland, England & Wales', topics:['europe-other'] }
+    ]},
+    { area: 'New World & Others', list: [
+      { id:'usa-canada',   name:'United States & Canada', topics:['usa-canada'] },
+      { id:'southamerica', name:'South America', topics:['southamerica'] },
+      { id:'australia',    name:'Australia',    topics:['australia'] },
+      { id:'newzealand',   name:'New Zealand',  topics:['newzealand'] },
+      { id:'southafrica',  name:'South Africa', topics:['southafrica'] },
+      { id:'other-wines',  name:'Other Wines: China, Lebanon, Cyprus, Corsica', topics:['other-wines'] }
+    ]}
+  ],
+  themes: [
+    { name:'Wine styles & craft', topics:['sparkling','fortified','viticulture'] },
+    { name:'Beyond wine',        topics:['spirits','liqueurs','beer','sake'] },
+    { name:'Exam skills',        topics:['tasting','pairing','service','business'] }
+  ]
+};
+
 window.CMS_TOPICS = [
 /* ---------------- FRANCE ---------------- */
 { id:'alsace', n:3, group:'france', name:'Alsace',

@@ -34,33 +34,58 @@ function block(b){
 }
 function blockText(b){return (b.h||b.p||b.note||b.btw||(b.list&&b.list.join(' '))||(b.table&&b.table.rows.join(' '))||'')+''}
 
+/* ---- layout: countries (expandable) + themes ---- */
+var L=window.CMS_LAYOUT, ORDER=[], COUNTRY_OF={};
+L.countries.forEach(function(a){a.list.forEach(function(c){c.topics.forEach(function(id){ORDER.push(id);COUNTRY_OF[id]=c})})});
+L.themes.forEach(function(g){g.topics.forEach(function(id){ORDER.push(id)})});
+var OK='cmsAdvanced.open';
+var openC=(function(){try{return JSON.parse(sessionStorage.getItem(OK))||{}}catch(e){return {}}})();
+function themeOf(id){var g=L.themes.filter(function(x){return x.topics.indexOf(id)>-1})[0];return g?g.name:''}
+function saveOpen(){try{sessionStorage.setItem(OK,JSON.stringify(openC))}catch(e){}}
+var CHEV='<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+
 /* ---- views ---- */
+function tag(t){return hasNotes(t)?'<span class="tag ready">Notes</span>':'<span class="tag">Outline</span>'}
 function card(t){
   var g=groupOf(t.group);
   return '<a class="card" style="--h:'+g.hue+'" href="#/t/'+t.id+'"><span class="num">'+num(t.n)+'</span>'+
-    '<span class="c-body"><h3>'+esc(t.name)+'</h3><span class="meta">'+t.adv.length+' advanced points</span></span>'+
-    (hasNotes(t)?'<span class="tag ready">Notes</span>':'<span class="tag">Outline</span>')+'</a>';
+    '<span class="c-body"><h3>'+esc(t.name)+'</h3><span class="meta">'+t.adv.length+' advanced points</span></span>'+tag(t)+'</a>';
+}
+function countryRow(c){
+  var ts=c.topics.map(topicById);
+  if(ts.length===1){var t=ts[0];
+    return '<a class="crow" href="#/t/'+t.id+'"><span class="c-name">'+esc(c.name)+'</span><span class="c-sub">Section '+num(t.n)+'</span>'+tag(t)+CHEV+'</a>'}
+  var open=!!openC[c.id],ready=ts.filter(hasNotes).length;
+  return '<div class="cbox'+(open?' open':'')+'" id="c-'+c.id+'"><button class="crow" type="button" data-c="'+c.id+'" aria-expanded="'+open+'">'+
+    '<span class="c-name">'+esc(c.name)+'</span><span class="c-sub">'+ts.length+' regions'+(ready?' · '+ready+' with notes':'')+'</span>'+CHEV+'</button>'+
+    '<div class="regions"'+(open?'':' hidden')+'><div class="grid">'+ts.map(card).join('')+'</div></div></div>';
 }
 
-function home(){
+function home(focus){
   var ready=TOPICS.filter(hasNotes).length,h='';
   h+='<section class="intro"><p class="eyebrow">Court of Master Sommeliers Europe · 2026/27</p><h1>Advanced Sommelier</h1>'+
      '<p>My study notes, organised by syllabus section. Each topic has what the syllabus asks for at Advanced level and, once researched, my notes on it.</p>'+
      '<p class="count">'+TOPICS.length+' sections · '+ready+' with notes written</p></section>';
-  GROUPS.forEach(function(g){
-    var list=TOPICS.filter(function(t){return t.group===g.id});
-    h+='<section class="group" style="--h:'+g.hue+'"><div class="group-head"><h2>'+esc(g.name)+'</h2><p>'+esc(g.blurb)+'</p></div><div class="grid">'+list.map(card).join('')+'</div></section>';
-  });
+  h+='<section class="block"><h2 class="b-title">Countries &amp; Regions</h2><div class="areas">';
+  L.countries.forEach(function(a){h+='<div class="area"><h3 class="a-title">'+esc(a.area)+'</h3><div class="clist">'+a.list.map(countryRow).join('')+'</div></div>'});
+  h+='</div></section>';
+  h+='<section class="block"><h2 class="b-title">Themes &amp; Skills</h2>';
+  L.themes.forEach(function(g){h+='<div class="theme"><h3 class="a-title">'+esc(g.name)+'</h3><div class="grid">'+g.topics.map(function(id){return card(topicById(id))}).join('')+'</div></div>'});
+  h+='</section>';
   app.innerHTML=h;
+  app.querySelectorAll('button.crow').forEach(function(b){b.onclick=function(){
+    var id=b.dataset.c,box=document.getElementById('c-'+id),open=!openC[id];
+    if(open)openC[id]=1;else delete openC[id];saveOpen();
+    box.classList.toggle('open',open);b.setAttribute('aria-expanded',open);box.querySelector('.regions').hidden=!open}});
+  if(focus){var el=document.getElementById('c-'+focus);if(el)el.scrollIntoView({block:'start'})}
 }
 
 function topic(id){
   var t=topicById(id); if(!t){location.hash='#/';return}
-  var g=groupOf(t.group),idx=TOPICS.indexOf(t),h='';
-  var pv=TOPICS[idx-1],nx=TOPICS[idx+1];
-  h+='<a class="back" href="#/">← All sections</a>';
-  h+='<header class="t-head" style="--h:'+g.hue+'"><span class="num big">'+num(t.n)+'</span><div><div class="crumb">'+esc(g.name)+'</div><h1>'+esc(t.name)+'</h1></div></header>';
-  if(t.note)h+='<aside class="callout key"><b>Exam format</b><p>'+esc(t.note)+'</p></aside>';
+  var g=groupOf(t.group),idx=ORDER.indexOf(id),h='',c=COUNTRY_OF[id],multi=c&&c.topics.length>1;
+  var pv=topicById(ORDER[idx-1]),nx=topicById(ORDER[idx+1]);
+  h+=multi?'<a class="back" href="#/c/'+c.id+'" data-open="'+c.id+'">← '+esc(c.name)+'</a>':'<a class="back" href="#/">← All sections</a>';
+  h+='<header class="t-head" style="--h:'+g.hue+'"><span class="num big">'+num(t.n)+'</span><div><div class="crumb">'+(multi?esc(c.name):c?'Countries &amp; Regions':esc(themeOf(id)))+' · Syllabus section '+num(t.n)+'</div><h1>'+esc(t.name)+'</h1></div></header>';  if(t.note)h+='<aside class="callout key"><b>Exam format</b><p>'+esc(t.note)+'</p></aside>';
 
   h+='<section class="panel"><div class="panel-head"><h2>What the syllabus asks (Advanced)</h2></div><ul class="ul">'+t.adv.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
      '<details class="found"><summary>Foundation: Introductory + Certified</summary><ul class="ul">'+t.found.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details></section>';
@@ -92,7 +117,7 @@ function search(q){
   document.getElementById('clr').onclick=function(e){e.preventDefault();qEl.value='';location.hash='#/';route()};
 }
 
-function route(){var m=location.hash.match(/^#\/t\/([\w-]+)/);if(m){qEl.value='';topic(m[1])}else{home();window.scrollTo(0,0)}}
+function route(){var h=location.hash,m=h.match(/^#\/t\/([\w-]+)/),c=h.match(/^#\/c\/([\w-]+)/);qEl.value='';if(m)topic(m[1]);else if(c){openC[c[1]]=1;saveOpen();home(c[1])}else{home();window.scrollTo(0,0)}}
 window.addEventListener('hashchange',route);
 qEl.addEventListener('input',function(){search(qEl.value)});
 
