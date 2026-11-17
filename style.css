@@ -139,3 +139,20 @@ textarea.notes:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(i
 .gh{display:grid;gap:8px;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface-2)}
 .gh input{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:10px;outline:0}
 .gh input:focus{border-color:var(--accent)}
+
+/* collapsible groups on the home page */
+.g-tools{display:flex;justify-content:flex-end;gap:4px;margin-top:22px}
+.group.acc{margin-top:12px}
+.group.acc .group-head{width:100%;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-left:4px solid hsl(var(--h) 35% 50%);border-radius:12px;padding:14px 16px;margin:0;box-shadow:var(--shadow);transition:border-color .15s}
+.group.acc .group-head:hover{border-color:hsl(var(--h) 35% 55%)}
+.g-text{flex:1;min-width:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.g-text h2{font-size:21px}
+.g-text p{margin:0;color:var(--muted);font-size:13px}
+.g-count{flex:none;font-size:12px;color:var(--muted)}
+.group.acc .chev{flex:none;width:20px;height:20px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.group.acc.open .chev{transform:rotate(180deg)}
+.group.acc .grid{margin:10px 0 18px}
+@media (max-width:640px){.g-text p{display:none}}
+.grid[hidden]{display:none}
+.linkbtn{border:0;background:none;color:var(--accent);cursor:pointer;font-weight:600;font-size:13px;padding:6px 8px;border-radius:8px}
+.linkbtn:hover{background:color-mix(in srgb,var(--accent) 10%,transparent)}

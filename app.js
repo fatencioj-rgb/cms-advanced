@@ -38,7 +38,7 @@ function blockText(b){return (b.h||b.p||b.note||b.btw||(b.list&&b.list.join(' ')
 function card(t){
   var g=groupOf(t.group);
   return '<a class="card" style="--h:'+g.hue+'" href="#/t/'+t.id+'"><span class="num">'+num(t.n)+'</span>'+
-    '<span class="c-body"><h3>'+esc(t.name)+'</h3><span class="meta">'+t.adv.length+' advanced points</span></span>'+
+    '<span class="c-body"><h3>'+esc(t.name)+'</h3></span>'+
     (hasNotes(t)?'<span class="tag ready">Notes</span>':'<span class="tag">Outline</span>')+'</a>';
 }
 
@@ -47,12 +47,27 @@ function home(){
   h+='<section class="intro"><p class="eyebrow">Court of Master Sommeliers Europe · 2026/27</p><h1>Advanced Sommelier</h1>'+
      '<p>My study notes, organised by syllabus section. Each topic has what the syllabus asks for at Advanced level and, once researched, my notes on it.</p>'+
      '<p class="count">'+TOPICS.length+' sections · '+ready+' with notes written</p></section>';
+  h+='<div class="g-tools"><button class="linkbtn" type="button" id="gAll">Expand all</button><button class="linkbtn" type="button" id="gNone">Collapse all</button></div>';
   GROUPS.forEach(function(g){
-    var list=TOPICS.filter(function(t){return t.group===g.id});
-    h+='<section class="group" style="--h:'+g.hue+'"><div class="group-head"><h2>'+esc(g.name)+'</h2><p>'+esc(g.blurb)+'</p></div><div class="grid">'+list.map(card).join('')+'</div></section>';
+    var list=TOPICS.filter(function(t){return t.group===g.id}),open=!!openG[g.id],ready=list.filter(hasNotes).length;
+    h+='<section class="group acc'+(open?' open':'')+'" style="--h:'+g.hue+'" data-g="'+g.id+'">'+
+       '<button class="group-head" type="button" aria-expanded="'+open+'"><span class="g-text"><h2>'+esc(g.name)+'</h2><p>'+esc(g.blurb)+'</p></span>'+
+       '<span class="g-count">'+list.length+(list.length===1?' topic':' topics')+(ready?' · '+ready+' with notes':'')+'</span>'+
+       '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>'+
+       '<div class="grid"'+(open?'':' hidden')+'>'+list.map(card).join('')+'</div></section>';
   });
   app.innerHTML=h;
+  function setG(sec,open){var id=sec.dataset.g;if(open)openG[id]=1;else delete openG[id];
+    sec.classList.toggle('open',open);sec.querySelector('.group-head').setAttribute('aria-expanded',open);sec.querySelector('.grid').hidden=!open}
+  var secs=app.querySelectorAll('.group.acc');
+  secs.forEach(function(sec){sec.querySelector('.group-head').onclick=function(){setG(sec,!sec.classList.contains('open'));saveG()}});
+  document.getElementById('gAll').onclick=function(){secs.forEach(function(s){setG(s,true)});saveG()};
+  document.getElementById('gNone').onclick=function(){secs.forEach(function(s){setG(s,false)});saveG()};
 }
+/* which groups are open: remembered on this device */
+var GK='cmsAdvanced.groups';
+var openG=(function(){try{var v=JSON.parse(localStorage.getItem(GK));if(v)return v}catch(e){}return {france:1}})();
+function saveG(){try{localStorage.setItem(GK,JSON.stringify(openG))}catch(e){}}
 
 function topic(id){
   var t=topicById(id); if(!t){location.hash='#/';return}
