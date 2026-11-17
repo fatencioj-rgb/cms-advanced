@@ -70,10 +70,10 @@ function topic(id){
   h+='</section>';
 
   h+='<section class="panel"><div class="panel-head"><h2>My images</h2></div><div id="myimgs"></div></section>';
-  h+='<section class="panel"><div class="panel-head"><h2>My own additions</h2></div><textarea class="notes" id="mine" placeholder="Anything I want to remember or fix later…">'+esc(S.n[id]||'')+'</textarea><p class="fine">Saved on this device only.</p></section>';
+  h+='<section class="panel"><div class="panel-head"><h2>My own additions</h2></div><textarea class="notes" id="mine" placeholder="Anything I want to remember or fix later…">'+esc(S.n[id]||'')+'</textarea><p class="fine" id="mineSt"></p></section>';
   h+='<nav class="pager">'+(pv?'<a href="#/t/'+pv.id+'">← Previous<b>'+esc(pv.name)+'</b></a>':'<span></span>')+(nx?'<a href="#/t/'+nx.id+'">Next →<b>'+esc(nx.name)+'</b></a>':'')+'</nav>';
   app.innerHTML=h;window.scrollTo(0,0);
-  var n=document.getElementById('mine');n.oninput=function(){S.n[id]=n.value;save()};
+  bindNotes(id);
   renderImages(id);
 }
 
@@ -110,11 +110,11 @@ document.getElementById('exportBtn').onclick=function(){
 };
 document.getElementById('importFile').onchange=function(e){
   var f=e.target.files[0];if(!f)return;var r=new FileReader();
-  r.onload=function(){try{var d=JSON.parse(r.result);if(!d||typeof d.n!=='object')throw 0;S=d;localStorage.setItem(KEY,JSON.stringify(S));msg.textContent='Backup restored.';route()}catch(x){msg.textContent='That file is not a valid backup.'}};
+  r.onload=function(){try{var d=JSON.parse(r.result);if(!d||typeof d.n!=='object')throw 0;S=d;S.d={};Object.keys(S.n).forEach(function(k){S.d[k]=1});pushNotes();localStorage.setItem(KEY,JSON.stringify(S));msg.textContent='Backup restored.';route()}catch(x){msg.textContent='That file is not a valid backup.'}};
   r.readAsText(f);e.target.value='';
 };
 document.getElementById('resetBtn').onclick=function(){
-  if(confirm('Delete my own additions on this device? This cannot be undone.')){S={n:{}};localStorage.removeItem(KEY);msg.textContent='Cleared.';route()}
+  if(confirm('Delete the copy of my own additions stored on this device? Anything already synced stays on GitHub.')){S={n:{},d:{}};localStorage.removeItem(KEY);msg.textContent='Cleared on this device.';route()}
 };
 /* ---- my images: stored on this device (IndexedDB) and synced to the GitHub repo ---- */
 var GHK='cmsAdvanced.gh';
@@ -196,7 +196,46 @@ document.getElementById('ghSave').onclick=function(){var r=ghRepo.value.trim(),t
     if(!x.ok){GH=null;msg.textContent='GitHub refused it ('+x.status+'). Check the repository name and the token.';return}
     return x.json().then(function(j){if(!(j.permissions&&j.permissions.push)){GH=null;msg.textContent='This token cannot write to the repository. Give it Contents: Read and write.';return}
       localStorage.setItem(GHK,JSON.stringify(GH));msg.textContent='Connected. Syncing…';var tp=curTopic();if(tp)renderImages(tp);
-      return syncAll().then(function(){msg.textContent='Connected and synced.'})})}).catch(function(){GH=null;msg.textContent='Could not reach GitHub.'})};
+      return Promise.all([syncAll(),pullNotes().then(pushNotes)]).then(function(){msg.textContent='Connected and synced.';var tp=curTopic();if(tp)bindNotes(tp)})})}).catch(function(){GH=null;msg.textContent='Could not reach GitHub.'})};
+
+/* ---- "My own additions": saved on this device and synced to mynotes.json in the repo ----
+   S.n = text per topic, S.d = topics edited here and not yet on GitHub. */
+S.d=S.d||{};
+var NF='mynotes.json',noteTimer=null,notePush=null,noteErr='';
+function getNotesFile(){return api(NF+'?t='+Date.now()).then(function(r){if(r.status===404)return{data:{},sha:null};chk(r);
+  return r.json().then(function(j){var d={};try{d=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,'')))))||{}}catch(e){}return{data:d,sha:j.sha}})})}
+function applyRemote(data){Object.keys(data).forEach(function(k){if(!S.d[k])S.n[k]=data[k]});save()}
+/* read: with GitHub connected use the API (always fresh); otherwise the published copy (read only, may lag a minute) */
+function pullNotes(){
+  var p=GH?getNotesFile().then(function(f){return f.data}):fetch(NF+'?'+Date.now()).then(function(r){return r.ok?r.json():{}});
+  return p.then(function(d){applyRemote(d||{});noteErr=''},function(e){noteErr=e.message||'offline'})}
+function pushNotes(again){
+  if(!GH||!Object.keys(S.d).length)return Promise.resolve();
+  if(notePush)return notePush;
+  var sending={};Object.keys(S.d).forEach(function(k){sending[k]=S.n[k]||''});
+  notePush=getNotesFile().then(function(f){var d=f.data;
+      Object.keys(sending).forEach(function(k){if(sending[k])d[k]=sending[k];else delete d[k]});
+      var b={message:'Update my notes',content:btoa(unescape(encodeURIComponent(JSON.stringify(d,null,1))))};if(f.sha)b.sha=f.sha;
+      return api(NF,{method:'PUT',body:JSON.stringify(b)}).then(function(r){
+        if((r.status===409||r.status===422)&&!again){notePush=null;return pushNotes(true)}
+        chk(r);Object.keys(sending).forEach(function(k){if((S.n[k]||'')===sending[k])delete S.d[k]});save();noteErr=''})})
+    .catch(function(e){noteErr=e.message||'offline'})
+    .then(function(){notePush=null;noteStatus();if(Object.keys(S.d).length&&!noteErr)return pushNotes()});
+  return notePush}
+function noteStatus(){var el=document.getElementById('mineSt'),t=curTopic();if(!el||!t)return;
+  if(!GH){el.textContent='Saved on this device only. Connect GitHub in the “⋯” menu to sync with your other devices.';return}
+  if(noteErr&&S.d[t]){el.textContent='Saved on this device. Not synced yet ('+noteErr+'); it will retry automatically.';return}
+  el.textContent=S.d[t]?'Saving…':'Synced with GitHub · same on all your devices.'}
+function bindNotes(id){var n=document.getElementById('mine');if(!n)return;
+  noteStatus();
+  n.oninput=function(){S.n[id]=n.value;S.d[id]=1;save();noteStatus();clearTimeout(noteTimer);noteTimer=setTimeout(pushNotes,2000)};
+  n.onblur=function(){if(S.d[id]){clearTimeout(noteTimer);pushNotes()}};
+  /* bring in changes made on another device, unless I am typing here */
+  pullNotes().then(function(){if(curTopic()!==id)return;var el=document.getElementById('mine');
+    if(el&&document.activeElement!==el&&!S.d[id]&&el.value!==(S.n[id]||''))el.value=S.n[id]||'';noteStatus();if(GH)pushNotes()})}
+/* send pending edits when leaving the page or switching apps */
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){clearTimeout(noteTimer);pushNotes()}else{var t=curTopic();if(t)bindNotes(t)}});
+window.addEventListener('online',function(){pushNotes()});
 
 /* ---- image zoom ---- */
 var lb=document.createElement('div');lb.className='lb';lb.hidden=true;lb.innerHTML='<button class="lb-x" aria-label="Close">✕</button><div class="lb-s"><img alt=""></div>';document.body.appendChild(lb);
