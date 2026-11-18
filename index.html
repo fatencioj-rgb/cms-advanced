@@ -29,20 +29,20 @@
 <div class="sheet-overlay" id="sheet" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
     <div class="sheet-head">
-      <div><h2 id="sheetTitle">My additions</h2><p>What I write in "My own additions" is saved on this device only. Use a backup to move it to another.</p></div>
+      <div><h2 id="sheetTitle">Sync and backup</h2><p>Connect GitHub once on each device and my images and my own additions stay the same everywhere. Without it they stay on this device only.</p></div>
       <button class="icon-btn" id="sheetClose" aria-label="Close">✕</button>
     </div>
     <div class="sheet-body">
       <button class="btn primary" id="exportBtn">Download backup</button>
       <label class="btn">Restore from backup<input type="file" id="importFile" accept="application/json" hidden></label>
       <div class="gh">
-        <b>GitHub sync for images</b>
+        <b>GitHub sync</b>
         <input id="ghRepo" placeholder="owner/repository" autocomplete="off" spellcheck="false">
         <input id="ghTok" type="password" placeholder="Access token" autocomplete="off" spellcheck="false">
         <button class="btn" id="ghSave">Connect / update</button>
         <p class="fine">The token stays in this browser only. Leave both fields empty and press the button to disconnect.</p>
       </div>
-      <button class="btn danger" id="resetBtn">Clear my additions</button>
+      <button class="btn danger" id="resetBtn">Clear this device</button>
       <p class="fine" id="sheetMsg"></p>
     </div>
   </div>
