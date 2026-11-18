@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="The five communes of Sauternes and Barsac">
+<style>text{font-family:Inter,Segoe UI,Arial,sans-serif;text-anchor:middle}.t{fill:#fff;font-size:17px;font-weight:600}.h{fill:#5b4a4a;font-size:18px;font-weight:700}.l{fill:#5b4a4a;font-size:14px}.n{fill:#fff;font-size:12px}</style>
+<rect width="800" height="540" fill="#fbf7f4"/>
+<circle cx="400" cy="305" r="215" fill="#f1e1e1" stroke="#a65a62" stroke-width="2"/>
+<text class="h" x="400" y="32">Sauternes AOC</text>
+<text class="l" x="400" y="54">1,200 ha, 140 growers, 27 classified growths</text>
+<circle cx="300" cy="220" r="62" fill="#7b1e2b"/><text class="t" x="300" y="225">Sauternes</text><circle cx="500" cy="220" r="62" fill="#7b1e2b"/><text class="t" x="500" y="225">Bommes</text><circle cx="275" cy="345" r="62" fill="#7b1e2b"/><text class="t" x="275" y="350">Fargues</text><circle cx="400" cy="415" r="62" fill="#7b1e2b"/><text class="t" x="400" y="420">Preignac</text><circle cx="525" cy="345" r="62" fill="#4a0f19"/><text class="t" x="525" y="350">Barsac</text><text class="n" x="525" y="367">own AOC too</text><text class="l" x="695" y="450">Barsac AOC:</text><text class="l" x="695" y="468">400 ha, 10 classified</text><text class="l" x="695" y="486">growths; may be sold</text><text class="l" x="695" y="504">as Sauternes or Barsac</text><text class="l" x="120" y="520" style="font-style:italic">Schematic, not a map.</text></svg>

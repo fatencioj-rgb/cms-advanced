@@ -319,11 +319,60 @@ Source: [Union des Grands Crus de Bordeaux, châteaux](https://ugcb.net/chateaux
 
 ---
 
-## 4. Sauternes and Barsac: 1855 classified growths (to be completed)
+## 4. Sauternes, Barsac and the sweet-wine neighbours
 
-This section will be merged later with the rest of the sweet-wine block (botrytis, Loupiac, Cadillac and Sainte-Croix-du-Mont).
+### Where the wines come from (Introductory and Certified)
 
-### (A) Sweet white wines: Sauternes and Barsac
+- The **Sauternes** appellation has 1,200 ha, 140 winegrowers and the **27** classified growths of 1855, with Yquem as the only Premier Cru Supérieur. It lies between the Garonne and the Landes forest and spans **five communes**: Sauternes, Bommes, Fargues, Preignac and Barsac. ([CIVB, Sauternes](https://www.bordeaux.com/en/designations/graves-sauternes/sauternes/))
+- **Barsac** has its own appellation (400 ha, 30 growers, 10 classified growths). Barsac producers may choose the Sauternes or the Barsac appellation. ([CIVB, Barsac](https://www.bordeaux.com/en/designations/graves-sauternes/barsac/), [Conseil, Sauternes and Barsac terroir](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- The microclimate comes from the cool Ciron river flowing into the warmer Garonne. ([CIVB, Sauternes](https://www.bordeaux.com/en/designations/graves-sauternes/sauternes/))
+
+![The five communes of the Sauternes appellation. Schematic only, not a map.](images/bordeaux/sweet-communes.svg)
+
+### How noble rot works (Introductory)
+
+Botrytis cinerea ("noble rot") needs two conditions: grapes that are perfectly ripe, and weather that alternates between misty mornings and sunny afternoons. ([Conseil, Sauternes and Barsac terroir](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+
+![How noble rot makes Sauternes, step by step](images/bordeaux/botrytis-cycle.svg)
+
+### (A) Harvest, yields and vinification
+
+- **Successive passes:** the grapes ripen unevenly, so pickers go through the vines several times and take only the grapes, or parts of bunches, that are rotted enough. Great-growth châteaux usually make five or six passes, sometimes nine or ten. Picking starts around early October and can run into November or December. It is done by hand. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **Yields:** the appellation limit is **25 hl/ha**, and the great growths actually harvest **10 to 15 hl/ha**. Botrytis can reduce a potential 40 hl/ha to about 18. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **What botrytis does:** it consumes more acid than sugar, so sugar dominates, and it produces glycerol, which gives the wine its unctuous texture. It also produces an antibiotic (botryticine) that slows the yeast, which is why fermentation is difficult. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **Rain at the wrong time:** it dilutes the sugar and turns the rot grey, so in some years no real sweet wine can be made. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **Fermentation:** natural yeasts, in tank or barrel, at 20 to 22 °C, lasting two to four weeks. It stops at roughly 13.5 to 14% acquired alcohol and 3.5 to 4% potential alcohol (the sugar left). ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **Ageing:** usually 18 months to two years, sometimes up to three, in tank or often new oak barrels. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **Vineyard:** about 6,500 to 7,500 vines per hectare, pruned hard. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+
+> EXAM TRAP: the yield figures. The legal maximum is 25 hl/ha, but the classified growths are far below it, at 10 to 15 hl/ha.
+
+### Grapes and style (Introductory and Certified)
+
+- In the great growths, **Sémillon** is over 80% of the vines (up to 100% at some châteaux), **Sauvignon Blanc** is up to 20% and **Muscadelle** is usually 2 to 5%. Eight great growths do not use Muscadelle at all. ([Conseil](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
+- **Sauternes** style: citrus, white flowers and orchard fruit when young; spices, tropical fruit, nuts and dried fruit with age, with an amber colour and velvety texture. ([CIVB, Sauternes](https://www.bordeaux.com/en/designations/graves-sauternes/sauternes/))
+- **Barsac** style: fresher and more mineral, with citrus, white flowers and orchard fruit, then honey, spices and dried fruit. ([CIVB, Barsac](https://www.bordeaux.com/en/designations/graves-sauternes/barsac/))
+
+### The sweet-wine neighbours (Certified, with Advanced detail)
+
+| Appellation | Facts | Style and grapes |
+|---|---|---|
+| Cérons | 12 estates, 25 ha, three communes (Illats, Podensac, Cérons), inside the Graves area, on the Ciron. ([CIVB](https://www.bordeaux.com/en/designations/graves-sauternes/cerons/)) | Less opulent than Sauternes, more delicate and fresh. Sémillon, Sauvignon Blanc, a little Muscadelle. |
+| Graves Supérieures | About 150 ha and 30 growers on the left bank of the Garonne. Semi-sweet whites. ([CIVB](https://www.bordeaux.com/en/designations/graves-sauternes/graves-superieures/)) | Semi-sweet whites from Sémillon, Sauvignon Blanc and Muscadelle. |
+| Sainte-Croix-du-Mont | 22 estates, 200 ha, a single commune (Sainte-Croix-du-Mont), on a plateau of fossilised oyster banks. ([CIVB](https://www.bordeaux.com/en/designations/entre-deux-mers/sainte-croix-du-mont/)) | Rich, luscious sweet whites. Sémillon 85%, Sauvignon Blanc 12%, Muscadelle 3%. |
+| Loupiac | 18 estates, 300 ha, a single commune (Loupiac), in the Premières Côtes de Bordeaux area, half an hour from Bordeaux. ([CIVB](https://www.bordeaux.com/en/designations/entre-deux-mers/loupiac/)) | Elegant, balanced sweetness. Sémillon leads, with Sauvignon Blanc and Muscadelle. |
+| Cadillac | Sweet whites from the slopes along the Garonne, in the Premières Côtes de Bordeaux area. ([CIVB](https://www.bordeaux.com/en/designations/entre-deux-mers/cadillac/)) | Golden, fresh and sweet. Sémillon, Sauvignon Blanc and Muscadelle. |
+| Premières Côtes de Bordeaux | Semi-sweet and sweet whites on a 60 km strip of limestone slope along the Garonne. ([CIVB](https://www.bordeaux.com/en/designations/entre-deux-mers/premieres-cotes-de-bordeaux/)) | Light sweetness, floral and fruity. Sémillon, Sauvignon Blanc, Muscadelle. |
+
+> BY THE WAY: the CIVB pages for Cadillac and the Premières Côtes de Bordeaux give the same figures (22 estates, 28 ha) with different numbers of communes (22 and 39), which looks like a copy error, so I left their sizes out until I can confirm them with the appellation syndicate. Loupiac, Sainte-Croix-du-Mont and Cérons figures look consistent.
+
+> BY THE WAY: the CIVB English text for Loupiac, Sainte-Croix-du-Mont and Cadillac contains a garbled phrase about the position on the Garonne, so I did not use it to say which bank they are on.
+
+### In short (my summary for you)
+
+> KEEP IN MIND: Sauternes AOC = five communes (Sauternes, Bommes, Fargues, Preignac, Barsac), 27 classified growths. Noble rot needs ripe grapes plus misty mornings and sunny afternoons, so picking is by successive passes and yields in the great growths are 10 to 15 hl/ha (legal maximum 25). Sémillon over 80%. Neighbours: Cérons, Graves Supérieures, Sainte-Croix-du-Mont, Loupiac, Cadillac, Premières Côtes de Bordeaux.
+
+### (A) The 1855 sweet white classified growths
 
 The sweet-wine area covers five communes: Sauternes, Bommes, Fargues, Preignac and Barsac. Producers in Barsac can choose between the Sauternes and the Barsac appellation. ([Conseil, Sauternes and Barsac terroir](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf)) The list of 27 below is the Conseil's official listing, with 1 Premier Cru Supérieur, 11 Premiers Crus and 15 Seconds Crus. ([Conseil, official listing](https://gcc-1855.fr/ListingGCC1855-en.pdf))
 
@@ -373,7 +422,6 @@ Sources: appellations from the [Conseil's official listing](https://gcc-1855.fr/
 
 > EXAM TRAP: the second-growth names that come in families are **Doisy** (three, all Barsac), **Lamothe** (two) and **Romer** (two).
 
-
 ---
 
 ## Sources
@@ -387,3 +435,4 @@ Sources: appellations from the [Conseil's official listing](https://gcc-1855.fr/
 - [Syndicat des Vins de Pessac-Léognan, Les Crus Classés de Graves](https://www.pessac-leognan.com/les-crus-classes-de-graves/)
 - [Union des Grands Crus de Bordeaux](https://ugcb.net/chateaux/) (second labels; addresses used for communes of Haut-Médoc, Labarde and Arsac châteaux)
 - [Conseil des Grands Crus Classés en 1855, Sauternes and Barsac terroir (PDF)](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf)
+- CIVB pages: [Sauternes](https://www.bordeaux.com/en/designations/graves-sauternes/sauternes/), [Barsac](https://www.bordeaux.com/en/designations/graves-sauternes/barsac/), [Cérons](https://www.bordeaux.com/en/designations/graves-sauternes/cerons/), [Graves Supérieures](https://www.bordeaux.com/en/designations/graves-sauternes/graves-superieures/), [Sainte-Croix-du-Mont](https://www.bordeaux.com/en/designations/entre-deux-mers/sainte-croix-du-mont/), [Loupiac](https://www.bordeaux.com/en/designations/entre-deux-mers/loupiac/), [Cadillac](https://www.bordeaux.com/en/designations/entre-deux-mers/cadillac/), [Premières Côtes de Bordeaux](https://www.bordeaux.com/en/designations/entre-deux-mers/premieres-cotes-de-bordeaux/)
