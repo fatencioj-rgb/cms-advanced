@@ -1,0 +1,13 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 740" role="img" aria-label="Structure of the Médoc appellations">
+<style>text{font-family:Inter,Segoe UI,Arial,sans-serif;text-anchor:middle}.t{fill:#fff;font-size:15px;font-weight:600}.n{fill:#fff;font-size:12px}.l{fill:#5b4a4a;font-size:14px}.h{fill:#5b4a4a;font-size:18px;font-weight:700}</style>
+<rect width="800" height="740" fill="#fbf7f4"/>
+<circle cx="400" cy="80" r="75" fill="#e9dccf" stroke="#b9a48f" stroke-width="2"/>
+<text class="h" x="400" y="78">Médoc AOC</text><text class="l" x="400" y="100">north</text>
+<circle cx="400" cy="415" r="245" fill="#f1e1e1" stroke="#a65a62" stroke-width="2"/>
+<text class="h" x="400" y="200">Haut-Médoc AOC (south)</text><circle cx="510" cy="262" r="58" fill="#7b1e2b"/><text class="t" x="510" y="261">Saint-Estèphe</text><text class="n" x="510" y="279">5 classified</text><circle cx="510" cy="382" r="58" fill="#7b1e2b"/><text class="t" x="510" y="381">Pauillac</text><text class="n" x="510" y="399">18 classified</text><circle cx="510" cy="502" r="58" fill="#7b1e2b"/><text class="t" x="510" y="501">Saint-Julien</text><text class="n" x="510" y="519">11 classified</text><circle cx="290" cy="322" r="58" fill="#7b1e2b"/><text class="t" x="290" y="321">Listrac-Médoc</text><circle cx="290" cy="452" r="58" fill="#7b1e2b"/><text class="t" x="290" y="451">Moulis</text><circle cx="400" cy="578" r="58" fill="#7b1e2b"/><text class="t" x="400" y="577">Margaux</text><text class="n" x="400" y="595">21 classified</text><circle cx="135" cy="590" r="42" fill="#fff" stroke="#a65a62" stroke-width="2" stroke-dasharray="5 4"/>
+<text class="l" x="135" y="586">5 classified</text><text class="l" x="135" y="604">growths</text>
+<text class="l" x="135" y="662">with the plain</text><text class="l" x="135" y="680">Haut-Médoc label</text>
+<text class="l" x="745" y="400">Gironde</text><text class="l" x="745" y="418">estuary</text><text class="l" x="745" y="436">(east)</text>
+<text class="l" x="55" y="400">Atlantic</text><text class="l" x="55" y="418">and forest</text><text class="l" x="55" y="436">(west)</text>
+<text class="l" x="400" y="725" style="font-style:italic">Schematic, not to scale. Not a map.</text>
+</svg>

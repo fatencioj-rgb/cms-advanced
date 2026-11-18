@@ -58,6 +58,8 @@ Source: [CIVB, grape varieties](https://www.bordeaux.com/en/grape-varieties/).
 | Haut-Médoc | 25 communes. It is in the south of the Médoc, nearest Bordeaux. Six communal appellations lie within its area: Saint-Estèphe, Pauillac, Saint-Julien, Listrac-Médoc, Moulis and Margaux. ([CIVB](https://www.bordeaux.com/en/designations/medoc/haut-medoc/)) |
 | Saint-Estèphe, Pauillac, Saint-Julien, Listrac-Médoc, Moulis, Margaux | The six communal appellations. Details below. |
 
+![How the Médoc appellations fit together. Schematic only, not a map.](images/bordeaux/medoc-structure.svg)
+
 ### (A) Communal appellations: facts and style
 
 | Appellation | Size and commune(s) | Classified growths (1855) | Grapes | Style |
@@ -80,6 +82,9 @@ Sources: CIVB pages for [Saint-Estèphe](https://www.bordeaux.com/en/designation
 - It covers red wines of the Médoc, plus **Haut-Brion** from Graves, in **five levels**. It is practically frozen: the one major change was **Mouton Rothschild**, promoted from second to first growth in **1973**. ([CIVB](https://www.bordeaux.com/en/classifications/classifications-1855/), [Decanter](https://www.decanter.com/learn/the-official-bordeaux-wine-classification-of-1855-41072/))
 - Levels: 5 first, 14 second, 14 third, 10 fourth, 18 fifth growths, 61 in all. ([Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/))
 - Certified asks for the well-known 1st to 5th growths and their location. The syllabus does not say which ones count as well known, so Advanced (all of them, with communes) covers it.
+
+![1855 red classification by level](images/bordeaux/classification-1855-levels.svg)
+![Where the 61 red classified growths are, by appellation](images/bordeaux/classified-by-appellation.svg)
 
 ### (A) All the 1855 red classified growths, with their communes
 
