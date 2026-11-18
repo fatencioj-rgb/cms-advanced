@@ -11,7 +11,7 @@ var tm;function save(){clearTimeout(tm);tm=setTimeout(function(){try{localStorag
 
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 /* inline: **bold** and *italic* */
-function inl(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>')}
+function inl(s){return esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>')}
 function groupOf(id){return GROUPS.filter(function(g){return g.id===id})[0]}
 function topicById(id){return TOPICS.filter(function(t){return t.id===id})[0]}
 function num(n){return n<10?'0'+n:''+n}
@@ -20,19 +20,77 @@ function hl(text,q){var i=text.toLowerCase().indexOf(q);if(i<0)return esc(text);
 
 /* ---- note blocks ----
  {h:'Heading'} {p:'Paragraph'} {list:[..]} {note:'Keep in mind...'} {btw:'By the way...'} {table:{head:[..],rows:[[..]]}}\n {img:'images/bordeaux/map.jpg',cap:'Caption'}  {imgs:[{img,cap},{img,cap}]} (side by side) */
+function li(x){if(typeof x==='string')return '<li>'+inl(x)+'</li>';return '<li>'+inl(x.t)+(x.sub&&x.sub.length?'<ul class="ul">'+x.sub.map(li).join('')+'</ul>':'')+'</li>'}
 function block(b){
-  if(b.h)return '<h3>'+inl(b.h)+'</h3>';
+  if(b.h)return b.lvl===3?'<h4>'+inl(b.h)+'</h4>':b.lvl>=4?'<h5>'+inl(b.h)+'</h5>':'<h3>'+inl(b.h)+'</h3>';
+  if(b.hr)return '<hr>';
   if(b.p)return '<p>'+inl(b.p)+'</p>';
-  if(b.list)return '<ul class="ul">'+b.list.map(function(x){return '<li>'+inl(x)+'</li>'}).join('')+'</ul>';
+  if(b.list)return '<ul class="ul">'+b.list.map(li).join('')+'</ul>';
+  if(b.ol)return '<ol class="ul">'+b.ol.map(li).join('')+'</ol>';
   if(b.note)return '<aside class="callout key"><b>Keep in mind</b><p>'+inl(b.note)+'</p></aside>';
   if(b.btw)return '<aside class="callout btw"><b>By the way</b><p>'+inl(b.btw)+'</p></aside>';
+  if(b.trap)return '<aside class="callout trap"><b>Exam trap</b><p>'+inl(b.trap)+'</p></aside>';
+  if(b.quote)return '<blockquote>'+b.quote.map(function(x){return '<p>'+inl(x)+'</p>'}).join('')+'</blockquote>';
   if(b.img)return '<figure class="fig"><img src="'+esc(b.img)+'" alt="'+esc(b.cap||'')+'" loading="lazy" data-zoom>'+(b.cap?'<figcaption>'+inl(b.cap)+'</figcaption>':'')+'</figure>';
   if(b.imgs)return '<div class="figs">'+b.imgs.map(function(x){return '<figure class="fig"><img src="'+esc(x.img)+'" alt="'+esc(x.cap||'')+'" loading="lazy" data-zoom>'+(x.cap?'<figcaption>'+inl(x.cap)+'</figcaption>':'')+'</figure>'}).join('')+'</div>';
   if(b.table)return '<div class="tw"><table><thead><tr>'+b.table.head.map(function(c){return '<th>'+inl(c)+'</th>'}).join('')+'</tr></thead><tbody>'+
     b.table.rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+inl(c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
   return '';
 }
-function blockText(b){return (b.h||b.p||b.note||b.btw||(b.list&&b.list.join(' '))||(b.table&&b.table.rows.join(' '))||'')+''}
+function flat(v){return typeof v==='string'?v:Array.isArray(v)?v.map(flat).join(' '):(v&&typeof v==='object')?Object.keys(v).map(function(k){return k==='lvl'||k==='img'?'':flat(v[k])}).join(' '):''}
+function blockText(b){return flat(b).replace(/\*+/g,'').replace(/\s+/g,' ').trim()}
+
+/* ---- Markdown notes: notes/<topic id>.md  ->  blocks ----
+   Supported: ## / ### headings, paragraphs, - lists (one nested level), 1. lists, | tables |,
+   > KEEP IN MIND: / > BY THE WAY: / > EXAM TRAP: callouts, ![caption](images/..) , [text](https://..), **bold**, *italic*, --- */
+function parseMd(src){
+  var L=src.replace(/\r/g,'').split('\n'),out=[],i=0,m;
+  function sep(l){return /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(l)}
+  function cells(l){l=l.trim();if(l[0]==='|')l=l.slice(1);if(l[l.length-1]==='|')l=l.slice(0,-1);return l.split('|').map(function(c){return c.trim()})}
+  function special(l,n){return !l.trim()||/^#{1,4}\s/.test(l)||/^\s*---+\s*$/.test(l)||/^>/.test(l)||/^\s*([-*]|\d+[.)])\s+/.test(l)||/^!\[/.test(l)||(l.indexOf('|')>-1&&n!==undefined&&sep(n))}
+  while(i<L.length){
+    var l=L[i];
+    if(!l.trim()){i++;continue}
+    if(/^\s*---+\s*$/.test(l)){out.push({hr:1});i++;continue}
+    if((m=l.match(/^(#{1,4})\s+(.*)$/))){if(m[1].length>1)out.push({h:m[2].trim(),lvl:m[1].length});i++;continue}
+    if(l.indexOf('|')>-1&&i+1<L.length&&sep(L[i+1])){
+      var head=cells(l),rows=[];i+=2;
+      while(i<L.length&&L[i].trim()&&L[i].indexOf('|')>-1){rows.push(cells(L[i]));i++}
+      out.push({table:{head:head,rows:rows}});continue}
+    if(/^>/.test(l)){
+      var q=[];while(i<L.length&&/^>/.test(L[i])){q.push(L[i].replace(/^>\s?/,''));i++}
+      var paras=[],cur=[];q.forEach(function(x){if(x.trim())cur.push(x.trim());else if(cur.length){paras.push(cur.join(' '));cur=[]}});if(cur.length)paras.push(cur.join(' '));
+      var first=paras[0]||'',k=first.match(/^\**\s*(KEEP IN MIND|BY THE WAY|EXAM TRAP)\s*:?\s*\**\s*:?\s*/i);
+      if(k){var key=k[1].toUpperCase(),txt=[first.slice(k[0].length)].concat(paras.slice(1)).filter(Boolean).join(' ');
+        out.push(key==='KEEP IN MIND'?{note:txt}:key==='BY THE WAY'?{btw:txt}:{trap:txt})}
+      else out.push({quote:paras});
+      continue}
+    if(/^\s*([-*]|\d+[.)])\s+/.test(l)){
+      var ordered=/^\s*\d+[.)]/.test(l),items=[];
+      while(i<L.length&&(/^\s*([-*]|\d+[.)])\s+/.test(L[i])||(/^\s+\S/.test(L[i])&&items.length))){
+        var mm=L[i].match(/^(\s*)([-*]|\d+[.)])\s+(.*)$/);
+        if(mm){var it={t:mm[3].trim(),sub:[]};if(mm[1].length>=2&&items.length)items[items.length-1].sub.push(it);else items.push(it)}
+        else{var tgt=items[items.length-1];if(tgt.sub.length)tgt.sub[tgt.sub.length-1].t+=' '+L[i].trim();else tgt.t+=' '+L[i].trim()}
+        i++}
+      out.push(ordered?{ol:items}:{list:items});continue}
+    if(/^!\[/.test(l)){
+      var imgs=[];
+      while(i<L.length&&(m=L[i].match(/^!\[(.*?)\]\((\S+?)\)\s*$/))){if(/^(images\/|https:\/\/)/.test(m[2]))imgs.push({img:m[2],cap:m[1]});i++}
+      if(imgs.length===1)out.push(imgs[0]);else if(imgs.length)out.push({imgs:imgs});
+      if(!imgs.length)i++;continue}
+    var p=[l.trim()];i++;
+    while(i<L.length&&!special(L[i],L[i+1])){p.push(L[i].trim());i++}
+    out.push({p:p.join(' ')})
+  }
+  return out}
+
+/* topic notes live in notes/<id>.md; notes/index.json lists which ids exist */
+var notesLoaded=false;
+function loadNotes(){
+  return fetch('notes/index.json?'+Date.now()).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(ids){
+    return Promise.all((Array.isArray(ids)?ids:[]).map(function(id){var t=topicById(id);if(!t)return;
+      return fetch('notes/'+id+'.md?'+Date.now()).then(function(r){return r.ok?r.text():null}).then(function(x){if(x){t.notes=parseMd(x)}}).catch(function(){})}))
+  }).then(function(){notesLoaded=true})}
 
 /* ---- views ---- */
 function card(t){
@@ -66,7 +124,7 @@ function topic(id){
      '<details class="found"><summary>Foundation: Introductory + Certified</summary><ul class="ul">'+t.found.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details></section>';
 
   h+='<section class="panel notes-body"><div class="panel-head"><h2>Study notes</h2></div>';
-  h+=hasNotes(t)?t.notes.map(block).join(''):'<p class="soon">Not written yet. We will research this section in depth and add the notes here.</p>';
+  h+=hasNotes(t)?t.notes.map(block).join(''):'<p class="soon">'+(notesLoaded?'Not written yet. We will research this section in depth and add the notes here.':'Loading notes…')+'</p>';
   h+='</section>';
 
   h+='<section class="panel"><div class="panel-head"><h2>My images</h2></div><div id="myimgs"></div></section>';
@@ -246,4 +304,9 @@ function closeLb(){lb.hidden=true;document.body.style.overflow=''}
 lb.addEventListener('click',function(e){if(e.target===lb||e.target.className==='lb-x'||e.target.className==='lb-s')closeLb()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lb.hidden)closeLb()});
 route();
+/* load the written notes, then redraw once (keeping the scroll position, and not while typing) */
+loadNotes().then(function(){
+  var a=document.activeElement,typing=a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT');
+  if(typing)return;
+  var y=window.scrollY;route();window.scrollTo(0,y)});
 })();
