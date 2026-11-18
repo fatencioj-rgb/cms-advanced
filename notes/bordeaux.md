@@ -1,14 +1,13 @@
 # Bordeaux
 
-> BY THE WAY: how to read the levels. Each point is written once, with everything the syllabus asks for it across the three levels. Anything marked **(A)** is Advanced only. Anything without a mark is Introductory or Certified, which you should already know and can skim. Where a table has a *Level* column, **I** is Introductory, **C** is Certified and **A** is Advanced.
+> BY THE WAY: how to read the levels. Each point is written once, with everything the syllabus asks for it across the three levels. Anything marked **(A)** is Advanced only. Anything without a mark is Introductory or Certified, which you should already know and can skim. Every fact comes from an official source (CIVB, the Conseil des Grands Crus Classés en 1855, the appellation syndicates and the Union des Grands Crus de Bordeaux). Where I could not find an official source, I left the item out and listed it as pending.
 
 ## 1. Bordeaux foundations
 
 ### Where and what (Introductory)
 
-- Bordeaux is a single, very large wine region of about 110,000 hectares of vines, around the Gironde estuary and the two rivers that feed it, the Garonne and the Dordogne. ([Taste France](https://www.tastefrance.com/magazine/wine-terroirs/terroirs-bordeaux-international-influence))
-- **Left Bank:** the Médoc and Graves, on the west bank of the Gironde and the Garonne. **Right Bank:** a more compact group of communes north of the Dordogne, such as Saint-Émilion, Pomerol and Fronsac. ([GuildSomm](https://www.guildsomm.com/research/expert_guides/w/expert-guides/2439/bordeaux))
-- Bordeaux wines are most often a **blend of several varieties**. This is a defining trait of the region, according to the CIVB. ([CIVB, grape varieties](https://www.bordeaux.com/en/grape-varieties/))
+- The **Left Bank** includes the Médoc, a peninsula between the Atlantic Ocean and the Gironde estuary, and the Graves, south of Bordeaux on the left bank of the Garonne. ([CIVB, Médoc](https://www.bordeaux.com/en/designations/medoc/), [CIVB, Graves](https://www.bordeaux.com/en/designations/graves/graves/))
+- Bordeaux wines are most often a **blend of several varieties**. The CIVB calls this one of the defining traits of the region. ([CIVB, grape varieties](https://www.bordeaux.com/en/grape-varieties/))
 
 ### Grape varieties (Introductory)
 
@@ -27,24 +26,23 @@ Six main varieties, three red and three white, plus auxiliary varieties. Shares 
 
 Source: [CIVB, grape varieties](https://www.bordeaux.com/en/grape-varieties/).
 
-> KEEP IN MIND: the blend changes with the appellation, and that is what you are tested on. Pauillac is Cabernet Sauvignon country, Saint-Julien has over 60% Cabernet Sauvignon (the CIVB says nowhere else in Bordeaux has that proportion), Listrac-Médoc and Moulis are Merlot-led, and the Graves appellation itself is Merlot-led (59% Merlot, 33% Cabernet Sauvignon). Details are in sections 2 and 3.
+> KEEP IN MIND: the blend changes with the appellation, and that is what you are tested on. Pauillac is Cabernet Sauvignon country. Saint-Julien has over 60% Cabernet Sauvignon, a proportion the CIVB says is found nowhere else in Bordeaux. Listrac-Médoc and Moulis lead with Merlot, and the Graves appellation is Merlot-led too (59% Merlot, 33% Cabernet Sauvignon). Details are in sections 2 and 3.
 
 ### Soils and climate (Introductory and Certified)
 
 - The Gironde estuary protects the Médoc vineyards: it reduces summer heatwaves and winter frosts (Saint-Julien) and moderates high summer temperatures and winter conditions (Haut-Médoc). Listrac-Médoc also benefits from the Landes forest, the Garonne and the Atlantic. ([CIVB, Saint-Julien](https://www.bordeaux.com/en/designations/medoc/saint-julien/), [CIVB, Haut-Médoc](https://www.bordeaux.com/en/designations/medoc/haut-medoc/), [CIVB, Listrac-Médoc](https://www.bordeaux.com/en/designations/medoc/listrac-medoc/))
 - Left Bank soils are gravel rises. In the Haut-Médoc they combine Quaternary sandy gravel brought by the Garonne with Tertiary clay-limestone. ([CIVB, Haut-Médoc](https://www.bordeaux.com/en/designations/medoc/haut-medoc/))
-- (A) The soil difference inside appellations matters: in Listrac-Médoc, clay-limestone to the west suits Merlot and Garonne gravel to the east suits Cabernet Sauvignon. In Moulis, gravel gives powerful wines and clay-limestone gives fuller, rounder wines. ([CIVB, Listrac-Médoc](https://www.bordeaux.com/en/designations/medoc/listrac-medoc/), [CIVB, Moulis](https://www.bordeaux.com/en/designations/medoc/moulis/))
+- (A) The soil difference inside an appellation matters: in Listrac-Médoc, clay-limestone to the west suits Merlot and Garonne gravel to the east suits Cabernet Sauvignon. In Moulis, gravel gives powerful wines and clay-limestone gives fuller, rounder wines. ([CIVB, Listrac-Médoc](https://www.bordeaux.com/en/designations/medoc/listrac-medoc/), [CIVB, Moulis](https://www.bordeaux.com/en/designations/medoc/moulis/))
 
 ### How Bordeaux wine is sold (Introductory)
 
-- The commercial system is called the **Place de Bordeaux**. It links the châteaux, the **négociants** (merchants) and the **courtiers** (brokers), and the courtier acts as an independent intermediary between the grower and the merchant. ([CIVB, professions](https://www.bordeaux.com/en/professions/), [The Wine Doctor](https://www.thewinedoctor.com/regionalguides/bordeaux_2013_13_enprimeur.shtml))
-- **En primeur** means the wines are offered while still in barrel, in spring after the harvest (typically April to June), through the négociants to merchants worldwide. ([En Primeur Club](https://www.enprimeurclub.com/guide/how-to-follow-the-2026-en-primeur-campaign-and-what-its-actually-like))
+- The commercial system is called the **Place de Bordeaux**: the network that links growers, wine merchants (**négociants**) and **brokers** (*courtiers*). The broker is an independent intermediary between the grower and the merchant. ([CIVB, professions](https://www.bordeaux.com/en/professions/))
 
-> BY THE WAY: not yet covered in this block, and I do not want to guess them. Still to research from official sources: botrytis and barrique detail, AOP versus IGP, and labelling terms. I will add them once sourced.
+> BY THE WAY: pending, because I have not found an official source yet: en primeur, botrytis and barrique detail, AOP versus IGP, and labelling terms.
 
 ### In short (my summary for you)
 
-> KEEP IN MIND: Bordeaux is a blending region. Left Bank (Médoc, Graves) is Cabernet Sauvignon-led in the great communes, Right Bank is Merlot-led. Sold through négociants and courtiers on the Place de Bordeaux, often en primeur.
+> KEEP IN MIND: Bordeaux is a blending region. Left Bank (Médoc, Graves) is Cabernet Sauvignon-led in the great communes. Wine is sold through négociants and brokers on the Place de Bordeaux.
 
 ---
 
@@ -79,8 +77,8 @@ Sources: CIVB pages for [Saint-Estèphe](https://www.bordeaux.com/en/designation
 
 - Requested by Napoleon III for the Paris Universal Exhibition. The Bordeaux Chamber of Commerce gave the task to the syndicate of wine brokers, and the list was published on **18 April 1855**. ([Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/))
 - The brokers used the **reputation** of each estate and the **price** of its recent vintages. ([CIVB](https://www.bordeaux.com/en/classifications/classifications-1855/))
-- It covers red wines of the Médoc, plus **Haut-Brion** from Graves, in **five levels**. It is practically frozen: the one major change was **Mouton Rothschild**, promoted from second to first growth in **1973**. ([CIVB](https://www.bordeaux.com/en/classifications/classifications-1855/), [Decanter](https://www.decanter.com/learn/the-official-bordeaux-wine-classification-of-1855-41072/))
-- Levels: 5 first, 14 second, 14 third, 10 fourth, 18 fifth growths, 61 in all. ([Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/))
+- It covers red wines of the Médoc, plus **Haut-Brion** from Graves, in **five levels**: 5 first, 14 second, 14 third, 10 fourth and 18 fifth growths, 61 in all. ([Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/))
+- The Conseil's history page records only two official changes: the promotion of **Mouton Rothschild** in **June 1973**, and the inclusion of **Cantemerle** among the fifth growths. ([Conseil, history](https://gcc-1855.fr/history/))
 - Certified asks for the well-known 1st to 5th growths and their location. The syllabus does not say which ones count as well known, so Advanced (all of them, with communes) covers it.
 
 ![1855 red classification by level](images/bordeaux/classification-1855-levels.svg)
@@ -97,7 +95,7 @@ Sources: CIVB pages for [Saint-Estèphe](https://www.bordeaux.com/en/designation
 | Haut-Médoc | 5 |
 | Pessac-Léognan (Graves) | 1 (Haut-Brion) |
 
-I counted these from the official CIVB list. The Margaux figure (21 out of 61) is also stated by the CIVB on its [Margaux page](https://www.bordeaux.com/en/designations/medoc/margaux/).
+I counted these from the official Conseil listing. The Margaux figure (21 out of 61) is also stated by the CIVB on its [Margaux page](https://www.bordeaux.com/en/designations/medoc/margaux/).
 
 ### Red wines: first growths (Premiers Crus)
 
@@ -143,7 +141,7 @@ I counted these from the official CIVB list. The Margaux figure (21 out of 61) i
 | Boyd-Cantenac | Margaux-Cantenac | Margaux |
 | Cantenac Brown | Margaux-Cantenac | Margaux |
 | Palmer | Margaux-Cantenac | Margaux |
-| La Lagune | Ludon | Haut-Médoc |
+| La Lagune | Ludon-Médoc | Haut-Médoc |
 | Desmirail | Margaux-Cantenac | Margaux |
 | Calon Ségur | Saint-Estèphe | Saint-Estèphe |
 | Ferrière | Margaux-Cantenac | Margaux |
@@ -189,7 +187,9 @@ I counted these from the official CIVB list. The Margaux figure (21 out of 61) i
 
 > EXAM TRAP: the five classified growths in the **Haut-Médoc** appellation are La Lagune (Ludon), La Tour Carnet, Belgrave and Camensac (all Saint-Laurent-Médoc) and Cantemerle (Macau). They are the ones most often forgotten, because their label does not say Margaux, Pauillac, Saint-Julien or Saint-Estèphe.
 
-> KEEP IN MIND: **Margaux the appellation** is spread over four communes (Arsac, Labarde, Margaux-Cantenac and Soussans), according to the CIVB. Cantenac used to be counted as its own commune, which is why older books and château names still say "Cantenac". In my tables, "Margaux-Cantenac" means the village of Margaux or the village of Cantenac. ([CIVB, Margaux](https://www.bordeaux.com/en/designations/medoc/margaux/))
+> KEEP IN MIND: **Margaux the appellation** covers four communes (Arsac, Labarde, Margaux-Cantenac and Soussans), according to the CIVB. "Margaux-Cantenac" is one commune, and the official sources I used do not separate the two villages. The classified growths outside it are Giscours and Dauzac (Labarde) and du Tertre (Arsac). ([CIVB, Margaux](https://www.bordeaux.com/en/designations/medoc/margaux/), [UGCB](https://ugcb.net/chateaux/))
+
+Sources: the appellation of each château comes from the [official Conseil listing](https://gcc-1855.fr/ListingGCC1855-en.pdf) and the [CIVB](https://www.bordeaux.com/en/classifications/classifications-1855/). The communes of the Haut-Médoc châteaux (Ludon-Médoc, Saint-Laurent-Médoc, Macau) and of Giscours, Dauzac and du Tertre come from the addresses on each château's page of the [Union des Grands Crus de Bordeaux](https://ugcb.net/chateaux/). For Pauillac, Saint-Julien and Saint-Estèphe the commune has the same name as the appellation.
 
 
 ### Cru Bourgeois du Médoc (Certified)
@@ -200,85 +200,57 @@ I counted these from the official CIVB list. The Margaux figure (21 out of 61) i
 - It is open to red wine estates in eight appellations: Médoc, Haut-Médoc, Listrac-Médoc, Moulis, Margaux, Saint-Julien, Pauillac and Saint-Estèphe. ([Alliance des Crus Bourgeois, 2025 press kit](https://www.crus-bourgeois.com/wp-content/uploads/2026/10/ANG-Dossier-de-presse-Classement-2025-Crus-Bourgeois-du-Medoc-web-v2_compressed-1.pdf))
 - Milestones: first list 1932; legal use of the title in 1979; first official classification 2003; first five-year edition 2020. ([CIVB](https://www.bordeaux.com/en/classifications/crus-bourgeois-du-medoc/))
 
-> BY THE WAY: I have not listed the individual estates of each level yet, because the press kit lists them in a layout that does not extract cleanly and I do not want to risk placing a château in the wrong level. I can do it from the official site if you want it.
+> BY THE WAY: pending, the estates of each level in 2025. The press kit lists them in a layout that does not extract cleanly, and I do not want to place a château in the wrong level.
 
 ### (A) Second labels of the classified growths
 
-A second label is a wine made from the lots not chosen for the grand vin. The list below follows Wikipedia's table of second wines, with the five first-growth second wines also confirmed by [SCMP](https://www.scmp.com/article/1002173/take-two) and the [Drinks Business](https://www.thedrinksbusiness.com/2015/04/in-focus-the-second-wines/). Labels change over time, so check them against the château before the exam.
+A second label is a wine made from lots not chosen for the grand vin. The list below comes from each château's page on the site of the Union des Grands Crus de Bordeaux (UGCB), which lists the second wine of its members. Châteaux that are not members of the UGCB are not covered, and are listed under the table.
 
-| Château | Growth | Second label (and third, if any) |
+| Château | Growth | Second label (UGCB) |
 |---|---|---|
-| Lafite Rothschild | 1st | Carruades de Lafite Rothschild |
-| Latour | 1st | Les Forts de Latour (third: Le Pauillac de Château Latour) |
-| Margaux | 1st | Pavillon Rouge du Château Margaux |
 | Mouton Rothschild | 1st | Le Petit Mouton de Mouton Rothschild |
-| Haut-Brion | 1st | Le Clarence de Haut-Brion |
 | Rauzan-Ségla | 2nd | Ségla |
-| Rauzan-Gassies | 2nd | Chevalier de Rauzan-Gassies |
-| Léoville Las Cases | 2nd | Le Petit Lion de Marquis de Las Cases |
+| Rauzan-Gassies | 2nd | Gassies |
 | Léoville-Poyferré | 2nd | Pavillon de Léoville Poyferré |
-| Léoville Barton | 2nd | La Réserve de Léoville Barton |
-| Durfort-Vivens | 2nd | Vivens de Durfort-Vivens |
+| Léoville Barton | 2nd | La réserve de Léoville Barton |
 | Gruaud Larose | 2nd | Sarget de Gruaud Larose |
 | Lascombes | 2nd | Chevalier de Lascombes |
 | Brane-Cantenac | 2nd | Baron de Brane |
-| Pichon-Baron | 2nd | Les Tourelles de Longueville |
-| Pichon Comtesse | 2nd | Réserve de la Comtesse |
-| Ducru-Beaucaillou | 2nd | La Croix de Beaucaillou |
-| Cos d'Estournel | 2nd | Les Pagodes de Cos |
-| Montrose | 2nd | La Dame de Montrose |
-| Kirwan | 3rd | Les Charmes de Kirwan |
-| d'Issan | 3rd | Blason d'Issan |
+| Pichon Comtesse | 2nd | Pichon Comtesse Réserve |
+| Kirwan | 3rd | Charmes de Kirwan |
 | Lagrange | 3rd | Les Fiefs de Lagrange |
-| Langoa Barton | 3rd | Lady Langoa |
 | Giscours | 3rd | La Sirène de Giscours |
 | Malescot St-Exupéry | 3rd | La Dame de Malescot |
-| Cantenac Brown | 3rd | Brio de Cantenac Brown |
-| Boyd-Cantenac | 3rd | Jacques Boyd |
-| Palmer | 3rd | Alter Ego de Palmer |
-| La Lagune | 3rd | Moulin de La Lagune |
+| Cantenac Brown | 3rd | BriO de Cantenac Brown |
+| La Lagune | 3rd | Moulin du Château La Lagune |
 | Desmirail | 3rd | Initial de Desmirail |
-| Calon Ségur | 3rd | Le Marquis de Calon-Ségur |
-| Ferrière | 3rd | Les Remparts de Ferrière |
-| Marquis d'Alesme | 3rd | Marquise d'Alesme |
 | Saint-Pierre | 4th | Esprit de Saint-Pierre |
-| Talbot | 4th | Connétable de Talbot |
+| Talbot | 4th | Connétable Talbot |
 | Branaire-Ducru | 4th | Duluc de Branaire-Ducru |
 | Duhart-Milon | 4th | Moulin de Duhart |
-| Pouget | 4th | Antoine Pouget |
-| La Tour Carnet | 4th | Les Douves de Carnet |
+| La Tour Carnet | 4th | Les Pensées de La Tour Carnet |
 | Lafon-Rochet | 4th | Les Pèlerins de Lafon-Rochet |
 | Beychevelle | 4th | Amiral de Beychevelle |
 | Prieuré-Lichine | 4th | Confidences de Prieuré-Lichine |
-| Marquis de Terme | 4th | Les Gondats de Marquis de Terme |
-| Pontet-Canet | 5th | Les Hauts de Pontet-Canet |
-| Batailley | 5th | Lions de Batailley |
-| Haut-Batailley | 5th | Verso |
+| Marquis de Terme | 4th | Marquis de Terme Cuvée 1762 |
+| Batailley | 5th | Les Lions de Batailley |
+| Haut-Batailley | 5th | Haut-Batailley Verso |
 | Grand-Puy-Lacoste | 5th | Lacoste-Borie |
 | Grand-Puy-Ducasse | 5th | Prélude à Grand-Puy Ducasse |
-| Lynch-Bages | 5th | Echo de Lynch-Bages (third: Pauillac de Lynch-Bages) |
+| Lynch-Bages | 5th | Echo de Lynch-Bages |
 | Lynch-Moussas | 5th | Les Hauts de Lynch-Moussas |
-| Dauzac | 5th | Aurore de Dauzac and La Bastide de Dauzac |
-| d'Armailhac | 5th | not given in my source |
+| Dauzac | 5th | Aurore de Dauzac |
 | du Tertre | 5th | Les Hauts du Tertre |
-| Haut-Bages Libéral | 5th | La Chapelle de Bages |
 | Pédesclaux | 5th | Fleur de Pédesclaux |
 | Belgrave | 5th | Diane de Belgrave |
-| de Camensac | 5th | La Closerie de Camensac |
-| Cos Labory | 5th | Le Charme Labory |
+| de Camensac | 5th | Closerie de Camensac |
 | Clerc Milon | 5th | Pastourelle de Clerc Milon |
-| Croizet-Bages | 5th | La Tourelle de Croizet-Bages |
+| Croizet-Bages | 5th | Alias Croizet-bages |
 | Cantemerle | 5th | Les Allées de Cantemerle |
 
-Source: [Wikipedia, Second wine](https://en.wikipedia.org/wiki/Second_wine).
+Source: [Union des Grands Crus de Bordeaux, châteaux](https://ugcb.net/chateaux/).
 
-> BY THE WAY: this table comes from one secondary source (Wikipedia). I standardised some spellings to how the names appear on labels (for example "Confidences", "Pèlerins", "La Bastide Dauzac"), without checking each château. Treat the whole table as to be verified against the châteaux before the exam, and tell me which ones you want me to verify first.
-
----
-
-### In short (my summary for you)
-
-> KEEP IN MIND: the Médoc has two appellations of its own (Médoc and Haut-Médoc) plus six communal ones. 1855 reds = 61 (Margaux 21, Pauillac 18, Saint-Julien 11, Saint-Estèphe 5, Haut-Médoc 5, Haut-Brion 1). Cru Bourgeois is the five-yearly classification below it (2025: 170 estates).
+> BY THE WAY: not covered by the UGCB, so pending (check each château's own site): Lafite Rothschild, Latour, Margaux, Haut-Brion, Léoville Las Cases, Durfort-Vivens, Pichon-Baron, Ducru-Beaucaillou, Cos d'Estournel, Montrose, d'Issan, Langoa Barton, Boyd-Cantenac, Palmer, Calon Ségur, Ferrière, Marquis d'Alesme, Pouget, Pontet-Canet, d'Armailhac, Haut-Bages Libéral, Cos Labory.
 
 ---
 
@@ -289,72 +261,71 @@ Source: [Wikipedia, Second wine](https://en.wikipedia.org/wiki/Second_wine).
 | Appellation | What to know |
 |---|---|
 | Graves | 3,350 ha, 42 communes, about 200 growers, south of Bordeaux on the left bank of the Garonne. The name comes from the gravel soils. Red and dry white wines. Reds: Merlot 59%, Cabernet Sauvignon 33%, Cabernet Franc 3%. Whites: Sémillon 48%, Sauvignon Blanc 45%, Muscadelle 4%, Sauvignon Gris 3%. ([CIVB, Graves](https://www.bordeaux.com/en/designations/graves/graves/)) |
-| Pessac-Léognan | 1,880 ha, the closest appellation to Bordeaux city, created in **1987** within the former Graves area. Reds (86%) and dry whites. Reds: Cabernet Sauvignon and Merlot, with Cabernet Franc, Carménère, Malbec and Petit Verdot. Whites: Sauvignon Blanc, Sauvignon Gris, Sémillon and Muscadelle. ([CIVB, Pessac-Léognan](https://www.bordeaux.com/en/designations/graves/pessac-leognan/), [CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/)) |
+| Pessac-Léognan | 1,880 ha, the closest appellation to Bordeaux city, created in **1987** within the broader Graves area. Reds (86%) and dry whites. Reds: Cabernet Sauvignon and Merlot, with Cabernet Franc, Carménère, Malbec and Petit Verdot. Whites: Sauvignon Blanc, Sauvignon Gris, Sémillon and Muscadelle. ([CIVB, Pessac-Léognan](https://www.bordeaux.com/en/designations/graves/pessac-leognan/), [CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/)) |
 | Graves Supérieures | Semi-sweet white wines. ([CIVB, Graves](https://www.bordeaux.com/en/designations/graves/graves/)) |
 
 - (A) Pessac-Léognan covers **10 communes**: Pessac, Léognan, Mérignac, Talence, Gradignan, Canéjan, Villenave-d'Ornon, Cadaujac, Martillac and Saint-Médard-d'Eyrans. ([CIVB, Pessac-Léognan](https://www.bordeaux.com/en/designations/graves/pessac-leognan/))
 
 ### (A) The Graves classification and its communes
 
-- Published by the INAO in **1953**, revised once in **1959**. It is the only classification where an estate can be classified for **red, white, or both**. It has a **single level** (no first to fifth ranking). All the classified growths are in Pessac-Léognan, and the label reads "Cru Classé de Graves". ([CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/), [Wikipedia](https://en.wikipedia.org/wiki/Classification_of_Graves_wine))
-- It originally had 16 growths. Since the merger of La Tour Haut-Brion and Laville Haut-Brion into La Mission Haut-Brion, the list has **14**. ([CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/))
-- **Haut-Brion** is the only Bordeaux estate classified twice: in the 1855 classification and in Graves. ([CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/))
+- Published by the INAO in **1953**, with one revision, in **1959**. It is the only classification where an estate can be classified for **red, white, or both**. It has a **single level** (no first to fifth ranking). All the classified growths are in Pessac-Léognan, and the label reads "Cru Classé de Graves". ([CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/))
+- It originally had 16 growths. Since the merger of La Tour Haut-Brion and Laville Haut-Brion into La Mission Haut-Brion, the list has **14**: 5 classified for red only, 2 for white only and 7 for both. ([CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/))
+- **Haut-Brion** is the only Bordeaux estate classified twice: in 1855 and in Graves. ([CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/))
 
-| Château | Commune | Classified for |
-|---|---|---|
-| Bouscaut | Cadaujac | Red and white |
-| Carbonnieux | Léognan | Red and white |
-| Domaine de Chevalier | Léognan | Red and white |
-| Couhins | Villenave-d'Ornon | White |
-| Couhins-Lurton | Villenave-d'Ornon | White |
-| de Fieuzal | Léognan | Red (see warning below) |
-| Haut-Bailly | Léognan | Red |
-| Haut-Brion | Pessac | Red |
-| Latour-Martillac | Martillac | Red and white |
-| Malartic-Lagravière | Léognan | Red and white |
-| La Mission Haut-Brion | Pessac | Red |
-| Olivier | Léognan | Red and white |
-| Pape Clément | Pessac | Red |
-| Smith Haut Lafitte | Martillac | Red |
+| Château | Commune |
+|---|---|
+| Haut-Brion | Pessac |
+| Bouscaut | Cadaujac |
+| Carbonnieux | Léognan |
+| Domaine de Chevalier | Léognan |
+| Couhins | Villenave-d'Ornon |
+| Couhins-Lurton | Villenave-d'Ornon |
+| de Fieuzal | Léognan |
+| Haut-Bailly | Léognan |
+| Latour-Martillac | Martillac |
+| Malartic-Lagravière | Léognan |
+| La Mission Haut-Brion | Talence |
+| Olivier | Léognan |
+| Pape-Clément | Pessac |
+| Smith Haut Lafitte | Martillac |
 
-Sources: [Wikipedia, Classification of Graves wine](https://en.wikipedia.org/wiki/Classification_of_Graves_wine) for communes and colours, and the 14 names confirmed by the [Grand Conseil du Vin de Bordeaux](https://www.gcvb.fr/fr/evenements/1004-le-nouveau-president-des-crus-classes-de-graves-en-2021-laurent-cogombles).
+Source: [Syndicat des Vins de Pessac-Léognan, Les Crus Classés de Graves](https://www.pessac-leognan.com/les-crus-classes-de-graves/). The syndicate says these 14 estates make up about 20% of the appellation's volume, besides Haut-Brion.
 
-> EXAM TRAP: the classified colours do not match between sources. The CIVB says 5 estates are classified for red only, 2 for white only and 7 for both. Wikipedia's table gives 6 red only, 2 white only and 6 for both. The difference is one estate, probably Fieuzal, but I could not confirm it from an official text. Do not memorise the colour of Fieuzal until we check it on the INAO decree or the Union des Crus Classés de Graves.
+> EXAM TRAP: **La Mission Haut-Brion** is in **Talence**, not in Pessac, even though its name suggests Haut-Brion's commune. ([Syndicat des Vins de Pessac-Léognan](https://www.pessac-leognan.com/les-crus-classes-de-graves/))
 
 > EXAM TRAP: "Graves" is a regional name and an appellation, but **every classified Graves growth is in Pessac-Léognan**, not in the Graves appellation.
 
+> BY THE WAY: pending, which estates are classified for red, for white or for both. The CIVB gives the totals (5, 2 and 7) but not the names, and the sources I found that name them disagree. I will fill it in once I find the INAO decree or the Union des Crus Classés de Graves list.
+
 ### (A) Second labels of the classified growths of Graves
 
-| Château | Second label |
+| Château | Second label (UGCB) |
 |---|---|
 | Bouscaut | Les Chênes de Bouscaut |
 | Carbonnieux | La Croix de Carbonnieux |
 | Domaine de Chevalier | L'Esprit de Chevalier |
-| Couhins | Couhins La Gravette |
 | de Fieuzal | L'Abeille de Fieuzal |
-| Haut-Bailly | Haut-Bailly II (third: HB) |
+| Haut-Bailly | Haut-Bailly-II |
 | Latour-Martillac | Lagrave-Martillac |
-| Malartic-Lagravière | La Réserve de Malartic |
-| La Mission Haut-Brion | La Chapelle de la Mission |
-| Olivier | La Seigneurie d'Olivier |
-| Pape Clément | Le Clémentin du Pape Clément |
-| Smith Haut Lafitte | Les Hauts de Smith |
+| Malartic-Lagravière | Le Comte de Malartic |
+| Olivier | Le Dauphin d'Olivier |
+| Pape Clément | Clémentin de Pape Clément |
 
-Source: [Wikipedia, Second wine](https://en.wikipedia.org/wiki/Second_wine). Haut-Brion's second label is Le Clarence de Haut-Brion (see the first-growth table).
+Source: [Union des Grands Crus de Bordeaux, châteaux](https://ugcb.net/chateaux/). Haut-Brion's second label is covered in the Médoc table above if listed there. Not covered by the UGCB, so pending: Haut-Brion, La Mission Haut-Brion, Couhins, Couhins-Lurton, Smith Haut Lafitte.
 
 ### In short (my summary for you)
 
-> KEEP IN MIND: Graves classification = 14 estates, single level, all in Pessac-Léognan (10 communes), classified for red, white or both, published 1953 and revised 1959. Haut-Brion is the only estate classified in both 1855 and Graves.
+> KEEP IN MIND: Graves classification = 14 estates, single level, all in Pessac-Léognan (10 communes), classified for red, white or both, published 1953 and revised 1959. Haut-Brion is the only estate classified in both 1855 and Graves. La Mission Haut-Brion is in Talence.
 
 ---
 
-## 4. Sauternes and Barsac: 1855 classified growths (already written, to be completed)
+## 4. Sauternes and Barsac: 1855 classified growths (to be completed)
 
 This section will be merged later with the rest of the sweet-wine block (botrytis, Loupiac, Cadillac and Sainte-Croix-du-Mont).
 
 ### (A) Sweet white wines: Sauternes and Barsac
 
-Two appellations, five communes. **Sauternes** covers the communes of Sauternes, Bommes, Fargues and Preignac. **Barsac** is the fifth commune and has its own appellation. A Barsac estate may label its wine as Barsac or as Sauternes. ([Wikipedia](https://en.wikipedia.org/wiki/Bordeaux_Wine_Official_Classification_of_1855))
+The sweet-wine area covers five communes: Sauternes, Bommes, Fargues, Preignac and Barsac. Producers in Barsac can choose between the Sauternes and the Barsac appellation. ([Conseil, Sauternes and Barsac terroir](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf)) The list of 27 below is the Conseil's official listing, with 1 Premier Cru Supérieur, 11 Premiers Crus and 15 Seconds Crus. ([Conseil, official listing](https://gcc-1855.fr/ListingGCC1855-en.pdf))
 
 #### Premier Cru Supérieur
 
@@ -367,12 +338,12 @@ Two appellations, five communes. **Sauternes** covers the communes of Sauternes,
 | Château | Commune | Appellation |
 |---|---|---|
 | La Tour Blanche | Bommes | Sauternes |
-| Lafaurie-Peyraguey | Bommes | Sauternes |
+| Lafaurie-Peyraguey | to confirm | Sauternes |
 | Clos Haut-Peyraguey | Bommes | Sauternes |
 | de Rayne-Vigneau | Bommes | Sauternes |
-| Sigalas-Rabaud | Bommes | Sauternes |
-| Rabaud-Promis | Bommes | Sauternes |
-| Suduiraut | Preignac | Sauternes |
+| Sigalas-Rabaud | to confirm | Sauternes |
+| Rabaud-Promis | to confirm | Sauternes |
+| Suduiraut | to confirm | Sauternes |
 | Rieussec | Fargues | Sauternes |
 | Guiraud | Sauternes | Sauternes |
 | Coutet | Barsac | Barsac |
@@ -390,32 +361,29 @@ Two appellations, five communes. **Sauternes** covers the communes of Sauternes,
 | Nairac | Barsac | Barsac |
 | Caillou | Barsac | Barsac |
 | Suau | Barsac | Barsac |
-| d'Arche | Sauternes | Sauternes |
-| Filhot | Sauternes | Sauternes |
-| Lamothe | Sauternes | Sauternes |
-| Lamothe-Guignard | Sauternes | Sauternes |
-| de Malle | Preignac | Sauternes |
-| Romer | Fargues | Sauternes |
-| Romer du Hayot | Fargues | Sauternes |
+| d'Arche | to confirm | Sauternes |
+| Filhot | to confirm | Sauternes |
+| Lamothe | to confirm | Sauternes |
+| Lamothe-Guignard | to confirm | Sauternes |
+| de Malle | to confirm | Sauternes |
+| Romer | to confirm | Sauternes |
+| Romer du Hayot | to confirm | Sauternes |
 
-> BY THE WAY: the CIVB page lists only 26 of the 27 Sauternes and Barsac names (Sigalas-Rabaud is missing), although the official count is 11 first growths. The Conseil des Grands Crus Classés en 1855 gives the 11 figure, and Wikipedia lists Sigalas-Rabaud as a first growth in Bommes. I included it for that reason. Worth double-checking on the official classified-growth site later. ([CIVB](https://www.bordeaux.com/en/classifications/classifications-1855/), [Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/), [Wikipedia](https://en.wikipedia.org/wiki/Bordeaux_Wine_Official_Classification_of_1855))
+Sources: appellations from the [Conseil's official listing](https://gcc-1855.fr/ListingGCC1855-en.pdf). Communes from the addresses on the [UGCB](https://ugcb.net/chateaux/) pages where the château is a member; Barsac estates are in the commune of Barsac, which has its own appellation. "To confirm" means I have not yet found an official source for that château's commune.
 
-> EXAM TRAP: the second-growth Sauternes names that come in families are **Doisy** (three, all Barsac), **Lamothe** (two, both Sauternes) and **Romer** (two, both Fargues).
+> EXAM TRAP: the second-growth names that come in families are **Doisy** (three, all Barsac), **Lamothe** (two) and **Romer** (two).
 
 
 ---
 
 ## Sources
 
-- [CIVB, The 1855 Wines Classifications](https://www.bordeaux.com/en/classifications/classifications-1855/) (official list of châteaux and appellations; criteria)
-- [Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/) (counts per level; 18 April 1855)
+- [Conseil des Grands Crus Classés en 1855](https://gcc-1855.fr/en/): [history](https://gcc-1855.fr/history/), [classification](https://gcc-1855.fr/the-1855-grand-cru-classification/) and the [official listing (PDF)](https://gcc-1855.fr/ListingGCC1855-en.pdf)
+- [CIVB, The 1855 Wines Classifications](https://www.bordeaux.com/en/classifications/classifications-1855/)
 - CIVB appellation pages: [Médoc](https://www.bordeaux.com/en/designations/medoc/medoc/), [Haut-Médoc](https://www.bordeaux.com/en/designations/medoc/haut-medoc/), [Saint-Estèphe](https://www.bordeaux.com/en/designations/medoc/saint-estephe/), [Pauillac](https://www.bordeaux.com/en/designations/medoc/pauillac/), [Saint-Julien](https://www.bordeaux.com/en/designations/medoc/saint-julien/), [Listrac-Médoc](https://www.bordeaux.com/en/designations/medoc/listrac-medoc/), [Moulis](https://www.bordeaux.com/en/designations/medoc/moulis/), [Margaux](https://www.bordeaux.com/en/designations/medoc/margaux/), [Graves](https://www.bordeaux.com/en/designations/graves/graves/), [Pessac-Léognan](https://www.bordeaux.com/en/designations/graves/pessac-leognan/)
 - [CIVB, Graves classification](https://www.bordeaux.com/en/classifications/graves/)
 - [CIVB, Crus Bourgeois du Médoc](https://www.bordeaux.com/en/classifications/crus-bourgeois-du-medoc/) and the [Alliance des Crus Bourgeois 2025 press kit](https://www.crus-bourgeois.com/wp-content/uploads/2026/10/ANG-Dossier-de-presse-Classement-2025-Crus-Bourgeois-du-Medoc-web-v2_compressed-1.pdf)
 - [CIVB, grape varieties](https://www.bordeaux.com/en/grape-varieties/) and [CIVB, professions](https://www.bordeaux.com/en/professions/)
-- [Decanter, The official 1855 Bordeaux classification](https://www.decanter.com/learn/the-official-bordeaux-wine-classification-of-1855-41072/) (Mouton promoted in 1973)
-- [GuildSomm, Bordeaux](https://www.guildsomm.com/research/expert_guides/w/expert-guides/2439/bordeaux) and [Taste France](https://www.tastefrance.com/magazine/wine-terroirs/terroirs-bordeaux-international-influence) (geography)
-- [The Wine Doctor, En primeur](https://www.thewinedoctor.com/regionalguides/bordeaux_2013_13_enprimeur.shtml) and [En Primeur Club](https://www.enprimeurclub.com/guide/how-to-follow-the-2026-en-primeur-campaign-and-what-its-actually-like) (trade)
-- [Grand Conseil du Vin de Bordeaux](https://www.gcvb.fr/fr/evenements/1004-le-nouveau-president-des-crus-classes-de-graves-en-2021-laurent-cogombles) (14 Graves classified growths)
-- [Wikipedia, Bordeaux Wine Official Classification of 1855](https://en.wikipedia.org/wiki/Bordeaux_Wine_Official_Classification_of_1855), [Classification of Graves wine](https://en.wikipedia.org/wiki/Classification_of_Graves_wine) and [Second wine](https://en.wikipedia.org/wiki/Second_wine) (secondary source: village-level communes, Graves colours, second labels; to be cross-checked)
-- [SCMP](https://www.scmp.com/article/1002173/take-two) and [The Drinks Business](https://www.thedrinksbusiness.com/2015/04/in-focus-the-second-wines/) (first-growth second wines)
+- [Syndicat des Vins de Pessac-Léognan, Les Crus Classés de Graves](https://www.pessac-leognan.com/les-crus-classes-de-graves/)
+- [Union des Grands Crus de Bordeaux](https://ugcb.net/chateaux/) (second labels; addresses used for communes of Haut-Médoc, Labarde and Arsac châteaux)
+- [Conseil des Grands Crus Classés en 1855, Sauternes and Barsac terroir (PDF)](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf)
