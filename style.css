@@ -224,3 +224,36 @@ details.srcs .notes-body ul,details.srcs .notes-body li{font-size:13px}
 
 .blk .fig:not(.side) img{max-width:min(100%,680px);margin-left:auto;margin-right:auto}
 .blk .fig:not(.side) figcaption{text-align:center}
+
+/* ---- edit mode ---- */
+.edbtn{margin-left:auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:600;color:var(--ink)}
+.edbtn:hover{border-color:var(--accent);color:var(--accent)}
+.foldnote.mineon{display:flex}
+.editbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--accent) 9%,var(--surface));border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));position:sticky;top:62px;z-index:5}
+.editbar .fine{margin:0;flex:1;min-width:200px}
+.eb-r{display:flex;gap:8px}
+.editbar button,.ck-tools button,.ck-actions button,.gap-menu button,.gap-add{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:13px;color:var(--ink)}
+.editbar button:hover,.ck-tools button:hover,.ck-actions button:hover,.gap-menu button:hover,.gap-add:hover{border-color:var(--accent)}
+button.primary{background:var(--accent)!important;color:var(--accent-ink)!important;border-color:var(--accent)!important;font-weight:600}
+.ck-tools .del{color:#d93b4b}
+.ck{position:relative;border:1px solid var(--line);border-radius:12px;padding:8px 12px 10px;background:var(--surface);margin:4px 0}
+.ck:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.ck-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;opacity:.55;margin-bottom:4px}
+.ck:hover .ck-tools,.ck:focus-within .ck-tools{opacity:1}
+.grab{cursor:grab;font-size:18px;line-height:1;padding:2px 8px;border:1px dashed var(--line);border-radius:8px;user-select:none;color:var(--muted)}
+.grab:active{cursor:grabbing}
+.ck-body>*:first-child{margin-top:0}.ck-body>*:last-child{margin-bottom:0}
+.ck-body .fig.side{float:right}
+.ck-body{display:flow-root}
+.ck-ta{display:block;width:100%;resize:vertical;border:1px solid var(--accent);border-radius:10px;background:var(--surface-2);padding:10px 12px;outline:0;font:13.5px/1.55 ui-monospace,Consolas,monospace}
+.ck-actions{display:flex;gap:8px;margin-top:8px}
+.gap{display:flex;flex-direction:column;align-items:center;min-height:14px;position:relative}
+.gap-add{opacity:0;transition:opacity .15s;padding:1px 10px;font-size:12px;margin:1px 0}
+.gap:hover .gap-add,.gap:focus-within .gap-add,.editing .gap:first-of-type .gap-add{opacity:.9}
+.gap.on{background:var(--accent);border-radius:4px;min-height:6px;margin:2px 0}
+.gap.on .gap-add{opacity:0}
+.gap-menu{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:6px 0 8px}
+.gap-menu[hidden]{display:none}
+@media (hover:none){.gap-add{opacity:.8}}
+.editing .tside .si{pointer-events:none;opacity:.6}
+.editing .lvsw{pointer-events:none;opacity:.5}

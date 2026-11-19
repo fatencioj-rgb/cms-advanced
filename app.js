@@ -99,7 +99,7 @@ var notesLoaded=false;
 function loadNotes(){
   return fetch('notes/index.json?'+Date.now()).then(function(r){return r.ok?r.json():[]}).catch(function(){return []}).then(function(ids){
     return Promise.all((Array.isArray(ids)?ids:[]).map(function(id){var t=topicById(id);if(!t)return;
-      return fetch('notes/'+id+'.md?'+Date.now()).then(function(r){return r.ok?r.text():null}).then(function(x){if(x){t.notes=parseMd(x)}}).catch(function(){})}))
+      return fetch('notes/'+id+'.md?'+Date.now()).then(function(r){return r.ok?r.text():null}).then(function(x){if(x){t.notes=parseMd(x);t.raw=x}}).catch(function(){})}))
   }).then(function(){notesLoaded=true})}
 
 /* ---- views ---- */
@@ -150,13 +150,13 @@ function sectionsHTML(items){
       (s.h?'<h4 class="sh">'+(recap?'Remember':info.chips+inl(info.title))+'</h4>':'')+s.items.map(block).join('')+'</section>'}).join('');
   return {html:html,hidden:hidden}}
 
-function sideHTML(id,sp,bi){
+function sideHTML(id,sp,bi,items){
   var h='<div class="side-t">'+esc(topicById(id).name)+'</div>';
   sp.blocks.forEach(function(b,i){
     h+='<a class="si'+(i===bi?' on':'')+'" href="#/t/'+id+'/'+(i+1)+'">'+esc(b.title)+'</a>';
     if(i===bi){var k=0;h+='<div class="subs">';
-      b.items.forEach(function(x){if(x.h&&x.lvl===3){var inf=secInfo(x.h),rc=/^In short/i.test(x.h);h+='<a class="ss" href="#" data-go="s'+(k++)+'">'+(inf.lv==='A'?chip('A'):'')+esc(rc?'Remember':inf.title)+'</a>'}});
-      h+='<a class="ss mine" href="#" data-go="ed-notes">My notes</a><a class="ss mine" href="#" data-go="ed-sum">My summary</a></div>'}});
+      items.forEach(function(x){if(x.h&&x.lvl===3){var inf=secInfo(x.h),rc=/^In short/i.test(x.h);h+='<a class="ss" href="#" data-go="s'+(k++)+'">'+(inf.lv==='A'?chip('A'):'')+esc(rc?'Remember':inf.title)+'</a>'}});
+      h+='<a class="ss mine" href="#" data-go="ed-sum">My summary</a></div>'}});
   return h}
 
 var ED_TOOLS=[['Heading','\n### ','Heading',0],['(A) heading','\n### (A) ','Advanced heading',0],['Bold','**','text',1],['Bullets','\n- ','point',0],['(A) point','\n- (A) ','advanced point',0],
@@ -201,7 +201,92 @@ function bindEditors(){
     edStatus(ed)});
   if(document.querySelector('.myed'))pullNotes().then(function(){if(GH)pushNotes()})}
 
-function topic(id,bi){
+/* ---- edit mode: every block can be changed, moved, deleted, extended, with photos dragged in ----
+   My version of a block is stored as Markdown in S.n[<topic>:<n>:doc] (plus a fingerprint of the original in ...:docbase).
+   The researched notes in notes/*.md are never touched; "Revert to original" just removes my version. */
+function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+function rawBlocks(raw){var out=[],cur=null,skip=false;
+  raw.replace(/\r/g,'').split('\n').forEach(function(l){var m=l.match(/^##\s+(.*)$/);
+    if(m){if(/^sources$/i.test(m[1].trim())){cur=null;skip=true}else{cur=[];out.push(cur);skip=false}return}
+    if(cur&&!skip)cur.push(l)});
+  return out.map(function(a){return a.join('\n').trim()})}
+function chunksOf(body){return body.replace(/\r/g,'').split(/\n[ \t]*\n/).map(function(x){return x.trim()}).filter(function(x){return x&&!/^-{3,}$/.test(x)})}
+function chunkHTML(md){
+  return parseMd(md).map(function(b){
+    if(b.h&&b.lvl===3){var i=secInfo(b.h);return '<h4 class="sh">'+i.chips+inl(i.title)+'</h4>'}
+    if(b.h&&b.lvl===2)return '<h3 class="sh">'+inl(b.h)+'</h3>';
+    return block(b)}).join('')||'<p class="soon">(empty)</p>'}
+
+var E=null;
+var NEW_TPL={text:'Write here.',heading:'### New heading',aheading:'### (A) New heading',bullets:'- Point one\n- Point two',abullets:'- (A) Advanced point\n- (A) Another advanced point',
+  table:'| Column | Column |\n|---|---|\n| | |',remember:'> KEEP IN MIND: ',trap:'> EXAM TRAP: '};
+var ADD_MENU=[['text','Text'],['heading','Heading'],['aheading','(A) Heading'],['bullets','Bullets'],['abullets','(A) Bullets'],['table','Table'],['remember','Remember'],['trap','Exam trap'],['photo','Photo'],['photoside','Photo beside text']];
+function gapHTML(i){return '<div class="gap" data-g="'+i+'"><button type="button" class="gap-add" data-a="gap">+ Add here</button><div class="gap-menu" hidden>'+ADD_MENU.map(function(x){return '<button type="button" data-a="add" data-k="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div></div>'}
+function edCommit(){if(!E)return;var k=E.key,b=E.key+'base';
+  S.n[k]=E.chunks.join('\n\n');S.n[b]=E.baseHash;S.d[k]=1;S.d[b]=1;save();clearTimeout(noteTimer);noteTimer=setTimeout(pushNotes,1500);edSt()}
+function edSt(){var el=document.getElementById('edSt');if(!el||!E)return;
+  el.textContent=!GH?'Saved on this device only. Connect GitHub in the “⋯” menu to sync with your other devices.':(noteErr&&S.d[E.key]?'Saved on this device. Not synced yet ('+noteErr+').':(S.d[E.key]?'Saving…':'Saved.'))}
+function renderEdit(){
+  var box=document.getElementById('editzone');if(!box||!E)return;
+  var h='<div class="editbar"><b>Editing this block</b><span class="fine">Drag the ⠿ handle to move a piece, or use ↑ ↓. Drop photos between pieces. It saves by itself.</span><span class="eb-r"><button type="button" id="edRevert" data-a="revert">Revert to original</button><button type="button" class="primary" data-a="done">Done</button></span></div><p class="fine" id="edSt"></p>';
+  h+=gapHTML(0);
+  E.chunks.forEach(function(c,i){
+    var single=/^!\[[^\]]*\]\(\S+?\)(\{(?:right|left)\})?$/.test(c);
+    h+='<div class="ck" data-i="'+i+'"><div class="ck-tools"><span class="grab" draggable="true" title="Drag to move">⠿</span>'+
+       '<button type="button" data-a="up" title="Move up">↑</button><button type="button" data-a="down" title="Move down">↓</button>'+
+       '<button type="button" data-a="edit">Edit</button>'+(single?'<button type="button" data-a="side">Beside text</button>':'')+'<button type="button" data-a="del" class="del">Delete</button></div>';
+    if(E.open===i)h+='<textarea class="ck-ta" rows="'+Math.max(3,Math.min(14,c.split('\n').length+1))+'" spellcheck="true"></textarea><div class="ck-actions"><button type="button" class="primary" data-a="save">Save</button><button type="button" data-a="cancel">Cancel</button></div>';
+    else h+='<div class="ck-body notes-body">'+chunkHTML(c)+'</div>';
+    h+='</div>'+gapHTML(i+1)});
+  if(!E.chunks.length)h+='<p class="soon">This block is empty. Use “+ Add here”.</p>';
+  h+='<input type="file" id="edFile" accept="image/*" multiple hidden>';
+  box.innerHTML=h;fixLocalImgs(box);edSt();
+  if(E.open!=null){var ta=box.querySelector('.ck-ta');if(ta){ta.value=E.chunks[E.open];ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length)}}}
+function edInsert(idx,arr,open){E.chunks.splice.apply(E.chunks,[idx,0].concat(arr));E.open=open==null?null:open;edCommit();renderEdit()}
+function edPhotos(files,idx,side){
+  addFiles(E.topic,files).then(function(ids){if(!E||!ids.length)return;
+    edInsert(idx,ids.map(function(id){return '![Photo](images/uploads/'+E.topic+'/'+id+'.jpg)'+(side?'{right}':'')}),null)})}
+function edMove(from,to){if(to<0||to>E.chunks.length)return;var c=E.chunks.splice(from,1)[0];if(from<to)to--;E.chunks.splice(to,0,c);E.open=null;edCommit();renderEdit()}
+function startEdit(id,bi,rawBody,ov){
+  var y=window.scrollY;
+  E={topic:id,bi:bi,key:id+':'+(bi+1)+':doc',baseHash:hash(rawBody),chunks:chunksOf(ov||rawBody),open:null,drag:null,pendIdx:0,pendSide:false};
+  document.body.classList.add('editing');
+  document.getElementById('edBtn').hidden=true;
+  renderEdit();
+  var box=document.getElementById('editzone');
+  box.onclick=function(e){var b=e.target.closest('button[data-a]');if(!b||!E)return;var a=b.dataset.a,ck=b.closest('.ck'),i=ck?+ck.dataset.i:-1;
+    if(a==='gap'){var m=b.parentNode.querySelector('.gap-menu');m.hidden=!m.hidden;return}
+    if(a==='add'){var g=+b.closest('.gap').dataset.g,k=b.dataset.k;
+      if(k==='photo'||k==='photoside'){E.pendIdx=g;E.pendSide=k==='photoside';document.getElementById('edFile').click();return}
+      edInsert(g,[NEW_TPL[k]],g);return}
+    if(a==='up')edMove(i,i-1);
+    else if(a==='down')edMove(i,i+2);
+    else if(a==='edit'){E.open=i;renderEdit()}
+    else if(a==='cancel'){E.open=null;renderEdit()}
+    else if(a==='save'){var v=ck.querySelector('.ck-ta').value.trim();var parts=chunksOf(v);E.chunks.splice.apply(E.chunks,[i,1].concat(parts));E.open=null;edCommit();renderEdit()}
+    else if(a==='del'){if(confirm('Delete this piece?')){E.chunks.splice(i,1);E.open=null;edCommit();renderEdit()}}
+    else if(a==='side'){var c=E.chunks[i],m2=c.match(/^(!\[[^\]]*\]\(\S+?\))(?:\{(right|left)\})?$/);
+      var nx={'':'{right}',right:'{left}',left:''}[m2[2]||''];E.chunks[i]=m2[1]+nx;edCommit();renderEdit()}
+    else if(a==='revert'){if(confirm('Remove my changes to this block and go back to the researched version?')){S.n[E.key]='';S.n[E.key+'base']='';S.d[E.key]=1;S.d[E.key+'base']=1;save();clearTimeout(noteTimer);pushNotes();finishEdit(y)}}
+    else if(a==='done')finishEdit(y)};
+  box.onchange=function(e){if(E&&e.target&&e.target.id==='edFile'){edPhotos(e.target.files,E.pendIdx,E.pendSide);e.target.value=''}};
+  /* drag and drop: pieces by their handle, photos from the computer */
+  var tgt=function(e){var el=e.target.closest&&e.target.closest('.ck,.gap');if(!el)return -1;
+    if(el.classList.contains('gap'))return +el.dataset.g;var r=el.getBoundingClientRect(),i=+el.dataset.i;return e.clientY>r.top+r.height/2?i+1:i};
+  var mark=function(idx){box.querySelectorAll('.gap').forEach(function(g){g.classList.toggle('on',+g.dataset.g===idx)})};
+  box.ondragstart=function(e){var gr=e.target.closest&&e.target.closest('.grab');if(!gr){return}var ck=gr.closest('.ck');E.drag=+ck.dataset.i;
+    e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','ck');try{e.dataTransfer.setDragImage(ck,20,20)}catch(x){}};
+  box.ondragover=function(e){var files=e.dataTransfer&&[].indexOf.call(e.dataTransfer.types||[],'Files')>-1;if(E.drag==null&&!files)return;e.preventDefault();mark(tgt(e))};
+  box.ondragleave=function(e){if(!box.contains(e.relatedTarget))mark(-9)};
+  box.ondragend=function(){E.drag=null;mark(-9)};
+  box.ondrop=function(e){var idx=tgt(e);mark(-9);var fs=e.dataTransfer?[].filter.call(e.dataTransfer.files,isImg):[];
+    if(fs.length){e.preventDefault();e.stopPropagation();edPhotos(fs,idx<0?E.chunks.length:idx,false);return}
+    if(E.drag!=null&&idx>=0){e.preventDefault();e.stopPropagation();var f=E.drag;E.drag=null;edMove(f,idx)}};
+  window.scrollTo(0,y)}
+function finishEdit(y){var id=E.topic,bi=E.bi;E=null;document.body.classList.remove('editing');topic(id,bi);if(y!=null)window.scrollTo(0,y)}
+
+
+function topic(id,bi){E=null;document.body.classList.remove('editing');
   var t=topicById(id); if(!t){location.hash='#/';return}
   bi=bi||0;
   var g=groupOf(t.group),idx=TOPICS.indexOf(t),h='';
@@ -216,15 +301,17 @@ function topic(id,bi){
      '<details class="found"><summary>Foundation: Introductory + Certified</summary><ul class="ul">'+t.found.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details>';
 
   if(nb){
-    var cur=sp.blocks[bi],sec=sectionsHTML(cur.items);
-    h+='<div class="tlayout"><aside class="tside">'+sideHTML(id,sp,bi)+'</aside><div class="tmain">';
+    var cur=sp.blocks[bi],rawBody=(t.raw?rawBlocks(t.raw)[bi]:'')||'',docKey=id+':'+(bi+1)+':doc',ov=(S.n[docKey]||'').trim(),
+        items=ov?parseMd(ov):cur.items,sec=sectionsHTML(items),changed=ov&&S.n[docKey+'base']&&S.n[docKey+'base']!==hash(rawBody);
+    h+='<div class="tlayout"><aside class="tside">'+sideHTML(id,sp,bi,items)+'</aside><div class="tmain">';
     h+='<select class="blksel" id="blkSel" aria-label="Block">'+sp.blocks.map(function(b,i){return '<option value="'+(i+1)+'"'+(i===bi?' selected':'')+'>'+esc(b.title)+'</option>'}).join('')+'</select>';
     h+='<div class="lvbar"><div class="lvsw" role="group" aria-label="Level filter"><button type="button" data-lv="all">All levels</button><button type="button" data-lv="A">Advanced only</button></div>'+
-       '<span class="lvkey">'+chip('I')+'Introductory '+chip('C')+'Certified '+chip('A')+'Advanced</span></div>';
+       '<span class="lvkey">'+chip('I')+'Introductory '+chip('C')+'Certified '+chip('A')+'Advanced</span><button type="button" class="edbtn" id="edBtn">✎ Edit this block</button></div>';
     if(sec.hidden)h+='<div class="foldnote"><span>Foundation hidden: '+sec.hidden+' section'+(sec.hidden>1?'s':'')+' you should already know.</span><button type="button" id="showAll">Show all levels</button></div>';
     if(sp.pre.length)h+='<details class="howto"><summary>How to read this page</summary>'+sp.pre.map(block).join('')+'</details>';
-    h+='<article class="panel notes-body blk"><h2 class="btitle">'+inl(cur.title)+'</h2>'+sec.html+
-       editorHTML(id+':'+(bi+1)+':notes','My notes','Your own theory for this block. It uses the same format and level marks as the notes above.',8,'ed-notes')+
+    if(ov)h+='<div class="foldnote mineon"><span>This is my edited version of the block.</span></div>';
+    if(changed)h+='<details class="howto origchg"><summary>The researched notes for this block were updated after I edited it. See the updated original</summary>'+sectionsHTML(cur.items).html+'<p><button type="button" id="useOrig" class="edbtn">Use the updated original (discard my edits)</button></p></details>';
+    h+='<article class="panel notes-body blk"><h2 class="btitle">'+inl(cur.title)+'</h2><div id="editzone">'+sec.html+'</div>'+
        editorHTML(id+':'+(bi+1)+':sum','My summary','Two or three lines in your own words.',3,'ed-sum')+'</article>';
     if(sp.src.length)h+='<details class="srcs panel"><summary>Sources</summary><div class="notes-body">'+sp.src.map(block).join('')+'</div></details>';
     h+='<nav class="pager bp">'+(bi>0?'<a href="#/t/'+id+'/'+bi+'">← Previous block<b>'+esc(sp.blocks[bi-1].title)+'</b></a>':'<span></span>')+(bi<nb-1?'<a href="#/t/'+id+'/'+(bi+2)+'">Next block →<b>'+esc(sp.blocks[bi+1].title)+'</b></a>':'')+'</nav>';
@@ -247,6 +334,9 @@ function topic(id,bi){
     app.querySelectorAll('.lvsw button').forEach(function(b){b.onclick=function(){setLv(b.dataset.lv)}});
     var sa=document.getElementById('showAll');if(sa)sa.onclick=function(){setLv('all')};
     document.getElementById('blkSel').onchange=function(e){location.hash='#/t/'+id+'/'+e.target.value};
+    fixLocalImgs(document.getElementById('editzone'));
+    document.getElementById('edBtn').onclick=function(){startEdit(id,bi,rawBody,ov)};
+    var uo=document.getElementById('useOrig');if(uo)uo.onclick=function(){if(confirm('Discard my edits and use the updated original?')){S.n[docKey]='';S.n[docKey+'base']='';S.d[docKey]=1;S.d[docKey+'base']=1;save();pushNotes();topic(id,bi)}};
     app.querySelectorAll('.tside .ss').forEach(function(a){a.onclick=function(e){e.preventDefault();var el=document.getElementById(a.dataset.go);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}});
   }
   bindNotes(id);
@@ -357,7 +447,7 @@ function renderImages(topic){var box=document.getElementById('myimgs');if(!box)r
         if(it.synced)p=api('images/uploads/'+topic+'/'+it.id+'.jpg').then(function(r){return r.ok?r.json():null}).then(function(j){if(j)return api('images/uploads/'+topic+'/'+it.id+'.jpg',{method:'DELETE',body:JSON.stringify({message:'Delete image',sha:j.sha})}).then(chk)}).then(function(){return mutateMan(function(l){return l.filter(function(z){return z.id!==it.id})},'Remove image')});
         p.then(function(){return dbDel(it.id)}).then(function(){return renderImages(topic)}).catch(function(er){flash(er.message)})}})})}
 
-document.addEventListener('paste',function(e){var t=curTopic();if(!t||!e.clipboardData)return;var fs=[].filter.call(e.clipboardData.files,isImg);if(fs.length){e.preventDefault();addFiles(t,fs)}});
+document.addEventListener('paste',function(e){var t=curTopic();if(!t||!e.clipboardData)return;var fs=[].filter.call(e.clipboardData.files,isImg);if(fs.length){e.preventDefault();if(E)edPhotos(fs,E.chunks.length,false);else addFiles(t,fs)}});
 document.addEventListener('dragover',function(e){if(curTopic())e.preventDefault()});
 document.addEventListener('drop',function(e){var t=curTopic();if(!t)return;e.preventDefault();addFiles(t,e.dataTransfer.files)});
 loadRemote().then(function(){var t=curTopic();if(t)renderImages(t)});
