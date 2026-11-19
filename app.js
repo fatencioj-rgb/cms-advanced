@@ -20,7 +20,17 @@ function hl(text,q){var i=text.toLowerCase().indexOf(q);if(i<0)return esc(text);
 
 /* ---- note blocks ----
  {h:'Heading'} {p:'Paragraph'} {list:[..]} {note:'Keep in mind...'} {btw:'By the way...'} {table:{head:[..],rows:[[..]]}}\n {img:'images/bordeaux/map.jpg',cap:'Caption'}  {imgs:[{img,cap},{img,cap}]} (side by side) */
-function li(x){if(typeof x==='string')return '<li>'+inl(x)+'</li>';return '<li>'+inl(x.t)+(x.sub&&x.sub.length?'<ul class="ul">'+x.sub.map(li).join('')+'</ul>':'')+'</li>'}
+var ADV_RE=/^\(A\)\s*/;
+function chip(l){return '<span class="chip c'+l+'" title="'+({I:'Introductory',C:'Certified',A:'Advanced'})[l]+'">'+l+'</span>'}
+function li(x){var t=typeof x==='string'?x:x.t,sub=typeof x==='string'?null:x.sub,a=ADV_RE.test(t);if(a)t=t.replace(ADV_RE,'');
+  return '<li'+(a?' class="lvA"':'')+'>'+(a?chip('A'):'')+inl(t)+(sub&&sub.length?'<ul class="ul">'+sub.map(li).join('')+'</ul>':'')+'</li>'}
+/* level of a section, read from its heading: "(A) Title" = Advanced; "Title (Introductory and Certified)" = foundation */
+function secInfo(txt){var lv='N',chips='',t=txt,m;
+  if(ADV_RE.test(t)){lv='A';chips=chip('A');t=t.replace(ADV_RE,'')}
+  else if((m=t.match(/\s*\(([^()]*(?:Introductory|Certified)[^()]*)\)\s*$/))){var lab=m[1];t=t.slice(0,m.index);
+    if(/Introductory/.test(lab))chips+=chip('I');if(/Certified/.test(lab))chips+=chip('C');
+    if(/Advanced/.test(lab)){chips+=chip('A');lv='N'}else lv='F'}
+  return {lv:lv,chips:chips,title:t}}
 function block(b){
   if(b.h)return b.lvl===3?'<h4>'+inl(b.h)+'</h4>':b.lvl>=4?'<h5>'+inl(b.h)+'</h5>':'<h3>'+inl(b.h)+'</h3>';
   if(b.hr)return '<hr>';
@@ -31,7 +41,7 @@ function block(b){
   if(b.btw)return '<aside class="callout btw"><b>By the way</b><p>'+inl(b.btw)+'</p></aside>';
   if(b.trap)return '<aside class="callout trap"><b>Exam trap</b><p>'+inl(b.trap)+'</p></aside>';
   if(b.quote)return '<blockquote>'+b.quote.map(function(x){return '<p>'+inl(x)+'</p>'}).join('')+'</blockquote>';
-  if(b.img)return '<figure class="fig"><img src="'+esc(b.img)+'" alt="'+esc(b.cap||'')+'" loading="lazy" data-zoom>'+(b.cap?'<figcaption>'+inl(b.cap)+'</figcaption>':'')+'</figure>';
+  if(b.img)return '<figure class="fig'+(b.side?' side '+b.side:'')+'"><img src="'+esc(b.img)+'" alt="'+esc(b.cap||'')+'" loading="lazy" data-zoom>'+(b.cap?'<figcaption>'+inl(b.cap)+'</figcaption>':'')+'</figure>';
   if(b.imgs)return '<div class="figs">'+b.imgs.map(function(x){return '<figure class="fig"><img src="'+esc(x.img)+'" alt="'+esc(x.cap||'')+'" loading="lazy" data-zoom>'+(x.cap?'<figcaption>'+inl(x.cap)+'</figcaption>':'')+'</figure>'}).join('')+'</div>';
   if(b.table)return '<div class="tw"><table><thead><tr>'+b.table.head.map(function(c){return '<th>'+inl(c)+'</th>'}).join('')+'</tr></thead><tbody>'+
     b.table.rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+inl(c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
@@ -75,7 +85,7 @@ function parseMd(src){
       out.push(ordered?{ol:items}:{list:items});continue}
     if(/^!\[/.test(l)){
       var imgs=[];
-      while(i<L.length&&(m=L[i].match(/^!\[(.*?)\]\((\S+?)\)\s*$/))){if(/^(images\/|https:\/\/)/.test(m[2]))imgs.push({img:m[2],cap:m[1]});i++}
+      while(i<L.length&&(m=L[i].match(/^!\[(.*?)\]\((\S+?)\)(?:\{(right|left)\})?\s*$/))){if(/^(images\/|https:\/\/)/.test(m[2]))imgs.push({img:m[2],cap:m[1],side:m[3]||''});i++}
       if(imgs.length===1)out.push(imgs[0]);else if(imgs.length)out.push({imgs:imgs});
       if(!imgs.length)i++;continue}
     var p=[l.trim()];i++;
@@ -100,7 +110,7 @@ function card(t){
     (hasNotes(t)?'<span class="tag ready">Notes</span>':'<span class="tag">Outline</span>')+'</a>';
 }
 
-function home(){
+function home(){document.body.classList.remove('adv-only');
   var ready=TOPICS.filter(hasNotes).length,h='';
   h+='<section class="intro"><p class="eyebrow">Court of Master Sommeliers Europe · 2026/27</p><h1>Advanced Sommelier</h1>'+
      '<p>My study notes, organised by syllabus section. Each topic has what the syllabus asks for at Advanced level and, once researched, my notes on it.</p>'+
@@ -112,26 +122,135 @@ function home(){
   app.innerHTML=h;
 }
 
-function topic(id){
+/* ---- long topics: blocks (## headings), levels and my own editable notes ---- */
+function splitBlocks(notes){
+  var pre=[],blocks=[],src=null,cur=null;
+  notes.forEach(function(b){
+    if(b.h&&b.lvl===2){
+      if(/^sources$/i.test(b.h.trim())){cur=null;src=[];return}
+      cur={title:b.h,items:[]};blocks.push(cur);src=null;return}
+    if(b.hr)return;
+    if(src){src.push(b);return}
+    if(cur)cur.items.push(b);else pre.push(b)});
+  return {pre:pre,blocks:blocks,src:src||[]}}
+
+/* sections = what comes under each ### heading; returns the html and how many foundation sections the "Advanced only" view hides */
+function sectionsHTML(items){
+  var secs=[],cur={h:null,items:[]},hidden=0,c=0;secs.push(cur);
+  items.forEach(function(b){
+    if(b.hr)return;
+    if(b.h&&b.lvl===3){cur={h:b.h,items:[]};secs.push(cur);return}
+    cur.items.push(b)});
+  var html=secs.filter(function(s){return s.h||s.items.length}).map(function(s){
+    var info=s.h?secInfo(s.h):{lv:'N',chips:'',title:''},recap=!!s.h&&/^In short/i.test(s.h);
+    var hasA=s.items.some(function(b){return b.list&&b.list.some(function(x){return ADV_RE.test(typeof x==='string'?x:x.t)})});
+    if(info.lv==='F'&&!hasA)hidden++;
+    var id=s.h?' id="s'+(c++)+'"':'';
+    return '<section class="sec lv'+info.lv+(hasA?' has-a':'')+(recap?' recap':'')+'"'+id+'>'+
+      (s.h?'<h4 class="sh">'+(recap?'Remember':info.chips+inl(info.title))+'</h4>':'')+s.items.map(block).join('')+'</section>'}).join('');
+  return {html:html,hidden:hidden}}
+
+function sideHTML(id,sp,bi){
+  var h='<div class="side-t">'+esc(topicById(id).name)+'</div>';
+  sp.blocks.forEach(function(b,i){
+    h+='<a class="si'+(i===bi?' on':'')+'" href="#/t/'+id+'/'+(i+1)+'">'+esc(b.title)+'</a>';
+    if(i===bi){var k=0;h+='<div class="subs">';
+      b.items.forEach(function(x){if(x.h&&x.lvl===3){var inf=secInfo(x.h),rc=/^In short/i.test(x.h);h+='<a class="ss" href="#" data-go="s'+(k++)+'">'+(inf.lv==='A'?chip('A'):'')+esc(rc?'Remember':inf.title)+'</a>'}});
+      h+='<a class="ss mine" href="#" data-go="ed-notes">My notes</a><a class="ss mine" href="#" data-go="ed-sum">My summary</a></div>'}});
+  return h}
+
+var ED_TOOLS=[['Heading','\n### ','Heading',0],['(A) heading','\n### (A) ','Advanced heading',0],['Bold','**','text',1],['Bullets','\n- ','point',0],['(A) point','\n- (A) ','advanced point',0],
+  ['Table','\n| Column | Column |\n|---|---|\n| | |\n','',0],['Remember','\n> KEEP IN MIND: ','',0],['Exam trap','\n> EXAM TRAP: ','',0]];
+function editorHTML(key,label,hint,rows,domId){
+  return '<section class="myed" data-key="'+esc(key)+'"'+(domId?' id="'+domId+'"':'')+'><div class="ed-head"><h4 class="sh">'+esc(label)+'</h4><span class="ed-tabs"><button type="button" data-m="edit">Write</button><button type="button" data-m="view">Preview</button></span></div>'+
+  (hint?'<p class="fine">'+hint+'</p>':'')+
+  '<div class="ed-tools">'+ED_TOOLS.map(function(x,i){return '<button type="button" data-t="'+i+'">'+esc(x[0])+'</button>'}).join('')+
+  '<label class="edimg">Image<input type="file" class="ed-img" accept="image/*" hidden></label><label class="edimg">Map beside the text<input type="file" class="ed-img" data-side="right" accept="image/*" hidden></label></div>'+
+  '<textarea class="ed-ta" rows="'+(rows||8)+'" spellcheck="true" placeholder="Write here, in the same format as the notes: ### headings, - lists, tables, > KEEP IN MIND: ..."></textarea><div class="ed-view notes-body"></div><p class="fine ed-st"></p></section>'}
+
+function fixLocalImgs(c){
+  var imgs=[].filter.call(c.querySelectorAll('img'),function(i){return /^images\/uploads\//.test(i.getAttribute('src')||'')});if(!imgs.length)return;
+  dbAll().then(function(loc){var m={};loc.forEach(function(l){m[l.id]=l});
+    imgs.forEach(function(im){var mm=(im.getAttribute('src')||'').match(/\/([^\/]+)\.jpg$/);if(mm&&m[mm[1]])im.src=URL.createObjectURL(m[mm[1]].blob)})}).catch(function(){})}
+function setMode(ed,m){
+  var ta=ed.querySelector('.ed-ta'),v=ed.querySelector('.ed-view'),tools=ed.querySelector('.ed-tools');ed.dataset.mode=m;
+  ed.querySelectorAll('.ed-tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});
+  if(m==='edit'){ta.hidden=false;tools.hidden=false;v.hidden=true}
+  else{ta.hidden=true;tools.hidden=true;v.hidden=false;
+    v.innerHTML=ta.value.trim()?sectionsHTML(parseMd(ta.value)).html:'<p class="soon">Nothing written yet. Press Write to add your own notes.</p>';fixLocalImgs(v)}}
+function edStatus(ed){var key=ed.dataset.key,el=ed.querySelector('.ed-st');if(!el)return;
+  if(!GH){el.textContent='Saved on this device only. Connect GitHub in the “⋯” menu to sync with your other devices.';return}
+  if(noteErr&&S.d[key]){el.textContent='Saved on this device. Not synced yet ('+noteErr+'); it will retry automatically.';return}
+  el.textContent=S.d[key]?'Saving…':'Synced with GitHub · same on all your devices.'}
+function refreshEditors(){document.querySelectorAll('.myed').forEach(function(ed){var key=ed.dataset.key,ta=ed.querySelector('.ed-ta');
+  if(!ta||S.d[key]||document.activeElement===ta)return;var v=S.n[key]||'';
+  if(ta.value!==v){ta.value=v;if(ed.dataset.mode==='view')setMode(ed,'view')}edStatus(ed)})}
+function insertAt(ta,pre,ph,wrap){var s0=ta.selectionStart,e0=ta.selectionEnd,sel=ta.value.slice(s0,e0)||ph;
+  ta.setRangeText(wrap?pre+sel+pre:pre+sel,s0,e0,'end');ta.focus();ta.dispatchEvent(new Event('input'))}
+function bindEditors(){
+  var topic=curTopic();
+  document.querySelectorAll('.myed').forEach(function(ed){
+    var key=ed.dataset.key,ta=ed.querySelector('.ed-ta');
+    ta.value=S.n[key]||'';setMode(ed,ta.value.trim()?'view':'edit');
+    ed.querySelectorAll('.ed-tabs button').forEach(function(b){b.onclick=function(){setMode(ed,b.dataset.m)}});
+    ed.querySelectorAll('.ed-tools button[data-t]').forEach(function(b){b.onclick=function(){var x=ED_TOOLS[+b.dataset.t];insertAt(ta,x[1],x[2],x[3])}});
+    ed.querySelectorAll('.ed-img').forEach(function(inp){inp.onchange=function(e){var side=inp.dataset.side||'';
+      addFiles(topic,e.target.files).then(function(ids){ids.forEach(function(id){insertAt(ta,'\n![Caption](images/uploads/'+topic+'/'+id+'.jpg)'+(side?'{'+side+'}':'')+'\n','',0)})});e.target.value=''}});
+    ta.oninput=function(){S.n[key]=ta.value;S.d[key]=1;save();edStatus(ed);clearTimeout(noteTimer);noteTimer=setTimeout(pushNotes,2000)};
+    ta.onblur=function(){if(S.d[key]){clearTimeout(noteTimer);pushNotes()}};
+    edStatus(ed)});
+  if(document.querySelector('.myed'))pullNotes().then(function(){if(GH)pushNotes()})}
+
+function topic(id,bi){
   var t=topicById(id); if(!t){location.hash='#/';return}
+  bi=bi||0;
   var g=groupOf(t.group),idx=TOPICS.indexOf(t),h='';
   var pv=TOPICS[idx-1],nx=TOPICS[idx+1];
+  var sp=hasNotes(t)?splitBlocks(t.notes):null,nb=sp?sp.blocks.length:0;
+  if(nb&&(bi<0||bi>=nb))bi=0;
+  document.body.classList.toggle('adv-only',!!nb&&S.lvl==='A');
   h+='<a class="back" href="#/">← All sections</a>';
   h+='<header class="t-head" style="--h:'+g.hue+'"><span class="num big">'+num(t.n)+'</span><div><div class="crumb">'+esc(g.name)+'</div><h1>'+esc(t.name)+'</h1></div></header>';
   if(t.note)h+='<aside class="callout key"><b>Exam format</b><p>'+esc(t.note)+'</p></aside>';
+  var syl='<ul class="ul">'+t.adv.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
+     '<details class="found"><summary>Foundation: Introductory + Certified</summary><ul class="ul">'+t.found.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details>';
 
-  h+='<section class="panel"><div class="panel-head"><h2>What the syllabus asks (Advanced)</h2></div><ul class="ul">'+t.adv.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>'+
-     '<details class="found"><summary>Foundation: Introductory + Certified</summary><ul class="ul">'+t.found.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details></section>';
-
-  h+='<section class="panel notes-body"><div class="panel-head"><h2>Study notes</h2></div>';
-  h+=hasNotes(t)?t.notes.map(block).join(''):'<p class="soon">'+(notesLoaded?'Not written yet. We will research this section in depth and add the notes here.':'Loading notes…')+'</p>';
-  h+='</section>';
-
+  if(nb){
+    var cur=sp.blocks[bi],sec=sectionsHTML(cur.items);
+    h+='<div class="tlayout"><aside class="tside">'+sideHTML(id,sp,bi)+'</aside><div class="tmain">';
+    h+='<select class="blksel" id="blkSel" aria-label="Block">'+sp.blocks.map(function(b,i){return '<option value="'+(i+1)+'"'+(i===bi?' selected':'')+'>'+esc(b.title)+'</option>'}).join('')+'</select>';
+    h+='<div class="lvbar"><div class="lvsw" role="group" aria-label="Level filter"><button type="button" data-lv="all">All levels</button><button type="button" data-lv="A">Advanced only</button></div>'+
+       '<span class="lvkey">'+chip('I')+'Introductory '+chip('C')+'Certified '+chip('A')+'Advanced</span></div>';
+    if(sec.hidden)h+='<div class="foldnote"><span>Foundation hidden: '+sec.hidden+' section'+(sec.hidden>1?'s':'')+' you should already know.</span><button type="button" id="showAll">Show all levels</button></div>';
+    if(sp.pre.length)h+='<details class="howto"><summary>How to read this page</summary>'+sp.pre.map(block).join('')+'</details>';
+    h+='<article class="panel notes-body blk"><h2 class="btitle">'+inl(cur.title)+'</h2>'+sec.html+
+       editorHTML(id+':'+(bi+1)+':notes','My notes','Your own theory for this block. It uses the same format and level marks as the notes above.',8,'ed-notes')+
+       editorHTML(id+':'+(bi+1)+':sum','My summary','Two or three lines in your own words.',3,'ed-sum')+'</article>';
+    if(sp.src.length)h+='<details class="srcs panel"><summary>Sources</summary><div class="notes-body">'+sp.src.map(block).join('')+'</div></details>';
+    h+='<nav class="pager bp">'+(bi>0?'<a href="#/t/'+id+'/'+bi+'">← Previous block<b>'+esc(sp.blocks[bi-1].title)+'</b></a>':'<span></span>')+(bi<nb-1?'<a href="#/t/'+id+'/'+(bi+2)+'">Next block →<b>'+esc(sp.blocks[bi+1].title)+'</b></a>':'')+'</nav>';
+    h+='<details class="panel syl"><summary>What the syllabus asks (Advanced)</summary>'+syl+'</details>';
+    h+='</div></div>';
+  }else{
+    h+='<section class="panel"><div class="panel-head"><h2>What the syllabus asks (Advanced)</h2></div>'+syl+'</section>';
+    h+='<section class="panel notes-body"><div class="panel-head"><h2>Study notes</h2></div>';
+    h+=hasNotes(t)?t.notes.map(block).join(''):'<p class="soon">'+(notesLoaded?'Not written yet. You can write your own notes below, and we will research this section in depth later.':'Loading notes…')+'</p>';
+    h+=editorHTML(id+':notes','My notes','Your own theory for this topic. Same format as the other notes.',8,'ed-notes')+'</section>';
+  }
   h+='<section class="panel"><div class="panel-head"><h2>My images</h2></div><div id="myimgs"></div></section>';
   h+='<section class="panel"><div class="panel-head"><h2>My own additions</h2></div><textarea class="notes" id="mine" placeholder="Anything I want to remember or fix later…">'+esc(S.n[id]||'')+'</textarea><p class="fine" id="mineSt"></p></section>';
   h+='<nav class="pager">'+(pv?'<a href="#/t/'+pv.id+'">← Previous<b>'+esc(pv.name)+'</b></a>':'<span></span>')+(nx?'<a href="#/t/'+nx.id+'">Next →<b>'+esc(nx.name)+'</b></a>':'')+'</nav>';
   app.innerHTML=h;window.scrollTo(0,0);
+  if(nb){
+    var setLv=function(v){S.lvl=v==='A'?'A':'all';save();document.body.classList.toggle('adv-only',S.lvl==='A');
+      app.querySelectorAll('.lvsw button').forEach(function(b){b.classList.toggle('on',b.dataset.lv===S.lvl)})};
+    setLv(S.lvl==='A'?'A':'all');
+    app.querySelectorAll('.lvsw button').forEach(function(b){b.onclick=function(){setLv(b.dataset.lv)}});
+    var sa=document.getElementById('showAll');if(sa)sa.onclick=function(){setLv('all')};
+    document.getElementById('blkSel').onchange=function(e){location.hash='#/t/'+id+'/'+e.target.value};
+    app.querySelectorAll('.tside .ss').forEach(function(a){a.onclick=function(e){e.preventDefault();var el=document.getElementById(a.dataset.go);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}});
+  }
   bindNotes(id);
+  bindEditors();
   renderImages(id);
 }
 
@@ -150,7 +269,7 @@ function search(q){
   document.getElementById('clr').onclick=function(e){e.preventDefault();qEl.value='';location.hash='#/';route()};
 }
 
-function route(){var m=location.hash.match(/^#\/t\/([\w-]+)/);if(m){qEl.value='';topic(m[1])}else{home();window.scrollTo(0,0)}}
+function route(){var m=location.hash.match(/^#\/t\/([\w-]+)(?:\/(\d+))?/);if(m){qEl.value='';topic(m[1],m[2]?+m[2]-1:0)}else{home();window.scrollTo(0,0)}}
 window.addEventListener('hashchange',route);
 qEl.addEventListener('input',function(){search(qEl.value)});
 
@@ -214,10 +333,9 @@ function syncAll(){if(!GH)return Promise.resolve();
   return syncQ}
 function flash(m){var el=document.getElementById('imgmsg');if(el)el.textContent=m;msg.textContent=m}
 
-function addFiles(topic,files){var list=[].filter.call(files,isImg);if(!list.length)return;
-  var now=Date.now();
-  Promise.all(list.map(function(f,i){return shrink(f).then(function(b){return dbPut({id:(now+i).toString(36)+Math.random().toString(36).slice(2,5),topic:topic,cap:'',blob:b,synced:false,t:now+i})})}))
-  .then(function(){return renderImages(topic)}).then(function(){return syncAll()},function(){flash('That file could not be read as an image.')})}
+function storeFiles(topic,files){var list=[].filter.call(files,isImg);if(!list.length)return Promise.resolve([]);var now=Date.now();
+  return Promise.all(list.map(function(f,i){return shrink(f).then(function(bl){var id=(now+i).toString(36)+Math.random().toString(36).slice(2,5);return dbPut({id:id,topic:topic,cap:'',blob:bl,synced:false,t:now+i}).then(function(){return id})})}))}
+function addFiles(topic,files){return storeFiles(topic,files).then(function(ids){if(!ids.length)return ids;return renderImages(topic).then(function(){return syncAll()}).then(function(){return ids})},function(){flash('That file could not be read as an image.');return []})}
 
 var renderSeq=0;
 function renderImages(topic){var box=document.getElementById('myimgs');if(!box)return Promise.resolve();var my=++renderSeq;
@@ -266,7 +384,7 @@ function applyRemote(data){Object.keys(data).forEach(function(k){if(!S.d[k])S.n[
 /* read: with GitHub connected use the API (always fresh); otherwise the published copy (read only, may lag a minute) */
 function pullNotes(){
   var p=GH?getNotesFile().then(function(f){return f.data}):fetch(NF+'?'+Date.now()).then(function(r){return r.ok?r.json():{}});
-  return p.then(function(d){applyRemote(d||{});noteErr=''},function(e){noteErr=e.message||'offline'})}
+  return p.then(function(d){applyRemote(d||{});noteErr='';refreshEditors()},function(e){noteErr=e.message||'offline'})}
 function pushNotes(again){
   if(!GH||!Object.keys(S.d).length)return Promise.resolve();
   if(notePush)return notePush;
@@ -280,7 +398,7 @@ function pushNotes(again){
     .catch(function(e){noteErr=e.message||'offline'})
     .then(function(){notePush=null;noteStatus();if(Object.keys(S.d).length&&!noteErr)return pushNotes()});
   return notePush}
-function noteStatus(){var el=document.getElementById('mineSt'),t=curTopic();if(!el||!t)return;
+function noteStatus(){document.querySelectorAll('.myed').forEach(edStatus);var el=document.getElementById('mineSt'),t=curTopic();if(!el||!t)return;
   if(!GH){el.textContent='Saved on this device only. Connect GitHub in the “⋯” menu to sync with your other devices.';return}
   if(noteErr&&S.d[t]){el.textContent='Saved on this device. Not synced yet ('+noteErr+'); it will retry automatically.';return}
   el.textContent=S.d[t]?'Saving…':'Synced with GitHub · same on all your devices.'}

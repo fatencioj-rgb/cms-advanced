@@ -323,11 +323,11 @@ Source: [Union des Grands Crus de Bordeaux, châteaux](https://ugcb.net/chateaux
 
 ### Where the wines come from (Introductory and Certified)
 
+![The five communes of the Sauternes appellation. Schematic only, not a map.](images/bordeaux/sweet-communes.svg){right}
+
 - The **Sauternes** appellation has 1,200 ha, 140 winegrowers and the **27** classified growths of 1855, with Yquem as the only Premier Cru Supérieur. It lies between the Garonne and the Landes forest and spans **five communes**: Sauternes, Bommes, Fargues, Preignac and Barsac. ([CIVB, Sauternes](https://www.bordeaux.com/en/designations/graves-sauternes/sauternes/))
 - **Barsac** has its own appellation (400 ha, 30 growers, 10 classified growths). Barsac producers may choose the Sauternes or the Barsac appellation. ([CIVB, Barsac](https://www.bordeaux.com/en/designations/graves-sauternes/barsac/), [Conseil, Sauternes and Barsac terroir](https://gcc-1855.fr/sauternes/terroirGCC1855sauternes-en.pdf))
 - The microclimate comes from the cool Ciron river flowing into the warmer Garonne. ([CIVB, Sauternes](https://www.bordeaux.com/en/designations/graves-sauternes/sauternes/))
-
-![The five communes of the Sauternes appellation. Schematic only, not a map.](images/bordeaux/sweet-communes.svg)
 
 ### How noble rot works (Introductory)
 
